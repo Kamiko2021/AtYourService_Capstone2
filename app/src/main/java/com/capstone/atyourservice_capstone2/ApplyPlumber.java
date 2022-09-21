@@ -24,7 +24,7 @@ public class ApplyPlumber extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Fullname,Age,Email,Password;
+    private EditText Fullname,birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
     private TextView ApplyPlumber;
@@ -41,7 +41,7 @@ public class ApplyPlumber extends AppCompatActivity {
 
         //Objects Initialization..
         Fullname = (EditText)findViewById(R.id.Fullname_edittxt);
-        Age = (EditText)findViewById(R.id.Age_edittxt);
+        birthdate = (EditText)findViewById(R.id.birthdate_edittxt);
         Email = (EditText)findViewById(R.id.Email_edittxt);
         Password = (EditText)findViewById(R.id.Password_edittxt);
         register = (Button)findViewById(R.id.register_btn);
@@ -70,7 +70,7 @@ public class ApplyPlumber extends AppCompatActivity {
 
         //fetching data from EditText..
         String fullname_data = Fullname.getText().toString().trim();
-        String age_data= Age.getText().toString().trim();
+        String birthdate_data= birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
 
@@ -80,9 +80,9 @@ public class ApplyPlumber extends AppCompatActivity {
             Fullname.requestFocus();
             return;
         }
-        if (age_data.isEmpty()){
-            Age.setError("Age is Required!");
-            Age.requestFocus();
+        if (birthdate_data.isEmpty()){
+            birthdate.setError("Age is Required!");
+            birthdate.requestFocus();
             return;
         }
         if (email_data.isEmpty()){
@@ -113,7 +113,7 @@ public class ApplyPlumber extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    UserData client= new UserData(fullname_data, age_data, email_data, "Plumber");
+                    UserData client= new UserData(fullname_data, birthdate_data, email_data, "Plumber");
                     FirebaseDatabase.getInstance().getReference("USERS")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {

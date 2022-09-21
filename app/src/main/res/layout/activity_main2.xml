@@ -1,121 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterClient">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="271dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="45dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logoo" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/Fullname_edittxt"
-        android:layout_width="301dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="34dp"
-        android:hint="FULL NAME"
-        android:inputType="text"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="143dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="45dp"
+            android:src="@drawable/flogoo" />
 
-    <EditText
-        android:id="@+id/Age_edittxt"
-        android:layout_width="301dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="34dp"
-        android:hint="AGE"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Fullname_edittxt" />
+        <EditText
+            android:id="@+id/Fullname_edittxt"
+            android:layout_width="298dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="34dp"
+            android:hint="FULL NAME"
+            android:inputType="text"
+            android:textSize="16dp" />
 
-    <EditText
-        android:id="@+id/Email_edittxt"
-        android:layout_width="302dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="34dp"
-        android:hint="EMAIL"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Age_edittxt" />
+        <EditText
+            android:id="@+id/birthdate_edittxt"
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="34dp"
+            android:hint="BIRTHDATE: MM/DD/YYYY"
+            android:inputType="date"
+            android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/Password_edittxt"
-        android:layout_width="304dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="34dp"
-        android:hint="PASSWORD"
-        android:inputType="textPassword"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email_edittxt" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="174dp"
+            android:layout_height="119dp"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/register_btn"
-        android:layout_width="249dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#115a5f"
-        android:text="SIGN UP"
-        android:textColor="@color/white"
-        android:textSize="26dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.563"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password_edittxt" />
+        <EditText
+            android:id="@+id/Email_edittxt"
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="34dp"
+            android:hint="EMAIL"
+            android:inputType="text"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ApplyPlumber_edittxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Be a Plumber!"
-        android:textColor="#0000cc"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_btn" />
+        <EditText
+            android:id="@+id/Password_edittxt"
+            android:layout_width="299dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="34dp"
+            android:hint="PASSWORD"
+            android:inputType="textPassword"
+            android:textSize="16sp" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="174dp"
-        android:layout_height="119dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/register_btn"
+            android:layout_width="249dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="70sp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#115a5f"
+            android:text="SIGN UP"
+            android:textColor="@color/white"
+            android:textSize="26dp"
+            android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/ApplyPlumber_edittxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90sp"
+            android:layout_marginTop="8dp"
+            android:text="Be a Plumber!"
+            android:textColor="#0000cc"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>
