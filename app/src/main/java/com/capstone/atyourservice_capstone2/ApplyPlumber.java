@@ -27,7 +27,7 @@ public class ApplyPlumber extends AppCompatActivity {
     private EditText Fullname,birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
-    private TextView ApplyPlumber;
+    private TextView ClientLogin;
 
 
     @Override
@@ -46,7 +46,7 @@ public class ApplyPlumber extends AppCompatActivity {
         Password = (EditText)findViewById(R.id.Password_edittxt);
         register = (Button)findViewById(R.id.register_btn);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        ApplyPlumber = (TextView) findViewById(R.id.SignUpAsClient_edittxt);
+        ClientLogin = (TextView) findViewById(R.id.SignUpAsClient_edittxt);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class ApplyPlumber extends AppCompatActivity {
             }
         });
 
-        ApplyPlumber.setOnClickListener(new View.OnClickListener() {
+        ClientLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent ClientsignIn = new Intent(ApplyPlumber.this, ClientLogin.class);
@@ -122,7 +122,7 @@ public class ApplyPlumber extends AppCompatActivity {
 
                                     if (task.isSuccessful()){
 
-                                        Toast.makeText(ApplyPlumber.this, "Client Registered", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ApplyPlumber.this, "Plumber Registered", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(ApplyPlumber.this, ClientLogin.class));
                                         progressBar.setVisibility(View.GONE);
                                     }

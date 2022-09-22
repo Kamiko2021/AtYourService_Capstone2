@@ -34,7 +34,7 @@ public class RegisterClient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_register_client);
 
         //firebase database reference initialization
         mAuth = FirebaseAuth.getInstance();

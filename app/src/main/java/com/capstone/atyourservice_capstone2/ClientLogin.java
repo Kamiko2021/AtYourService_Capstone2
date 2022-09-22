@@ -39,7 +39,7 @@ public class ClientLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_client_login);
 
         register = (TextView) findViewById(R.id.register_txtview);
         email = (EditText) findViewById(R.id.Edittxt_email);
@@ -148,10 +148,10 @@ public class ClientLogin extends AppCompatActivity {
 
                                     //if verified us success..
 
-                                    //    Intent prof=new Intent(ClientLogin.this, ProfilePage.class); //initialize the intent for Activity Profile
+                                    Intent prof=new Intent(ClientLogin.this, DashBoard.class); //initialize the intent for Activity DashBoard
                                     Toast.makeText(ClientLogin.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
-                                    //   startActivity(prof); //Redirect the Activity Profile..
+                                    startActivity(prof); //Redirect the Activity DashBoard..
                                 }else {
 
                                     //if verification failed...

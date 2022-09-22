@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".PlumbersLogIn">
 
     <LinearLayout
@@ -11,10 +12,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
         <ImageView
             android:id="@+id/AtyourserviceLogo"
-            android:layout_width="365dp"
-            android:layout_height="162dp"
+            android:layout_width="357dp"
+            android:layout_height="124dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/logoo" />
@@ -28,7 +36,7 @@
             android:layout_marginEnd="11dp"
             android:hint="EMAIL"
             android:inputType="textWebEmailAddress"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/Edittxt_password"
@@ -39,14 +47,7 @@
             android:layout_marginEnd="4dp"
             android:hint="PASSWORD"
             android:inputType="textPassword"
-            android:textSize="20sp"/>
-
-        <ProgressBar
-            android:id="@+id/progressBar3"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="176dp"
-            android:layout_height="148dp"
-            android:visibility="gone" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/LogIn_btn"
@@ -59,7 +60,7 @@
             android:text="SIGN IN"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/AsClient_txtview"
@@ -80,7 +81,7 @@
             android:layout_marginTop="16dp"
             android:text="Forgot Password?"
             android:textColor="#00008b"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/PlumbersApplication_txtview"
@@ -90,8 +91,8 @@
             android:text="Apply Now as Plumber?"
             android:textColor="#00008b"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

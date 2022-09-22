@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ApplyPlumber">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,61 +22,54 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="309dp"
-            android:layout_height="101dp"
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
             android:layout_marginStart="45dp"
             android:layout_marginLeft="50sp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="45dp"
             android:src="@drawable/flogoo" />
 
         <EditText
             android:id="@+id/Fullname_edittxt"
-            android:layout_width="306dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30sp"
             android:hint="FULL NAME"
             android:inputType="text"
             android:textSize="16dp" />
 
         <EditText
             android:id="@+id/Email_edittxt"
-            android:layout_width="304dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30sp"
             android:hint="EMAIL"
             android:inputType="text"
             android:textSize="16sp" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="174dp"
-            android:layout_height="119dp"
-            android:visibility="gone" />
-
         <EditText
             android:id="@+id/Password_edittxt"
-            android:layout_width="305dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30sp"
             android:hint="PASSWORD"
             android:inputType="textPassword"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/birthdate_edittxt"
-            android:layout_width="308dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30sp"
             android:hint="BIRTHDATE: MM/DD/YYYY"
             android:inputType="date"
             android:textSize="16sp" />
@@ -90,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginLeft="100sp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="5dp"
             android:text="Sign In as Client"
             android:textColor="#0000cc"
             android:textSize="25dp"
@@ -98,4 +99,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

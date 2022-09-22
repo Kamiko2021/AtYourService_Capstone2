@@ -54,6 +54,21 @@ public class PlumbersLogIn extends AppCompatActivity {
         //firebase Authentication instance..
         mAuth = FirebaseAuth.getInstance();
 
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent resetpassword=new Intent(PlumbersLogIn.this, ResetPassword.class);
+                startActivity(resetpassword);
+            }
+        });
+
+        ApplyAsPlumbers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent applyplumber=new Intent(PlumbersLogIn.this, ApplyPlumber.class);
+                startActivity(applyplumber);
+            }
+        });
 
        SignInClient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,19 +131,17 @@ public class PlumbersLogIn extends AppCompatActivity {
                             signIn.setText(userType);
 
                             if (userType.equals("Plumber")){
-
-
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
 
                                 if(user.isEmailVerified()){
 
                                     //if verified us success..
 
-                                    //    Intent prof=new Intent(ClientLogin.this, ProfilePage.class); //initialize the intent for Activity Profile
+
                                     Toast.makeText(PlumbersLogIn.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
-                                    //   startActivity(prof); //Redirect the Activity Profile..
+                                    Intent prof=new Intent(PlumbersLogIn.this, DashBoard.class);
+                                    startActivity(prof);
                                 }else {
 
                                     //if verification failed...
