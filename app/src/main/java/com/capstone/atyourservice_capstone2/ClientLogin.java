@@ -2,6 +2,7 @@ package com.capstone.atyourservice_capstone2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -131,12 +132,15 @@ public class ClientLogin extends AppCompatActivity {
                     //code for email validation...
 
                     String uid=task.getResult().getUser().getUid().toString();
+
+                    //=================Retrieving Data from Firebase Database======
+
                     reff = FirebaseDatabase.getInstance().getReference().child("USERS").child(uid);
                     reff.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String userType = snapshot.child("userType").getValue().toString();
-                            signIn.setText(userType);
+
 
                             if (userType.equals("Client")){
 

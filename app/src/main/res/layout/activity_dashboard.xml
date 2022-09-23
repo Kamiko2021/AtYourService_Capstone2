@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView6"
+                android:id="@+id/fcdashboard"
                 android:name="com.capstone.atyourservice_capstone2.ClientProfileSettings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
