@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ClientProfileSettings extends Fragment {
 
-   private TextView emailtxt,uid_data;
+   private TextView emailtxt,uid_data,fullname_data,birthdate_client;
    private DatabaseReference reff;
    private FirebaseDatabase firebaseDatabase;
    public String uid;
@@ -41,47 +41,62 @@ public class ClientProfileSettings extends Fragment {
 
        // =========Set up ID for declared objects====
         emailtxt=(TextView) view.findViewById(R.id.email_txt);
-
         uid_data=(TextView) view.findViewById(R.id.uid_lbl);
+        fullname_data=(TextView) view.findViewById(R.id.fullname_txt);
+        birthdate_client = (TextView) view.findViewById(R.id.birthdate_txt);
 
+       //=================invoking fetch data method=================
+
+
+
+
+        fetchData();
+        return view;
+    }
+
+    public void fetchData(){
         //=========Accessing User Credentials=============
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
+
             // Check if user's email is verified
             boolean emailVerified = user.isEmailVerified();
 
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
-            String uid = user.getUid();
+            uid = user.getUid();
 
             //========saving data into textviews======
 
             emailtxt.setText(email);
             uid_data.setText(uid);
+
+            //   =================== fetching data from firebase database==========
+            reff = FirebaseDatabase.getInstance().getReference().child("USERS").child(uid);
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String fullname = snapshot.child("fullname").getValue().toString();
+                    String birthdate = snapshot.child("birthdate").getValue().toString();
+
+                    birthdate_client.setText(birthdate);
+                    fullname_data.setText(fullname);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
-        return view;
-    }
 
-    public void fetchData(){
 
-        //===================
-//        reff = FirebaseDatabase.getInstance().getReference().child("USERS").child(uid);
-//        reff.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
-    }
+   }
 
 
 }

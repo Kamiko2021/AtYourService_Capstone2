@@ -141,7 +141,6 @@ public class ClientLogin extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String userType = snapshot.child("userType").getValue().toString();
 
-
                             if (userType.equals("Client")){
 
 
