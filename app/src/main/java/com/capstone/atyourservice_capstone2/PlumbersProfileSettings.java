@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,26 +19,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class ClientProfileSettings extends Fragment {
+public class PlumbersProfileSettings extends Fragment {
 
-   private TextView emailtxt,uid_data,fullname_data,birthdate_client;
-   private DatabaseReference reff;
-   private FirebaseDatabase firebaseDatabase;
-   public String uid;
+    private TextView emailtxt,uid_data,fullname_data,birthdate_plumbers;
+    private DatabaseReference reff;
+    private FirebaseDatabase firebaseDatabase;
+    public String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_client_profile_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_plumbers_profile_settings, container, false);
+        // =========Set up ID for declared objects====
+        emailtxt=(TextView) view.findViewById(R.id.plumbersemail_txt);
+        uid_data=(TextView) view.findViewById(R.id.plumbersuid_lbl);
+        fullname_data=(TextView) view.findViewById(R.id.plumbersfullname_txt);
+        birthdate_plumbers = (TextView) view.findViewById(R.id.plumbersbirthdate_txt);
 
-       // =========Set up ID for declared objects====
-        emailtxt=(TextView) view.findViewById(R.id.email_txt);
-        uid_data=(TextView) view.findViewById(R.id.uid_lbl);
-        fullname_data=(TextView) view.findViewById(R.id.fullname_txt);
-        birthdate_client = (TextView) view.findViewById(R.id.birthdate_txt);
-
-       //=================invoking fetch data method=================
+        //=================invoking fetch data method=================
 
         fetchData();
         return view;
@@ -72,7 +70,8 @@ public class ClientProfileSettings extends Fragment {
                     String fullname = snapshot.child("fullname").getValue().toString();
                     String birthdate = snapshot.child("birthdate").getValue().toString();
 
-                    birthdate_client.setText(birthdate);
+                    birthdate_plumbers
+                            .setText(birthdate);
                     fullname_data.setText(fullname);
 
                 }
@@ -84,10 +83,5 @@ public class ClientProfileSettings extends Fragment {
             });
         }
 
-
-
-
-   }
-
-
+    }
 }
