@@ -24,10 +24,10 @@ public class ApplyPlumber extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Fullname,birthdate,Email,Password;
+    private EditText Firstname,Lastname,birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
-    private TextView ClientLogin;
+
 
 
     @Override
@@ -40,13 +40,14 @@ public class ApplyPlumber extends AppCompatActivity {
 
 
         //Objects Initialization..
-        Fullname = (EditText)findViewById(R.id.Fullname_edittxt);
-        birthdate = (EditText)findViewById(R.id.birthdate_edittxt);
-        Email = (EditText)findViewById(R.id.Email_edittxt);
-        Password = (EditText)findViewById(R.id.Password_edittxt);
+        Firstname = (EditText)findViewById(R.id.plumberFirstname_edittxt);
+        Lastname = (EditText) findViewById(R.id.plumberLastname_edittxt);
+        birthdate = (EditText)findViewById(R.id.plumberbirthdate_edittxt);
+        Email = (EditText)findViewById(R.id.plumberEmail_edittxt);
+        Password = (EditText)findViewById(R.id.plumberPassword_edittxt);
         register = (Button)findViewById(R.id.register_btn);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        ClientLogin = (TextView) findViewById(R.id.SignUpAsClient_edittxt);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +56,6 @@ public class ApplyPlumber extends AppCompatActivity {
             }
         });
 
-        ClientLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ClientsignIn = new Intent(ApplyPlumber.this, ClientLogin.class);
-                startActivity(ClientsignIn);
-            }
-        });
 
     }
 
@@ -69,15 +63,21 @@ public class ApplyPlumber extends AppCompatActivity {
     public void SignUp(){
 
         //fetching data from EditText..
-        String fullname_data = Fullname.getText().toString().trim();
+        String firstname_data = Firstname.getText().toString().trim();
+        String lastname_data = Lastname.getText().toString().trim();
         String birthdate_data= birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
 
         //validation check..
-        if (fullname_data.isEmpty()){
-            Fullname.setError("Fullname is Required!");
-            Fullname.requestFocus();
+        if (firstname_data.isEmpty()){
+            Firstname.setError("Firstname is Required!");
+            Firstname.requestFocus();
+            return;
+        }
+        if (lastname_data.isEmpty()){
+            Lastname.setError("Lastname is Required!");
+            Lastname.requestFocus();
             return;
         }
         if (birthdate_data.isEmpty()){
@@ -113,7 +113,7 @@ public class ApplyPlumber extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    UserData client= new UserData(fullname_data, birthdate_data, email_data, "Plumber");
+                    UserData client= new UserData(firstname_data,lastname_data, birthdate_data, email_data, "Plumber");
                     FirebaseDatabase.getInstance().getReference("USERS")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {

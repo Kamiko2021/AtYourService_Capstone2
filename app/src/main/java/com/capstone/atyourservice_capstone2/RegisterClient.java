@@ -25,10 +25,10 @@ public class RegisterClient extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Fullname,Birthdate,Email,Password;
+    private EditText Firstname,Lastname,Birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
-    private TextView ApplyPlumber;
+
 
 
     @Override
@@ -41,26 +41,19 @@ public class RegisterClient extends AppCompatActivity {
 
 
         //Objects Initialization..
-        Fullname = (EditText)findViewById(R.id.Fullname_edittxt);
-        Birthdate = (EditText)findViewById(R.id.birthdate_edittxt);
-        Email = (EditText)findViewById(R.id.Email_edittxt);
-        Password = (EditText)findViewById(R.id.Password_edittxt);
-        register = (Button)findViewById(R.id.register_btn);
+        Firstname = (EditText)findViewById(R.id.clientFirstname_edittxt);
+        Lastname = (EditText) findViewById(R.id.clientLastname_edittxt);
+        Birthdate = (EditText)findViewById(R.id.clientbirthdate_edittxt);
+        Email = (EditText)findViewById(R.id.clientEmail_edittxt);
+        Password = (EditText)findViewById(R.id.clientPassword_edittxt);
+        register = (Button)findViewById(R.id.clientregister_btn);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        ApplyPlumber = (TextView) findViewById(R.id.ApplyPlumber_edittxt);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SignUp();
-            }
-        });
-
-        ApplyPlumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent applyplumber = new Intent(RegisterClient.this, ApplyPlumber.class);
-                startActivity(applyplumber);
             }
         });
 
@@ -70,16 +63,20 @@ public class RegisterClient extends AppCompatActivity {
     public void SignUp(){
 
         //fetching data from EditText..
-        String fullname_data = Fullname.getText().toString().trim();
+        String firstname_data = Firstname.getText().toString().trim();
+        String lastname_data = Lastname.getText().toString().trim();
         String birthdate_data= Birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
 
         //validation check..
-        if (fullname_data.isEmpty()){
-            Fullname.setError("Fullname is Required!");
-            Fullname.requestFocus();
+        if (firstname_data.isEmpty()){
+            Firstname.setError("Firstname is Required!");
+            Firstname.requestFocus();
             return;
+        }
+        if (lastname_data.isEmpty()){
+            Lastname.setError("Lastname is Required!");
         }
         if (birthdate_data.isEmpty()){
             Birthdate.setError("Age is Required!");
@@ -114,7 +111,7 @@ public class RegisterClient extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    UserData client= new UserData(fullname_data, birthdate_data, email_data, "Client");
+                    UserData client= new UserData(firstname_data, lastname_data, birthdate_data, email_data, "Client");
                     FirebaseDatabase.getInstance().getReference("USERS")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {

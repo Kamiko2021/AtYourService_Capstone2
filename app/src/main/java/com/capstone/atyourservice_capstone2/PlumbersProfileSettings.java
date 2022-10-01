@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,39 +22,34 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class ClientProfileSettings extends Fragment {
+public class PlumbersProfileSettings extends Fragment {
 
-   private TextView emailtxt,uid_client,firstname_client,lastname_client,birthdate_client;
-   private DatabaseReference reff;
-   private FirebaseDatabase firebaseDatabase;
+    private TextView emailtxt_plumber,uid_plumber,firstname_plumber,lastname_plumber,birthdate_plumber;
+    private DatabaseReference reff;
+    private FirebaseDatabase firebaseDatabase;
 
-   public String uid;
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
+    public String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_client_profile_settings, container, false);
+        View view= inflater.inflate(R.layout.fragment_plumbers_profile_settings, container, false);
 
-       // =========Set up ID for declared objects====
-        emailtxt=(TextView) view.findViewById(R.id.clientemail_profiledata);
-        uid_client=(TextView) view.findViewById(R.id.uid_lbl);
-        firstname_client=(TextView) view.findViewById(R.id.clientfirstname_profiledata);
-        lastname_client=(TextView) view.findViewById(R.id.clientlastname_profiledata);
-        birthdate_client = (TextView) view.findViewById(R.id.clientbirthdate_profile);
+        // =========Set up ID for declared objects====
+        emailtxt_plumber=(TextView) view.findViewById(R.id.plumberEmail_txtview);
+        uid_plumber=(TextView) view.findViewById(R.id.plumber_uid);
+        firstname_plumber=(TextView) view.findViewById(R.id.plumberFirstname_txtview);
+        lastname_plumber=(TextView) view.findViewById(R.id.plumberLastname_txtview);
+        birthdate_plumber = (TextView) view.findViewById(R.id.plumberbirthdate_txtview);
 
-       //=================invoking fetch data method=================
+        //=================invoking fetch data method=================
 
 
         fetchData();
         return view;
     }
+
 
     public void fetchData(){
         //=========Accessing User Credentials=============
@@ -70,8 +67,8 @@ public class ClientProfileSettings extends Fragment {
 
             //========saving data into textviews======
 
-            emailtxt.setText(email);
-            uid_client.setText(uid);
+            emailtxt_plumber.setText(email);
+            uid_plumber.setText(uid);
 
             //   =================== fetching data from firebase database==========
             reff = FirebaseDatabase.getInstance().getReference().child("USERS").child(uid);
@@ -83,9 +80,10 @@ public class ClientProfileSettings extends Fragment {
                     String birthdate = snapshot.child("birthdate").getValue().toString();
 
 
-                    birthdate_client.setText(birthdate);
-                    firstname_client.setText(firstname);
-                    lastname_client.setText(lastname);
+                    birthdate_plumber.setText(birthdate);
+                    firstname_plumber.setText(firstname);
+                    lastname_plumber.setText(lastname);
+
 
 
                 }
@@ -100,7 +98,5 @@ public class ClientProfileSettings extends Fragment {
 
 
 
-   }
-
-
+    }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FirstPage">
+
+    <ImageView
+        android:id="@+id/imageViw3"
+        android:layout_width="196dp"
+        android:layout_height="172dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60sp"
+        app:srcCompat="@drawable/flogoo"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="85dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/plumber_firstpage"
+            android:layout_width="100sp"
+            android:layout_height="60sp"
+            android:layout_marginTop="40sp"
+            android:layout_weight="1"
+            android:layout_marginRight="15sp"
+            android:layout_marginLeft="20sp"
+            android:layout_gravity="center"
+            android:text="Plumbers" />
+
+        <Button
+            android:id="@+id/Client_firstpage"
+            android:layout_width="100sp"
+            android:layout_height="60sp"
+            android:layout_weight="1"
+            android:layout_marginTop="40sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="20sp"
+            android:layout_gravity="center"
+            android:text="Client" />
+    </LinearLayout>
+
+</LinearLayout>

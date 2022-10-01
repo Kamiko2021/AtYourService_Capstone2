@@ -2,7 +2,6 @@ package com.capstone.atyourservice_capstone2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,10 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 public class ClientLogin extends AppCompatActivity {
 
     //declarations..
-    private TextView register,forgotpassword,plumberlogin;
+    private TextView forgotpassword;
     private EditText email,password;
 
-    private Button signIn;
+    private Button signIn,clientReg;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private FirebaseDatabase firebaseDatabase;
@@ -42,25 +41,18 @@ public class ClientLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_login);
 
-        register = (TextView) findViewById(R.id.register_txtview);
+
         email = (EditText) findViewById(R.id.Edittxt_email);
         password = (EditText) findViewById(R.id.Edittxt_password);
         signIn = (Button) findViewById(R.id.LogIn_btn);
-        plumberlogin=(TextView) findViewById(R.id.PlumbersLogin_txtview);
+        clientReg = (Button) findViewById(R.id.clientRegister_btn);
+
 
         mAuth = FirebaseAuth.getInstance();
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
         forgotpassword=(TextView)findViewById(R.id.ForgotPassword_txtview);
         firebaseDatabase=FirebaseDatabase.getInstance();
 
-
-       plumberlogin.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent plogin=new Intent(ClientLogin.this, PlumbersLogIn.class);
-               startActivity(plogin);
-           }
-       });
 
         //Forgot password onclicklistener event..
         forgotpassword.setOnClickListener(new View.OnClickListener() {
@@ -73,15 +65,15 @@ public class ClientLogin extends AppCompatActivity {
             }
         });
 
-        //Onclick Event for RegisterClient TextView
-        register.setOnClickListener(new View.OnClickListener() {
+        clientReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reg=new Intent(ClientLogin.this, RegisterClient.class);
-                startActivity(reg);
-
+                Intent fpass=new Intent(ClientLogin.this, RegisterClient.class);
+                startActivity(fpass);
             }
         });
+
+
 
         //Onclick Event for SignIn Button
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -151,10 +143,10 @@ public class ClientLogin extends AppCompatActivity {
 
                                     //if verified us success..
 
-                                    Intent prof=new Intent(ClientLogin.this, DashBoard.class); //initialize the intent for Activity DashBoard
+                                    Intent prof=new Intent(ClientLogin.this, DashBoardClient.class); //initialize the intent for Activity DashBoardClient
                                     Toast.makeText(ClientLogin.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
-                                    startActivity(prof); //Redirect the Activity DashBoard..
+                                    startActivity(prof); //Redirect the Activity DashBoardClient..
                                 }else {
 
                                     //if verification failed...
