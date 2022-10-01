@@ -24,8 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 public class PlumbersLogIn extends AppCompatActivity {
     //declarations..
     private TextView ApplyAsPlumbers,forgotpassword,SignInClient;
@@ -140,7 +138,7 @@ public class PlumbersLogIn extends AppCompatActivity {
 
                                     Toast.makeText(PlumbersLogIn.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
-                                    Intent prof=new Intent(PlumbersLogIn.this, PlumbersDashBoard.class);
+                                    Intent prof=new Intent(PlumbersLogIn.this, DashBoardPlumber.class);
                                     startActivity(prof);
                                 }else {
 

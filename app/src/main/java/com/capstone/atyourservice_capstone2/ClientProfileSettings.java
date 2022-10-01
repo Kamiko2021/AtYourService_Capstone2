@@ -22,10 +22,17 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ClientProfileSettings extends Fragment {
 
-   private TextView emailtxt,uid_data,fullname_data,birthdate_client;
+   private TextView emailtxt,uid_client,firstname_client,lastname_client,birthdate_client;
    private DatabaseReference reff;
    private FirebaseDatabase firebaseDatabase;
+
    public String uid;
+
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,12 +41,14 @@ public class ClientProfileSettings extends Fragment {
         View view= inflater.inflate(R.layout.fragment_client_profile_settings, container, false);
 
        // =========Set up ID for declared objects====
-        emailtxt=(TextView) view.findViewById(R.id.email_txt);
-        uid_data=(TextView) view.findViewById(R.id.uid_lbl);
-        fullname_data=(TextView) view.findViewById(R.id.fullname_txt);
-        birthdate_client = (TextView) view.findViewById(R.id.birthdate_txt);
+        emailtxt=(TextView) view.findViewById(R.id.clientemail_profiledata);
+        uid_client=(TextView) view.findViewById(R.id.uid_lbl);
+        firstname_client=(TextView) view.findViewById(R.id.clientfirstname_profiledata);
+        lastname_client=(TextView) view.findViewById(R.id.clientlastname_profiledata);
+        birthdate_client = (TextView) view.findViewById(R.id.clientbirthdate_profile);
 
        //=================invoking fetch data method=================
+
 
         fetchData();
         return view;
@@ -62,18 +71,22 @@ public class ClientProfileSettings extends Fragment {
             //========saving data into textviews======
 
             emailtxt.setText(email);
-            uid_data.setText(uid);
+            uid_client.setText(uid);
 
             //   =================== fetching data from firebase database==========
             reff = FirebaseDatabase.getInstance().getReference().child("USERS").child(uid);
             reff.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String fullname = snapshot.child("fullname").getValue().toString();
+                    String firstname = snapshot.child("firstname").getValue().toString();
+                    String lastname = snapshot.child("lastname").getValue().toString();
                     String birthdate = snapshot.child("birthdate").getValue().toString();
 
+
                     birthdate_client.setText(birthdate);
-                    fullname_data.setText(fullname);
+                    firstname_client.setText(firstname);
+                    lastname_client.setText(lastname);
+
 
                 }
 

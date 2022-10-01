@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,27 +24,32 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PlumbersProfileSettings extends Fragment {
 
-    private TextView emailtxt,uid_data,fullname_data,birthdate_plumbers;
+    private TextView emailtxt_plumber,uid_plumber,firstname_plumber,lastname_plumber,birthdate_plumber;
     private DatabaseReference reff;
     private FirebaseDatabase firebaseDatabase;
+
     public String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_plumbers_profile_settings, container, false);
+        View view= inflater.inflate(R.layout.fragment_plumbers_profile_settings, container, false);
+
         // =========Set up ID for declared objects====
-        emailtxt=(TextView) view.findViewById(R.id.plumbersemail_txt);
-        uid_data=(TextView) view.findViewById(R.id.plumbersuid_lbl);
-        fullname_data=(TextView) view.findViewById(R.id.plumbersfullname_txt);
-        birthdate_plumbers = (TextView) view.findViewById(R.id.plumbersbirthdate_txt);
+        emailtxt_plumber=(TextView) view.findViewById(R.id.plumberEmail_txtview);
+        uid_plumber=(TextView) view.findViewById(R.id.plumber_uid);
+        firstname_plumber=(TextView) view.findViewById(R.id.plumberFirstname_txtview);
+        lastname_plumber=(TextView) view.findViewById(R.id.plumberLastname_txtview);
+        birthdate_plumber = (TextView) view.findViewById(R.id.plumberbirthdate_txtview);
 
         //=================invoking fetch data method=================
+
 
         fetchData();
         return view;
     }
+
 
     public void fetchData(){
         //=========Accessing User Credentials=============
@@ -59,20 +67,24 @@ public class PlumbersProfileSettings extends Fragment {
 
             //========saving data into textviews======
 
-            emailtxt.setText(email);
-            uid_data.setText(uid);
+            emailtxt_plumber.setText(email);
+            uid_plumber.setText(uid);
 
             //   =================== fetching data from firebase database==========
             reff = FirebaseDatabase.getInstance().getReference().child("USERS").child(uid);
             reff.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String fullname = snapshot.child("fullname").getValue().toString();
+                    String firstname = snapshot.child("firstname").getValue().toString();
+                    String lastname = snapshot.child("lastname").getValue().toString();
                     String birthdate = snapshot.child("birthdate").getValue().toString();
 
-                    birthdate_plumbers
-                            .setText(birthdate);
-                    fullname_data.setText(fullname);
+
+                    birthdate_plumber.setText(birthdate);
+                    firstname_plumber.setText(firstname);
+                    lastname_plumber.setText(lastname);
+
+
 
                 }
 
@@ -82,6 +94,9 @@ public class PlumbersProfileSettings extends Fragment {
                 }
             });
         }
+
+
+
 
     }
 }

@@ -31,18 +31,28 @@
             android:src="@drawable/flogoo" />
 
         <EditText
-            android:id="@+id/Fullname_edittxt"
+            android:id="@+id/plumberFirstname_edittxt"
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginLeft="30sp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30sp"
-            android:hint="FULL NAME"
+            android:hint="FIRST NAME"
+            android:inputType="text"
+            android:textSize="16dp" />
+        <EditText
+            android:id="@+id/plumberLastname_edittxt"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30sp"
+            android:hint="LAST NAME"
             android:inputType="text"
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/Email_edittxt"
+            android:id="@+id/plumberEmail_edittxt"
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginLeft="30sp"
@@ -53,7 +63,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/Password_edittxt"
+            android:id="@+id/plumberPassword_edittxt"
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginLeft="30sp"
@@ -64,7 +74,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/birthdate_edittxt"
+            android:id="@+id/plumberbirthdate_edittxt"
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginLeft="30sp"
@@ -84,17 +94,6 @@
             android:text="SIGN UP"
             android:textColor="@color/white"
             android:textSize="26dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/SignUpAsClient_edittxt"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginLeft="100sp"
-            android:layout_marginTop="5dp"
-            android:text="Sign In as Client"
-            android:textColor="#0000cc"
-            android:textSize="25dp"
             android:textStyle="bold" />
 
     </LinearLayout>
