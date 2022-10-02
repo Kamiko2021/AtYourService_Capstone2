@@ -2,4 +2,5 @@
     <string name="app_name">AtYourService_Capstone2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoia2FybG1pY2hhZWxsb3BlejIwMjIiLCJhIjoiY2w4cXp6bHRvMGlrdTNwbXRtc3h6ZHFpOSJ9.YQnvdgEl-Lc953TRBfj9zw</string>
 </resources>
