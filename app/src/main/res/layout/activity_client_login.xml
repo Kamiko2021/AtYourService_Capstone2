@@ -12,13 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
         <ImageView
             android:id="@+id/AtyourserviceLogo"
             android:layout_width="match_parent"
@@ -34,7 +27,7 @@
             android:layout_marginLeft="40sp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="40sp"
-            android:hint="EMAIL"
+            android:hint="CLIENT EMAIL"
             android:inputType="textWebEmailAddress"
             android:textSize="15sp" />
 
@@ -57,13 +50,13 @@
             <Button
                 android:id="@+id/LogIn_btn"
                 android:layout_width="100sp"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
                 android:layout_marginLeft="15sp"
                 android:backgroundTint="#115a5f"
-                android:text="LOG IN"
+                android:text="LOG-IN"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -91,6 +84,24 @@
             android:text="Forgot Password?"
             android:textColor="#00008b"
             android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="50sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/LoggingIn_client"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="PROCESSING...."
+            android:visibility="gone"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 

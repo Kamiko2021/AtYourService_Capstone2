@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterClient extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class RegisterClient extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Firstname,Lastname,Birthdate,Email,Password;
+    private EditText Firstname,Lastname, gender, Birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
 
@@ -41,13 +42,14 @@ public class RegisterClient extends AppCompatActivity {
 
 
         //Objects Initialization..
-        Firstname = (EditText)findViewById(R.id.clientFirstname_edittxt);
-        Lastname = (EditText) findViewById(R.id.clientLastname_edittxt);
-        Birthdate = (EditText)findViewById(R.id.clientbirthdate_edittxt);
-        Email = (EditText)findViewById(R.id.clientEmail_edittxt);
-        Password = (EditText)findViewById(R.id.clientPassword_edittxt);
-        register = (Button)findViewById(R.id.clientregister_btn);
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        Firstname = (EditText)findViewById(R.id.firstname_client);
+        Lastname = (EditText) findViewById(R.id.lastname_client);
+        gender = (EditText) findViewById(R.id.gender_client);
+        Birthdate = (EditText)findViewById(R.id.birthdate_client);
+        Email = (EditText)findViewById(R.id.Email_client);
+        Password = (EditText)findViewById(R.id.Password_client);
+        register = (Button)findViewById(R.id.submit_client);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar_clientReg);
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +67,7 @@ public class RegisterClient extends AppCompatActivity {
         //fetching data from EditText..
         String firstname_data = Firstname.getText().toString().trim();
         String lastname_data = Lastname.getText().toString().trim();
+        String gender_data = gender.getText().toString().trim();
         String birthdate_data= Birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
@@ -77,6 +80,13 @@ public class RegisterClient extends AppCompatActivity {
         }
         if (lastname_data.isEmpty()){
             Lastname.setError("Lastname is Required!");
+            Lastname.requestFocus();
+            return;
+        }
+        if (gender_data.isEmpty()){
+            gender.setError("Please type Male or Female");
+            gender.requestFocus();
+            return;
         }
         if (birthdate_data.isEmpty()){
             Birthdate.setError("Age is Required!");
@@ -111,7 +121,7 @@ public class RegisterClient extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    UserData client= new UserData(firstname_data, lastname_data, birthdate_data, email_data, "Client");
+                    UserData client= new UserData(firstname_data, lastname_data, gender_data, birthdate_data, email_data, "Client");
                     FirebaseDatabase.getInstance().getReference("USERS")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -121,8 +131,34 @@ public class RegisterClient extends AppCompatActivity {
                                     if (task.isSuccessful()){
 
                                         Toast.makeText(RegisterClient.this, "Client Registered", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(RegisterClient.this, ClientLogin.class));
+
                                         progressBar.setVisibility(View.GONE);
+
+                                    //---------------------------send email verification
+
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+                                        if(user.isEmailVerified()){
+
+                                            //if verified us success..
+
+
+                                            Toast.makeText(RegisterClient.this, "Verified",Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
+
+                                        }else {
+
+                                            //if verification failed...
+                                            user.sendEmailVerification(); //sent email verification to client email...
+                                            Toast.makeText(RegisterClient.this,"Verification Link sent.", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(RegisterClient.this, ClientLogin.class));
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+
+
+
+
                                     }
                                     else {
                                         Toast.makeText(RegisterClient.this, "Registration Fail, please try again!", Toast.LENGTH_LONG).show();

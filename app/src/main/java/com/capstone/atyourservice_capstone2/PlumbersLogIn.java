@@ -26,10 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PlumbersLogIn extends AppCompatActivity {
     //declarations..
-    private TextView ApplyAsPlumbers,forgotpassword,SignInClient;
+    private TextView forgotpassword,processing;
     private EditText email,password;
 
-    private Button signIn;
+    private Button signIn, register;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     DatabaseReference reff;
@@ -40,39 +40,26 @@ public class PlumbersLogIn extends AppCompatActivity {
         setContentView(R.layout.activity_plumbers_log_in);
 
         //declarations..
-        signIn = (Button) findViewById(R.id.LogIn_btn);
+        signIn = (Button) findViewById(R.id.plumberLogIn_btn);
+        register= (Button) findViewById(R.id.plumberRegister_btn);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar3);
+        processing = (TextView) findViewById(R.id.Logging_in);
 
         email = (EditText) findViewById(R.id.Edittxt_email);
         password = (EditText) findViewById(R.id.Edittxt_password);
-        ApplyAsPlumbers = (TextView) findViewById(R.id.PlumbersApplication_txtview);
+
         forgotpassword = (TextView) findViewById(R.id.ForgotPassword_txtview);
-       SignInClient = (TextView) findViewById(R.id.AsClient_txtview);
+
 
         //firebase Authentication instance..
         mAuth = FirebaseAuth.getInstance();
 
-        forgotpassword.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent resetpassword=new Intent(PlumbersLogIn.this, ResetPassword.class);
-                startActivity(resetpassword);
-            }
-        });
-
-        ApplyAsPlumbers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent applyplumber=new Intent(PlumbersLogIn.this, ApplyPlumber.class);
-                startActivity(applyplumber);
-            }
-        });
-
-       SignInClient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ClientSignIn=new Intent(PlumbersLogIn.this, ClientLogin.class);
-                startActivity(ClientSignIn);
+                Intent reg=new Intent(PlumbersLogIn.this, ApplyPlumber.class);
+                startActivity(reg);
             }
         });
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +92,15 @@ public class PlumbersLogIn extends AppCompatActivity {
             password.requestFocus();
             return;
         }
-        if (password_data.length()<6){
-            password.setError("Minimum of 6 characters.");
+        if (password_data.length()<7){
+            password.setError("Minimum of 7 characters.");
             password.requestFocus();
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE); // set the Progress Bar into Visible..
+        processing.setVisibility(View.VISIBLE);
+
 
         //firebase signIn validation...
         mAuth.signInWithEmailAndPassword(email_data, password_data).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -140,16 +129,21 @@ public class PlumbersLogIn extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
                                     Intent prof=new Intent(PlumbersLogIn.this, DashBoardPlumber.class);
                                     startActivity(prof);
+                                    progressBar.setVisibility(View.GONE);
+                                    processing.setVisibility(View.GONE);
                                 }else {
 
                                     //if verification failed...
                                     user.sendEmailVerification(); //sent email verification to client email...
                                     Toast.makeText(PlumbersLogIn.this,"Your not verified, Kindly Check your email.", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
+                                    processing.setVisibility(View.GONE);
                                 }
 
                             }else {
-
+                                Toast.makeText(PlumbersLogIn.this,"User is not registered or does not exist.", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                                processing.setVisibility(View.GONE);
                             }
 
                         }
@@ -163,6 +157,8 @@ public class PlumbersLogIn extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(PlumbersLogIn.this, "Failed to Log In, Kindly check your Credentials", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                    processing.setVisibility(View.GONE);
                 }
             }
         });

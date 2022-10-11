@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ApplyPlumber extends AppCompatActivity {
@@ -24,10 +25,9 @@ public class ApplyPlumber extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Firstname,Lastname,birthdate,Email,Password;
+    private EditText Firstname,Lastname,Gender,birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
-
 
 
     @Override
@@ -40,12 +40,13 @@ public class ApplyPlumber extends AppCompatActivity {
 
 
         //Objects Initialization..
-        Firstname = (EditText)findViewById(R.id.plumberFirstname_edittxt);
-        Lastname = (EditText) findViewById(R.id.plumberLastname_edittxt);
-        birthdate = (EditText)findViewById(R.id.plumberbirthdate_edittxt);
-        Email = (EditText)findViewById(R.id.plumberEmail_edittxt);
-        Password = (EditText)findViewById(R.id.plumberPassword_edittxt);
-        register = (Button)findViewById(R.id.register_btn);
+        Firstname = (EditText)findViewById(R.id.firstname_plumber);
+        Lastname = (EditText) findViewById(R.id.lastname_plumber);
+        birthdate = (EditText)findViewById(R.id.birthdate_plumber);
+        Gender = (EditText) findViewById(R.id.gender_plumber);
+        Email = (EditText)findViewById(R.id.Email_plumber);
+        Password = (EditText)findViewById(R.id.plumberPassword_plumber);
+        register = (Button)findViewById(R.id.submit_plumber);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
 
@@ -65,14 +66,21 @@ public class ApplyPlumber extends AppCompatActivity {
         //fetching data from EditText..
         String firstname_data = Firstname.getText().toString().trim();
         String lastname_data = Lastname.getText().toString().trim();
+        String gender_data = Gender.getText().toString().trim();
         String birthdate_data= birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
+
 
         //validation check..
         if (firstname_data.isEmpty()){
             Firstname.setError("Firstname is Required!");
             Firstname.requestFocus();
+            return;
+        }
+        if (gender_data.isEmpty()){
+            Gender.setError("Please type Male or Female");
+            Gender.requestFocus();
             return;
         }
         if (lastname_data.isEmpty()){
@@ -113,7 +121,7 @@ public class ApplyPlumber extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    UserData client= new UserData(firstname_data,lastname_data, birthdate_data, email_data, "Plumber");
+                    UserData client= new UserData(firstname_data,lastname_data, gender_data, birthdate_data, email_data, "Plumber");
                     FirebaseDatabase.getInstance().getReference("USERS")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -125,6 +133,30 @@ public class ApplyPlumber extends AppCompatActivity {
                                         Toast.makeText(ApplyPlumber.this, "Plumber Registered", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(ApplyPlumber.this, ClientLogin.class));
                                         progressBar.setVisibility(View.GONE);
+
+                                        //---------------------------send email verification
+
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+                                        if(user.isEmailVerified()){
+
+                                            //if verified us success..
+
+
+                                            Toast.makeText(ApplyPlumber.this, "Verified",Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
+
+                                        }else {
+
+                                            //if verification failed...
+                                            user.sendEmailVerification(); //sent email verification to client email...
+                                            Toast.makeText(ApplyPlumber.this,"Verification Link sent.", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(ApplyPlumber.this, PlumbersLogIn.class));
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+
+
                                     }
                                     else {
                                         Toast.makeText(ApplyPlumber.this, "Registration Fail, please try again!", Toast.LENGTH_LONG).show();

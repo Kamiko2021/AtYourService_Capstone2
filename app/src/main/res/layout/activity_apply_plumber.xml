@@ -7,95 +7,102 @@
     android:orientation="vertical"
     tools:context=".ApplyPlumber">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="40sp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textStyle="bold"
+        android:text="@string/createAccount_client" />
+
+    <EditText
+        android:id="@+id/firstname_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:ems="10"
+        android:hint="@string/firstname_hint"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/lastname_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:ems="10"
+        android:hint="@string/lastname_hint"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/birthdate_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:ems="10"
+        android:hint="@string/birthdate_hint"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/gender_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:ems="10"
+        android:hint="@string/gender_hint"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/Email_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:ems="10"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/plumberPassword_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:ems="10"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/submit_plumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40sp"
+        android:layout_marginEnd="40sp"
+        android:text="@string/submit_btn" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="150sp"
-            android:layout_marginStart="45dp"
-            android:layout_marginLeft="50sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="45dp"
-            android:src="@drawable/flogoo" />
-
-        <EditText
-            android:id="@+id/plumberFirstname_edittxt"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:layout_marginLeft="30sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30sp"
-            android:hint="FIRST NAME"
-            android:inputType="text"
-            android:textSize="16dp" />
-        <EditText
-            android:id="@+id/plumberLastname_edittxt"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:layout_marginLeft="30sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30sp"
-            android:hint="LAST NAME"
-            android:inputType="text"
-            android:textSize="16dp" />
-
-        <EditText
-            android:id="@+id/plumberEmail_edittxt"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:layout_marginLeft="30sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30sp"
-            android:hint="EMAIL"
-            android:inputType="text"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/plumberPassword_edittxt"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:layout_marginLeft="30sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30sp"
-            android:hint="PASSWORD"
-            android:inputType="textPassword"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/plumberbirthdate_edittxt"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:layout_marginLeft="30sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30sp"
-            android:hint="BIRTHDATE: MM/DD/YYYY"
-            android:inputType="date"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/register_btn"
-            android:layout_width="240dp"
-            android:layout_height="54dp"
-            android:layout_marginLeft="75sp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#115a5f"
-            android:text="SIGN UP"
-            android:textColor="@color/white"
-            android:textSize="26dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        android:visibility="gone" />
 
 </LinearLayout>

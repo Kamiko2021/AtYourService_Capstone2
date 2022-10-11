@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ClientLogin extends AppCompatActivity {
 
     //declarations..
-    private TextView forgotpassword;
+    private TextView forgotpassword,logging;
     private EditText email,password;
 
     private Button signIn,clientReg;
@@ -50,6 +50,7 @@ public class ClientLogin extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+        logging = (TextView) findViewById(R.id.LoggingIn_client);
         forgotpassword=(TextView)findViewById(R.id.ForgotPassword_txtview);
         firebaseDatabase=FirebaseDatabase.getInstance();
 
@@ -114,6 +115,7 @@ public class ClientLogin extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE); // set the Progress Bar into Visible..
+        logging.setVisibility(View.VISIBLE);
 
         //firebase signIn validation...
         mAuth.signInWithEmailAndPassword(email_data, password_data).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -146,6 +148,7 @@ public class ClientLogin extends AppCompatActivity {
                                     Intent prof=new Intent(ClientLogin.this, DashBoardClient.class); //initialize the intent for Activity DashBoardClient
                                     Toast.makeText(ClientLogin.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
+                                    logging.setVisibility(View.GONE); //set tge Progress Bar into Invisible..
                                     startActivity(prof); //Redirect the Activity DashBoardClient..
                                 }else {
 
@@ -153,10 +156,13 @@ public class ClientLogin extends AppCompatActivity {
                                     user.sendEmailVerification(); //sent email verification to client email...
                                     Toast.makeText(ClientLogin.this,"Your not verified, Kindly Check your email.", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
+                                    logging.setVisibility(View.GONE);
                                 }
 
                             }else {
-
+                                Toast.makeText(ClientLogin.this,"User is not registered or does not exist.", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                                logging.setVisibility(View.GONE);
                             }
 
                         }
@@ -170,6 +176,8 @@ public class ClientLogin extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(ClientLogin.this, "Failed to Log In, Kindly check your Credentials", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                    logging.setVisibility(View.GONE);
                 }
             }
         });

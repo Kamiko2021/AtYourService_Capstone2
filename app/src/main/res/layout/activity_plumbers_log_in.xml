@@ -12,19 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progressBar3"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
-
         <ImageView
             android:id="@+id/AtyourserviceLogo"
             android:layout_width="357dp"
             android:layout_height="124dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
             android:src="@drawable/logoo" />
 
         <EditText
@@ -34,7 +28,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="11dp"
-            android:hint="EMAIL"
+            android:hint="PLUMBER EMAIL"
             android:inputType="textWebEmailAddress"
             android:textSize="20sp" />
 
@@ -49,49 +43,67 @@
             android:inputType="textPassword"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/LogIn_btn"
-            android:layout_width="287dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="36dp"
-            android:backgroundTint="#115a5f"
-            android:text="SIGN IN"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/AsClient_txtview"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="37sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Sign in as Client?"
-            android:textColor="#00008b"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/plumberLogIn_btn"
+                android:layout_width="100sp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="15sp"
+                android:layout_weight="1"
+                android:backgroundTint="#115a5f"
+                android:text="LOG IN"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/plumberRegister_btn"
+                android:layout_width="100sp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="15sp"
+                android:layout_weight="1"
+                android:backgroundTint="#F44336"
+                android:text="Register"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/ForgotPassword_txtview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
             android:text="Forgot Password?"
             android:textColor="#00008b"
             android:textSize="20sp" />
 
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="102dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
         <TextView
-            android:id="@+id/PlumbersApplication_txtview"
+            android:id="@+id/Logging_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="37sp"
-            android:text="Apply Now as Plumber?"
-            android:textColor="#00008b"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="PROCESSING...."
+            android:visibility="gone"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
