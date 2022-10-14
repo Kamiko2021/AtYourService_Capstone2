@@ -121,6 +121,7 @@ public class ApplyPlumber extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
+                    //this code used to insert user information into database...
                     UserData client= new UserData(firstname_data,lastname_data, gender_data, birthdate_data, email_data, "Plumber");
                     FirebaseDatabase.getInstance().getReference("USERS")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

@@ -127,7 +127,7 @@ public class PlumbersLogIn extends AppCompatActivity {
 
                                     Toast.makeText(PlumbersLogIn.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
-                                    Intent prof=new Intent(PlumbersLogIn.this, DashBoardPlumber.class);
+                                    Intent prof=new Intent(PlumbersLogIn.this, SecondPage_plumber.class);
                                     startActivity(prof);
                                     progressBar.setVisibility(View.GONE);
                                     processing.setVisibility(View.GONE);

@@ -1,8 +1,16 @@
 package com.capstone.atyourservice_capstone2;
 
+import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -10,36 +18,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 
+public class home_plumberFragment extends Fragment {
 
-public class DashBoardPlumber extends AppCompatActivity {
 
-    private TextView emailtxt_plumber,uid_plumber,firstname_plumber,lastname_plumber,birthdate_plumber,gender_plumber;
+    private TextView uid_plumber,firstname_plumber;
     private DatabaseReference reff;
     private ImageView transactionHistory, nearbyPlumbers, profileSettings;
     private FirebaseDatabase firebaseDatabase;
-
     public String uid;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dash_board_plumber);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_homeplumber, container, false);
 
         // =========Set up ID for declared objects====
-        emailtxt_plumber=(TextView) findViewById(R.id.plumberEmail_txtview);
-        uid_plumber=(TextView) findViewById(R.id.plumber_uid);
-        firstname_plumber=(TextView) findViewById(R.id.plumberFirstname_txtview);
-        lastname_plumber=(TextView) findViewById(R.id.plumberLastname_txtview);
-        birthdate_plumber = (TextView) findViewById(R.id.plumberbirthdate_txtview);
-        gender_plumber = (TextView) findViewById(R.id.gender_txtview);
+
+        uid_plumber=(TextView) view.findViewById(R.id.plumber_uid);
+        firstname_plumber=(TextView) view.findViewById(R.id.plumberFirstname_txtview);
 
 
         //=================invoking fetch data method=================
         fetchData();
+        return view;
     }
 
     public void fetchData(){
@@ -58,7 +62,7 @@ public class DashBoardPlumber extends AppCompatActivity {
 
             //========saving data into textviews======
 
-            emailtxt_plumber.setText(email);
+
             uid_plumber.setText(uid);
 
             //   =================== fetching data from firebase database==========
@@ -68,13 +72,8 @@ public class DashBoardPlumber extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String firstname = snapshot.child("firstname").getValue().toString();
                     String lastname = snapshot.child("lastname").getValue().toString();
-                    String birthdate = snapshot.child("birthdate").getValue().toString();
-                    String gender = snapshot.child("gender").getValue().toString();
 
-                    birthdate_plumber.setText(birthdate);
-                    firstname_plumber.setText(firstname);
-                    lastname_plumber.setText(lastname);
-                    gender_plumber.setText(gender);
+                    firstname_plumber.setText(firstname + " " + lastname);
 
                 }
 

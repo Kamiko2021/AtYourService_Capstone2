@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="PROFILE"
+        android:icon="@drawable/ic_person"
+        android:id="@+id/profile"/>
+    <item android:title="HOME"
+        android:icon="@drawable/ic_home_icon"
+        android:id="@+id/home"/>
+    <item android:title="HELP"
+        android:icon="@drawable/ic_help"
+        android:id="@+id/help" />
+    <item android:title="SETTINGS"
+        android:icon="@drawable/ic_settings"
+        android:id="@+id/settings"/>
+    <item android:title="ABOUT US"
+        android:id="@+id/aboutUs"
+        android:icon="@drawable/ic_aboutus"/>
+
+
+</menu>
