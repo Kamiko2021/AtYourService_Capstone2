@@ -1,5 +1,7 @@
 package com.capstone.atyourservice_capstone2;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +23,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class home_plumberFragment extends Fragment {
@@ -25,9 +39,16 @@ public class home_plumberFragment extends Fragment {
 
     private TextView uid_plumber,firstname_plumber;
     private DatabaseReference reff;
+    private CircleImageView profileImageView;
     private ImageView transactionHistory, nearbyPlumbers, profileSettings;
     private FirebaseDatabase firebaseDatabase;
     public String uid;
+    private FirebaseAuth mAuth;
+
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,10 +60,13 @@ public class home_plumberFragment extends Fragment {
 
         uid_plumber=(TextView) view.findViewById(R.id.plumber_uid);
         firstname_plumber=(TextView) view.findViewById(R.id.plumberFirstname_txtview);
-
-
+        profileImageView = (CircleImageView) view.findViewById(R.id.ProfilePicx);
+        //instantiate firebase storage..
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         //=================invoking fetch data method=================
         fetchData();
+
         return view;
     }
 
@@ -84,4 +108,7 @@ public class home_plumberFragment extends Fragment {
             });
         }
     }
+
+
+
 }

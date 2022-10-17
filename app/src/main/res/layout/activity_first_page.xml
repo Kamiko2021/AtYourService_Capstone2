@@ -19,29 +19,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="188dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/plumber_firstpage"
             android:layout_width="100sp"
             android:layout_height="60sp"
-            android:layout_marginTop="40sp"
-            android:layout_weight="1"
-            android:layout_marginRight="15sp"
-            android:layout_marginLeft="20sp"
             android:layout_gravity="center"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="40sp"
+            android:layout_marginRight="15sp"
+            android:layout_weight="1"
             android:text="Plumbers" />
 
         <Button
             android:id="@+id/Client_firstpage"
             android:layout_width="100sp"
             android:layout_height="60sp"
-            android:layout_weight="1"
-            android:layout_marginTop="40sp"
-            android:layout_marginLeft="15sp"
-            android:layout_marginRight="20sp"
             android:layout_gravity="center"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="40sp"
+            android:layout_marginRight="20sp"
+            android:layout_weight="1"
             android:text="Client" />
     </LinearLayout>
 

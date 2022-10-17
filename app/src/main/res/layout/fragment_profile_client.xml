@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:scrollbarAlwaysDrawHorizontalTrack="true"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".profile_plumbers">
+    tools:context=".profile_client">
 
     <!-- TODO: Update blank fragment layout -->
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +15,7 @@
         android:scrollbarAlwaysDrawHorizontalTrack="true">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/profile_image_client"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -27,14 +23,14 @@
             android:src="@drawable/defaultprofile" />
 
         <TextView
-            android:id="@+id/uid_lbl"
+            android:id="@+id/uid_lbl_client"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="uid" />
 
         <TextView
-            android:id="@+id/usertype_Data"
+            android:id="@+id/usertype_Data_client"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,7 +40,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/change_profile_btn"
+            android:id="@+id/change_profileBtn_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_image"
@@ -89,7 +85,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,7 +99,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/email_plumberlbl"
+                    android:id="@+id/email_clientlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -111,7 +107,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/email_plumberData"
+                    android:id="@+id/email_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -125,11 +121,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/firstname_plumberlbl"
+                    android:id="@+id/firstname_clientlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -137,7 +133,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/firstname_plumberData"
+                    android:id="@+id/firstname_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -150,11 +146,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/lastname_plumberlbl"
+                    android:id="@+id/lastname_clientlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -162,7 +158,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/lastname_plumberData"
+                    android:id="@+id/lastname_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -175,11 +171,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/birthdate_plumberlbl"
+                    android:id="@+id/birthdate_clientlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -187,7 +183,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/birthdate_plumberData"
+                    android:id="@+id/birthdate_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -200,11 +196,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/gender_plumberlbl"
+                    android:id="@+id/gender_clientlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -212,7 +208,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/gender_plumberData"
+                    android:id="@+id/gender_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -225,13 +221,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/gender_plumberData"
                 android:layout_margin="16dp"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/update_plumberbtn"
+                    android:id="@+id/update_clientbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
@@ -241,16 +237,6 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/upload_cv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#1df5ea"
-                    android:text="UPLOAD CV / NCii CERTIFICATE"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

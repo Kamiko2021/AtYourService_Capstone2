@@ -44,17 +44,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="115dp"
+            android:layout_height="89dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/LogIn_btn"
-                android:layout_width="100sp"
-                android:layout_height="70dp"
-                android:layout_weight="1"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15sp"
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
-                android:layout_marginLeft="15sp"
+                android:layout_weight="1"
                 android:backgroundTint="#115a5f"
                 android:text="LOG-IN"
                 android:textColor="@color/white"
@@ -63,16 +63,16 @@
 
             <Button
                 android:id="@+id/clientRegister_btn"
-                android:layout_width="100sp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20sp"
+                android:layout_width="76dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
+                android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
+                android:layout_weight="1"
                 android:backgroundTint="#F44336"
                 android:text="Register"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <TextView

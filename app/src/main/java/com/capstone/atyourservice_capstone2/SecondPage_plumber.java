@@ -34,8 +34,6 @@ public class SecondPage_plumber extends AppCompatActivity {
                     case R.id.profile:
                         replaceFragment(new profile_plumbers());
                         break;
-                    case R.id.settings:
-                        break;
 
                 }
             }
