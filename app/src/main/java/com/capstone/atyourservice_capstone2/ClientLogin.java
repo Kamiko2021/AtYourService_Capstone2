@@ -145,7 +145,7 @@ public class ClientLogin extends AppCompatActivity {
 
                                     //if verified us success..
 
-                                    Intent prof=new Intent(ClientLogin.this, SecondPage_plumber.class); //initialize the intent for Activity DashBoardClient
+                                    Intent prof=new Intent(ClientLogin.this, SecondPage_client.class); //initialize the intent for Activity DashBoardClient
                                     Toast.makeText(ClientLogin.this, "LogIn Successfully",Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE); //set the Progress Bar into Invisible..
                                     logging.setVisibility(View.GONE); //set tge Progress Bar into Invisible..

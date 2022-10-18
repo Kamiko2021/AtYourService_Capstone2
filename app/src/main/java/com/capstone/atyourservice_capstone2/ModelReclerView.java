@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -42,6 +43,12 @@ public class ModelReclerView extends RecyclerView.Adapter<ModelReclerView.ViewHo
         holder.textView4.setText(arrayList.get(position).getLatitude());
         holder.textView5.setText(arrayList.get(position).getLonghitude());
         holder.textView6.setText(arrayList.get(position).getDistance());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "test" + position,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -64,7 +71,7 @@ public class ModelReclerView extends RecyclerView.Adapter<ModelReclerView.ViewHo
             textView4 = itemView.findViewById(R.id.latitude);
             textView5 = itemView.findViewById(R.id.longhitude);
             textView6 = itemView.findViewById(R.id.distance);
-            CardView = itemView.findViewById(R.id.cardView);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }

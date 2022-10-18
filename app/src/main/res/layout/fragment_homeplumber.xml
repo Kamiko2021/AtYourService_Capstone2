@@ -59,7 +59,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/userType"
+            android:id="@+id/location_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

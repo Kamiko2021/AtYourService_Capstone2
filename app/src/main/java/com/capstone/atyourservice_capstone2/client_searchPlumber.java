@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class client_searchPlumber extends Fragment {
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     ArrayList<Model> arrayList = new ArrayList<>();
 
 
@@ -28,6 +28,9 @@ public class client_searchPlumber extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        arrayList.add(new Model(R.drawable.defaultprofile, "Karl Michael", "Lopez", "online", "10.000", "12.000", "10km"));
+        ModelReclerView modelReclerView = new ModelReclerView(getActivity(), arrayList);
+        recyclerView.setAdapter(modelReclerView);
 
 
         return view;
