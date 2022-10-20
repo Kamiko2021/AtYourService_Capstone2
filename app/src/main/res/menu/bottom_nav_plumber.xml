@@ -5,10 +5,10 @@
 
     <item android:title="HOME"
         android:icon="@drawable/ic_home_icon"
-        android:id="@+id/home"/>
+        android:id="@+id/home_plumber"/>
     <item android:title="PROFILE"
         android:icon="@drawable/ic_person"
-        android:id="@+id/profile"/>
+        android:id="@+id/profile_plumber"/>
 
 
 

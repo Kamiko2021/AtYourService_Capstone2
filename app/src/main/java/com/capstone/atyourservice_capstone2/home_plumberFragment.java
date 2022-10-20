@@ -53,6 +53,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,6 +76,10 @@ public class home_plumberFragment extends Fragment {
     private StorageReference storageReference;
     //===== declare fusedclient provider====
     private FusedLocationProviderClient client;
+    //=====declare global variable string to get the latitude and longhitude===
+    public String latitude;
+    public String longht;
+    public String firstname_data,lastname_data;
 
 
     @Override
@@ -95,7 +101,7 @@ public class home_plumberFragment extends Fragment {
         storageReference = storage.getReference();
         //=========initialize location client===
         client = LocationServices.getFusedLocationProviderClient(getActivity());
-        getCurrentLocation();
+//        getCurrentLocation();
         locationtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +118,12 @@ public class home_plumberFragment extends Fragment {
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION
                     ,Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
                 }
+            }
+        });
+        firstname_plumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyToAcceptJob();
             }
         });
 
@@ -157,13 +169,18 @@ public class home_plumberFragment extends Fragment {
                     if (location!=null){
                         //when result location is not null
                         //set latitude
+
                         String lat= String.valueOf(location.getLatitude());
                         String lng= String.valueOf(location.getLongitude());
+
+                        //save lat and longhitude string value to declared global variable..
+                        latitude = lat;
+                        longht = lng;
 
                         locationtxt.setText("Lat: " + lat + " Lng: " + lng);
 
                     }else {
-                        Toast.makeText(getActivity(), "Permission still not granted yet", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), "Permission still not granted yet", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -202,6 +219,8 @@ public class home_plumberFragment extends Fragment {
                     String firstname = snapshot.child("firstname").getValue().toString();
                     String lastname = snapshot.child("lastname").getValue().toString();
 
+                    firstname_data = firstname;
+                    lastname_data = lastname;
                     firstname_plumber.setText(firstname + " " + lastname);
 
                 }
@@ -212,11 +231,31 @@ public class home_plumberFragment extends Fragment {
                 }
             });
 
+           //===========saving user state data into database====
+
+
 
         }
     }
-
-
+    //=========creating and saving data into firebase database=====
+    public void readyToAcceptJob(){
+        //get current date...
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date todayDate = new Date();
+        String thisDate = currentDate.format(todayDate);
+        WaitingData ready= new WaitingData(firstname_data,lastname_data, "2", longht, latitude, "1km");
+        FirebaseDatabase.getInstance().getReference("waiting")
+                .child(uid).setValue(ready).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getActivity(), "Your now added in waiting list", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity(), "something went wrong :(", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
 
 
 }

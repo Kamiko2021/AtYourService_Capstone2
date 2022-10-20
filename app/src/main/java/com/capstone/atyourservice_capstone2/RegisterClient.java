@@ -157,10 +157,7 @@ public class RegisterClient extends AppCompatActivity {
                                         }
 
 
-
-
-                                    }
-                                    else {
+                                    } else {
                                         Toast.makeText(RegisterClient.this, "Registration Fail, please try again!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }

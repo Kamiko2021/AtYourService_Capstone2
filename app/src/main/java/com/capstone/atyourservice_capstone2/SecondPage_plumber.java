@@ -22,20 +22,19 @@ public class SecondPage_plumber extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_page);
 
-        bottomNavi = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNavi = (BottomNavigationView) findViewById(R.id.bottomNav_plumber);
         replaceFragment(new home_plumberFragment());
         bottomNavi.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
-                    case R.id.home:
+                    case R.id.home_plumber:
                         replaceFragment(new home_plumberFragment());
                         break;
-                    case R.id.profile:
+                    case R.id.profile_plumber:
                         replaceFragment(new profile_plumbers());
                         break;
-
                 }
             }
         });
@@ -44,7 +43,7 @@ public class SecondPage_plumber extends AppCompatActivity {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.homeFramelayout, fragment);
+        fragmentTransaction.replace(R.id.plumber_framelayout, fragment);
         fragmentTransaction.commit();
     }
 }

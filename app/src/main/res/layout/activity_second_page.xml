@@ -8,9 +8,9 @@
     tools:context=".SecondPage_plumber" >
 
     <FrameLayout
-        android:id="@+id/homeFramelayout"
-        android:layout_width="403dp"
-        android:layout_height="544dp"
+        android:id="@+id/plumber_framelayout"
+        android:layout_width="398dp"
+        android:layout_height="804dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,7 +18,7 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
+        android:id="@+id/bottomNav_plumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
