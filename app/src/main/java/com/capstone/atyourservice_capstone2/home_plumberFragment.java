@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -82,6 +83,7 @@ public class home_plumberFragment extends Fragment {
     public String firstname_data,lastname_data;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,25 +103,30 @@ public class home_plumberFragment extends Fragment {
         storageReference = storage.getReference();
         //=========initialize location client===
         client = LocationServices.getFusedLocationProviderClient(getActivity());
-//        getCurrentLocation();
-        locationtxt.setOnClickListener(new View.OnClickListener() {
+
+
+        //====== it delays asking location permission into 1sec========
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
+            public void run() {
                 //=====check condition====
                 if (ContextCompat.checkSelfPermission(getActivity()
-                , Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity()
-                ,Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+                        , Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity()
+                        ,Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
                     //When permission is granted, call method
                     getCurrentLocation();
                 }else {
                     //when permission is not granted..
                     //request permission
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION
-                    ,Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                            ,Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
                 }
             }
-        });
+        }, 1000);
+
+
         firstname_plumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,7 +250,7 @@ public class home_plumberFragment extends Fragment {
         SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
         Date todayDate = new Date();
         String thisDate = currentDate.format(todayDate);
-        WaitingData ready= new WaitingData(firstname_data,lastname_data, "2", longht, latitude, "1km");
+        WaitingData ready= new WaitingData(firstname_data,lastname_data, "2", longht, latitude, uid,thisDate);
         FirebaseDatabase.getInstance().getReference("waiting")
                 .child(uid).setValue(ready).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

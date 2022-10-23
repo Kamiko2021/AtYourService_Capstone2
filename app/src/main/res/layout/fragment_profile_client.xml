@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#124de3"
         android:scrollbarAlwaysDrawHorizontalTrack="true">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:text="uid" />
 
         <TextView
@@ -35,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="User Type"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -47,7 +49,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:text="Change Profile"
-            android:textColor="#00008B"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 

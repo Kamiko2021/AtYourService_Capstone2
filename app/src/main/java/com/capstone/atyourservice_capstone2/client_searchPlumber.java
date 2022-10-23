@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,7 @@ public class client_searchPlumber extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
         list = new ArrayList<>();
         adapter = new myAdapter(getActivity(),list);
         recyclerView.setAdapter(adapter);
@@ -47,8 +49,9 @@ public class client_searchPlumber extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    userCardviewData user= dataSnapshot.getValue(userCardviewData.class);
-                    list.add(user);
+
+                        userCardviewData user= dataSnapshot.getValue(userCardviewData.class);
+                        list.add(user);
 
                 }
                 adapter.notifyDataSetChanged();

@@ -18,7 +18,7 @@
             android:layout_height="136dp"
             android:layout_marginTop="16dp"
             android:contentDescription="TODO"
-            android:src="@drawable/logoo" />
+            android:src="@drawable/final_logo_removedbackground" />
 
         <EditText
             android:id="@+id/Edittxt_email"
@@ -49,8 +49,8 @@
 
             <Button
                 android:id="@+id/LogIn_btn"
-                android:layout_width="89dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
@@ -63,8 +63,8 @@
 
             <Button
                 android:id="@+id/clientRegister_btn"
-                android:layout_width="76dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
@@ -91,7 +91,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="50sp"
             android:visibility="gone" />
         <TextView
             android:id="@+id/LoggingIn_client"

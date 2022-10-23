@@ -15,11 +15,10 @@
         <ImageView
             android:id="@+id/AtyourserviceLogo"
             android:layout_width="match_parent"
-            android:layout_height="161dp"
-
+            android:layout_height="174dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="40dp"
-            android:src="@drawable/logoo" />
+            android:src="@drawable/final_logo_removedbackground" />
 
         <EditText
             android:id="@+id/Edittxt_email"

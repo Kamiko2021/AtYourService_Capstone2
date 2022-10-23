@@ -2,7 +2,13 @@ package com.capstone.atyourservice_capstone2;
 
 public class userCardviewData {
 
-    String firstname,lastname,status,longhitude,latitude,distance;
+    String firstname;
+    String lastname;
+    String status;
+    String longhitude;
+    String latitude;
+    String uid;
+    String date;
 
     public String getFirstname() {
         return firstname;
@@ -24,9 +30,11 @@ public class userCardviewData {
         return latitude;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getUid() {
+        return uid;
     }
+
+
 
 
 }

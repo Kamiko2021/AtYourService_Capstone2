@@ -23,7 +23,7 @@ public class SecondPage_client extends AppCompatActivity {
         setContentView(R.layout.activity_second_page_client);
             bottomNavi = (BottomNavigationView) findViewById(R.id.client_buttomNav);
 
-        replaceFragment(new home_plumberFragment());
+        replaceFragment(new home_clientFragment());
             bottomNavi.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
                 @Override
                 public void onNavigationItemReselected(@NonNull MenuItem item) {
@@ -31,7 +31,7 @@ public class SecondPage_client extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.home_client:
 
-                            replaceFragment(new home_plumberFragment());
+                            replaceFragment(new home_clientFragment());
                             break;
                         case R.id.profile_client:
                             replaceFragment(new profile_client());

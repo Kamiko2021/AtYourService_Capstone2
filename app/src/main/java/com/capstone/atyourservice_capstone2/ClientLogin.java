@@ -170,6 +170,9 @@ public class ClientLogin extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 
+                            Toast.makeText(ClientLogin.this,"connection error.", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                            logging.setVisibility(View.GONE);
                         }
                     });
 
