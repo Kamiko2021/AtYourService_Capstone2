@@ -113,7 +113,7 @@ public class profile_plumbers extends Fragment {
         });
 
         fetchData();
-//        fetchprofilepicAndDisplay();
+        fetchprofilepicAndDisplay();
 
 
         return view;
@@ -191,45 +191,45 @@ public class profile_plumbers extends Fragment {
         }
     }
 
+//displays profile picture from database...
+    private void fetchprofilepicAndDisplay(){
+        reff = FirebaseDatabase.getInstance().getReference().child("uploads").child(uid);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String profile = snapshot.child("ProfilePicture").getValue().toString();
 
-//    private void fetchprofilepicAndDisplay(){
-//        reff = FirebaseDatabase.getInstance().getReference().child("uploads").child(uid);
-//        reff.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String profile = snapshot.child("ProfilePicture").getValue().toString();
-//
-//                displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile);
-//
-//                try {
-//                    final File localFile = File.createTempFile(profile, ".jpg");
-//                    displayStorageRef.getFile(localFile)
-//                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                                @Override
-//                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-//                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                                    profileImageView.setImageBitmap(bitmap);
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+                displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile + ".jpg");
+
+                try {
+                    final File localFile = File.createTempFile(profile, ".jpg");
+                    displayStorageRef.getFile(localFile)
+                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                    profileImageView.setImageBitmap(bitmap);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     public void fetchData(){
 

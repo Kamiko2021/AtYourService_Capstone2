@@ -9,6 +9,10 @@
     <item android:title="PROFILE"
         android:icon="@drawable/ic_person"
         android:id="@+id/profile_plumber"/>
+    <item android:title="SERVICE FEE"
+        android:icon="@drawable/ic_transaction_icon"
+        android:id="@+id/servicefee_plumber"/>
+
 
 
 

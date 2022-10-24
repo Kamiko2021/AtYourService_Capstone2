@@ -9,8 +9,9 @@
 
     <FrameLayout
         android:id="@+id/plumber_framelayout"
-        android:layout_width="398dp"
-        android:layout_height="804dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav_plumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,8 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFramelayout"
-        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_nav_plumber">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

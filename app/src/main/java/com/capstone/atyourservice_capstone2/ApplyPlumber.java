@@ -163,6 +163,14 @@ public class ApplyPlumber extends AppCompatActivity {
                                         Toast.makeText(ApplyPlumber.this, "Registration Fail, please try again!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
+                                    FirebaseDatabase.getInstance().getReference("uploads")
+                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProfilePicture")
+                                            .setValue("defaultprofile").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Toast.makeText(ApplyPlumber.this, "default profile uploaded",Toast.LENGTH_LONG).show();
+                                                }
+                                            });
                                 }
                             });
 
@@ -170,10 +178,10 @@ public class ApplyPlumber extends AppCompatActivity {
 
 
 
-
-
             }
         });
+
+
 
     }
 }

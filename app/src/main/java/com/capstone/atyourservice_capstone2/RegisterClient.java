@@ -163,7 +163,14 @@ public class RegisterClient extends AppCompatActivity {
                                     }
                                 }
                             });
-
+                    FirebaseDatabase.getInstance().getReference("uploads")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ProfilePicture")
+                            .setValue("defaultprofile").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(RegisterClient.this, "default profile uploaded",Toast.LENGTH_LONG).show();
+                                }
+                            });
                 }
 
 

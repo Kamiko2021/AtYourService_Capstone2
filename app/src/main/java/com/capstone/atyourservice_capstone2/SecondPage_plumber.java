@@ -35,6 +35,9 @@ public class SecondPage_plumber extends AppCompatActivity {
                     case R.id.profile_plumber:
                         replaceFragment(new profile_plumbers());
                         break;
+                    case R.id.  servicefee_plumber:
+                        replaceFragment(new servicefee_transaction());
+                        break;
                 }
             }
         });
