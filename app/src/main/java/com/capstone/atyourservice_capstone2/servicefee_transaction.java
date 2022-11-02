@@ -90,6 +90,7 @@ public class servicefee_transaction extends Fragment {
 
         fetchData();
         getCurrentLocation();
+        savedLocation();
         return view;
     }
 
@@ -137,10 +138,9 @@ public class servicefee_transaction extends Fragment {
                         String lat= String.valueOf(location.getLatitude());
                         String lng= String.valueOf(location.getLongitude());
 
-                        //save lat and longhitude string value to declared global variable..
+                        //saving data into firebase database..
                         latitude = lat;
                         longht = lng;
-
                         locationtxt.setText("Lat: " + lat + " Lng: " + lng);
 
                     }else {
@@ -154,6 +154,21 @@ public class servicefee_transaction extends Fragment {
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
+    }
+
+    private void savedLocation(){
+        locationData location_data=new locationData(latitude,longht);
+        FirebaseDatabase.getInstance().getReference("locations").child(uid)
+                .setValue(location_data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getActivity(), "location saved", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity(), "location not saved", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     //==========Retrieving data from firebase database===========
@@ -209,7 +224,7 @@ public class servicefee_transaction extends Fragment {
         SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
         Date todayDate = new Date();
         String thisDate = currentDate.format(todayDate);
-        WaitingData ready= new WaitingData(firstname_data,lastname_data, "2", longht, latitude, uid,thisDate);
+        WaitingData ready= new WaitingData(firstname_data,lastname_data, "vacant",longht,latitude, uid,thisDate);
         FirebaseDatabase.getInstance().getReference("waiting")
                 .child(uid).setValue(ready).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

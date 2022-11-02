@@ -63,7 +63,7 @@ public class profile_plumbers extends Fragment {
     private TextView profileChangeBtn;
 
     private Uri mImageUri;
-    private StorageReference mStorageRef;
+    public StorageReference mStorageRef;
     private StorageReference displayStorageRef;
     private StorageTask mUploadTask;
     private DatabaseReference mDatabaseRef;
@@ -149,10 +149,11 @@ public class profile_plumbers extends Fragment {
 
 
     private void uploadFile(){
-        final ProgressDialog pd = new ProgressDialog(getActivity());
+
+
+        ProgressDialog pd = new ProgressDialog(getActivity());
         pd.setTitle("Uploading Image.....");
         pd.show();
-
 
         if (mImageUri != null){
 
@@ -160,7 +161,7 @@ public class profile_plumbers extends Fragment {
             int randomNumber = random.nextInt(1000-100) + 100;
 
             StorageReference fileReference= mStorageRef.child("profilepix"+ randomNumber + "" + "." + getFileExtension(mImageUri));
-            mDatabaseRef.child(uid).child("ProfilePicture").setValue("profilepix"+ randomNumber + "");
+            mDatabaseRef.child(uid).child("ProfilePicture").setValue("profilepix"+ randomNumber +"."+ getFileExtension(mImageUri));
 
            mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -179,7 +180,7 @@ public class profile_plumbers extends Fragment {
                             Toast.makeText(getActivity(), "Image Upload failed", Toast.LENGTH_SHORT).show();
                         }
                     })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                   .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot tasksnapshot) {
                             double progressPercent = (100.00 * tasksnapshot.getBytesTransferred() / tasksnapshot.getTotalByteCount());
@@ -199,15 +200,15 @@ public class profile_plumbers extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String profile = snapshot.child("ProfilePicture").getValue().toString();
 
-                displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile + ".jpg");
+                displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile);
 
                 try {
-                    final File localFile = File.createTempFile(profile, ".jpg");
+                    final File localFile = File.createTempFile(profile, "jpg");
                     displayStorageRef.getFile(localFile)
                             .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                                     profileImageView.setImageBitmap(bitmap);
                                 }
@@ -215,7 +216,7 @@ public class profile_plumbers extends Fragment {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
                                 }
                             });
                 } catch (IOException e) {
@@ -257,7 +258,7 @@ public class profile_plumbers extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    //-----------saving data from firebasedatabase----------
+                    //-----------fetching data from firebasedatabase----------
                     String firstname = snapshot.child("firstname").getValue().toString();
                     String lastname = snapshot.child("lastname").getValue().toString();
                     String gender = snapshot.child("gender").getValue().toString();
@@ -282,28 +283,6 @@ public class profile_plumbers extends Fragment {
                 }
             });
         }
-
-//        //displaying profile picture..
-//        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+ uid);
-//
-//        try {
-//            final File localFile = File.createTempFile(uid, ".jpg");
-//            storageReference.getFile(localFile)
-//                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                            profileImageView.setImageBitmap(bitmap);
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(getActivity(), "Failed to retrieved image.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
 
     }
 

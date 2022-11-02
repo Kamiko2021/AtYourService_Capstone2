@@ -125,18 +125,21 @@ public class home_plumberFragment extends Fragment {
             }
         }, 1000);
 
-
-        firstname_plumber.setOnClickListener(new View.OnClickListener() {
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                readyToAcceptJob();
+            public void run() {
+                savedLocation();
             }
-        });
+        }, 2000);
+
+
+
 
 
         //=================invoking fetch data method=================
         fetchData();
         fetchprofilepicAndDisplay();
+
         return view;
     }
 
@@ -199,6 +202,21 @@ public class home_plumberFragment extends Fragment {
         }
     }
 
+    private void savedLocation(){
+        locationData location_data=new locationData(latitude,longht);
+        FirebaseDatabase.getInstance().getReference("locations").child(uid)
+                .setValue(location_data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getActivity(), "location saved", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity(), "location not saved", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
     public void fetchData(){
         //=========Accessing User Credentials=============
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -253,10 +271,10 @@ public class home_plumberFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String profile = snapshot.child("ProfilePicture").getValue().toString();
 
-                displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile + ".jpg");
+                displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile);
 
                 try {
-                    final File localFile = File.createTempFile(profile, ".jpg");
+                    final File localFile = File.createTempFile(profile, "jpg");
                     displayStorageRef.getFile(localFile)
                             .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
@@ -269,7 +287,7 @@ public class home_plumberFragment extends Fragment {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
                                 }
                             });
                 } catch (IOException e) {
@@ -285,26 +303,6 @@ public class home_plumberFragment extends Fragment {
         });
     }
 
-
-    //=========creating and saving data into firebase database=====
-    public void readyToAcceptJob(){
-        //get current date...
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-        Date todayDate = new Date();
-        String thisDate = currentDate.format(todayDate);
-        WaitingData ready= new WaitingData(firstname_data,lastname_data, "2", longht, latitude, uid,thisDate);
-        FirebaseDatabase.getInstance().getReference("waiting")
-                .child(uid).setValue(ready).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(getActivity(), "Your now added in waiting list", Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getActivity(), "something went wrong :(", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
 
 
 }

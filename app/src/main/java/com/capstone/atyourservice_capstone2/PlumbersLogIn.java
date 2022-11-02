@@ -68,6 +68,13 @@ public class PlumbersLogIn extends AppCompatActivity {
                 PlumberSignIn();
             }
         });
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent forgot=new Intent(PlumbersLogIn.this, ResetPassword.class);
+                startActivity(forgot);
+            }
+        });
 
     }
 
