@@ -90,11 +90,11 @@ public class home_plumberFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_homeplumber, container, false);
-
-
+        //======initialize loading dialog======
+        final LoadingDialog dialog=new LoadingDialog(getActivity());
+        dialog.startLoadingDialog();
 
         // =========Set up ID for declared objects====
-
         uid_plumber=(TextView) view.findViewById(R.id.plumber_uid);
         firstname_plumber=(TextView) view.findViewById(R.id.plumberFirstname_txtview);
         profileImageView = (CircleImageView) view.findViewById(R.id.ProfilePicx);
@@ -116,6 +116,7 @@ public class home_plumberFragment extends Fragment {
                         ,Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
                     //When permission is granted, call method
                     getCurrentLocation();
+
                 }else {
                     //when permission is not granted..
                     //request permission
@@ -125,20 +126,35 @@ public class home_plumberFragment extends Fragment {
             }
         }, 1000);
 
+        //=================invoking fetch data method=================
+        fetchData();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                savedLocation();
+                fetchprofilepicAndDisplay();
             }
-        }, 2000);
+        },2000);
+       handler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               savedLocation();
+           }
+       }, 3000);
+       handler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               readyToAcceptJob();
+           }
+       },4000);
+       handler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+               dialog.dismissDialog();
+           }
+       }, 5000);
 
 
-
-
-
-        //=================invoking fetch data method=================
-        fetchData();
-        fetchprofilepicAndDisplay();
 
         return view;
     }
@@ -301,6 +317,26 @@ public class home_plumberFragment extends Fragment {
 
             }
         });
+    }
+
+    //=================if the user is ready his service and can be viewed from waiting list=============
+    public void readyToAcceptJob(){
+        //get current date...
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date todayDate = new Date();
+        String thisDate = currentDate.format(todayDate);
+        WaitingData ready= new WaitingData(firstname_data,lastname_data, "online",longht,latitude, uid,thisDate);
+        FirebaseDatabase.getInstance().getReference("waiting")
+                .child(uid).setValue(ready).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getActivity(), "Your now added in waiting list", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity(), "something went wrong :(", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
 

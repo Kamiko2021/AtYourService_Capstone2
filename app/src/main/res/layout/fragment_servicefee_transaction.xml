@@ -29,7 +29,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#124de3"
+                    android:background="#134d4d"
                     android:orientation="vertical">
 
 
@@ -94,7 +94,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/LeakpipesAboveGround_plumberlbl"
+                    android:id="@+id/RepairPipes_plumberlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -102,7 +102,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/abovegroundPipes_txt"
+                    android:id="@+id/RepairPipes_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -119,7 +119,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/leakpipesUnderGround_plumberlbl"
+                    android:id="@+id/InstallPipes_plumberlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -128,7 +128,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/undergroundPipes_txt"
+                    android:id="@+id/InstallPipes_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -147,7 +147,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/cloggedtoilet_plumberlbl"
+                    android:id="@+id/UnclogToilet_plumberlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -155,7 +155,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/cloggedToilet_txt"
+                    android:id="@+id/UnclogToilet_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
@@ -173,7 +173,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/cloggeddrainage_plumberlbl"
+                    android:id="@+id/UnclogDrainage_plumberlbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -181,7 +181,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/cloggedDrainage_txt"
+                    android:id="@+id/UnclogDrainage_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"

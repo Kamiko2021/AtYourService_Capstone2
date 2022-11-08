@@ -41,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class servicefee_transaction extends Fragment {
 
     public TextView uid_plumber,firstname_plumber, locationtxt;
-    public EditText undergroundPipes,abovegroundPipes,cloggedToilet,cloggedDrainage;
+    public EditText repairPipes,installPipes,unclogToilet,unclogDrainage;
     private Button readyBtn,setServiceBtn;
     private CircleImageView profileImageView;
     private DatabaseReference reff;
@@ -67,10 +67,10 @@ public class servicefee_transaction extends Fragment {
         readyBtn = (Button) view.findViewById(R.id.startWaitingClient_btn);
         setServiceBtn = (Button) view.findViewById(R.id.setServiceFee_btn);
         //----------EditTexts--------------
-        undergroundPipes = (EditText) view.findViewById(R.id.undergroundPipes_txt);
-        abovegroundPipes = (EditText) view.findViewById(R.id.abovegroundPipes_txt);
-        cloggedToilet = (EditText) view.findViewById(R.id.cloggedToilet_txt);
-        cloggedDrainage = (EditText) view.findViewById(R.id.cloggedDrainage_txt);
+        installPipes = (EditText) view.findViewById(R.id.InstallPipes_txt);
+        repairPipes = (EditText) view.findViewById(R.id.RepairPipes_txt);
+        unclogToilet = (EditText) view.findViewById(R.id.UnclogToilet_txt);
+        unclogDrainage = (EditText) view.findViewById(R.id.UnclogDrainage_txt);
         //=========initialize location client===
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -213,8 +213,6 @@ public class servicefee_transaction extends Fragment {
 
             //===========saving user state data into database====
 
-
-
         }
     }
 
@@ -240,15 +238,15 @@ public class servicefee_transaction extends Fragment {
 
     //=======setting service fee transaction==========
     public void setServiceFee(){
-        String aboveground_Pipes,underground_Pipes,clogged_Toilet,clogged_Drainage,uid_data;
+        String repair_Pipes,install_Pipes,unclog_Toilet,unclog_Drainage,uid_data;
         //========fetching data into EditTexts====
-       underground_Pipes = undergroundPipes.getText().toString();
-       aboveground_Pipes = abovegroundPipes.getText().toString();
-       clogged_Drainage = cloggedDrainage.getText().toString();
-       clogged_Toilet = cloggedToilet.getText().toString();
+       repair_Pipes = repairPipes.getText().toString();
+       install_Pipes = installPipes.getText().toString();
+       unclog_Drainage = unclogDrainage.getText().toString();
+       unclog_Toilet = unclogToilet.getText().toString();
        uid_data = uid_plumber.getText().toString();
 
-        ServiceData service = new ServiceData(uid,underground_Pipes,aboveground_Pipes,clogged_Toilet,clogged_Drainage);
+        ServiceData service = new ServiceData(uid,repair_Pipes,install_Pipes,unclog_Toilet,unclog_Drainage);
         FirebaseDatabase.getInstance().getReference("service")
                 .child(uid).setValue(service).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -258,7 +256,6 @@ public class servicefee_transaction extends Fragment {
                         }else {
                             Toast.makeText(getActivity(), "service fee set failed", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 

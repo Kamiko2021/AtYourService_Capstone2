@@ -8,83 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#124de3"
-        android:scrollbarAlwaysDrawHorizontalTrack="true">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image_client"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            android:src="@drawable/defaultprofile" />
-
-        <TextView
-            android:id="@+id/uid_lbl_client"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:text="uid" />
-
-        <TextView
-            android:id="@+id/usertype_Data_client"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="User Type"
-            android:textColor="@color/white"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/change_profileBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_image"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="Change Profile"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/change_profile_btn"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:backgroundTint="#1df5ea"
-            android:text="Back"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:backgroundTint="#f56505"
-            android:text="Save"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -97,8 +20,85 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#124de3"
+                android:orientation="vertical"
+                android:scrollbarAlwaysDrawHorizontalTrack="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image_client"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20sp"
+                    android:src="@drawable/defaultprofile" />
+
+                <TextView
+                    android:id="@+id/uid_lbl_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="uid"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/usertype_Data_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="User Type"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/change_profileBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_image"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="Change Profile"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/change_profile_btn"
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnChoose"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#1df5ea"
+                    android:text="choose picture"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#f56505"
+                    android:text="upload"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                     android:text="First Name"
                     android:textColor="@color/black" />
 
-                <EditText
+                <TextView
                     android:id="@+id/firstname_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,8 +121,10 @@
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="text"
-                    android:text="firstname" />
+                    android:text="firstname"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -138,16 +140,17 @@
                     android:text="Last Name"
                     android:textColor="@color/black" />
 
-                <EditText
+                <TextView
                     android:id="@+id/lastname_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="lastname" />
+                    android:text="lastname"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -163,16 +166,17 @@
                     android:text="Birthdate"
                     android:textColor="@color/black" />
 
-                <EditText
+                <TextView
                     android:id="@+id/birthdate_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:text="birthdate" />
+                    android:text="birthdate"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -188,16 +192,17 @@
                     android:text="Gender"
                     android:textColor="@color/black" />
 
-                <EditText
+                <TextView
                     android:id="@+id/gender_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="gender" />
+                    android:text="gender"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -214,7 +219,7 @@
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
                     android:backgroundTint="#1df5ea"
-                    android:text="UPDATE"
+                    android:text="edit"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 

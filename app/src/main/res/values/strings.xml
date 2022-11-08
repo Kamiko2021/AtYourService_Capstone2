@@ -17,6 +17,13 @@
     <string name="plumber_label">PLUMBER</string>
     <string name="client_label">CLIENT</string>
 
+    <string-array name="services">
+        <item>UnclogDrainage</item>
+        <item>UnclogToilet</item>
+        <item>InstallPipes</item>
+        <item>RepairPipes</item>
+    </string-array>
+
 
 
     <string name="mapbox_access_token">pk.eyJ1Ijoia2FybG1pY2hhZWxsb3BlejIwMjIiLCJhIjoiY2w5MjhwZHloMGltNzN6bGM4aHcxcW5zMiJ9.MN_DMX3yYW1XCpieBjDBoA</string>

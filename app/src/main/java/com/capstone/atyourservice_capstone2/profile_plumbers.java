@@ -79,7 +79,7 @@ public class profile_plumbers extends Fragment {
         View view= inflater.inflate(R.layout.fragment_profile_plumbers, container, false);
 
         //----------declaration of editexts---------------
-        email_txt = (EditText) view.findViewById(R.id.email_plumberData);
+
         firstname_txt = (EditText) view.findViewById(R.id.firstname_plumberData);
         lastname_txt = (EditText) view.findViewById(R.id.lastname_plumberData);
         birthdate_txt = (EditText) view.findViewById(R.id.birthdate_plumberData);
@@ -263,11 +263,10 @@ public class profile_plumbers extends Fragment {
                     String lastname = snapshot.child("lastname").getValue().toString();
                     String gender = snapshot.child("gender").getValue().toString();
                     String birthdate = snapshot.child("birthdate").getValue().toString();
-                    String email = snapshot.child("email").getValue().toString();
                     String usertype = snapshot.child("userType").getValue().toString();
 
                     //------------displaying data into edittxt fields----------
-                    email_txt.setText(email);
+
                     firstname_txt.setText(firstname);
                     lastname_txt.setText(lastname);
                     gender_txt.setText(gender);

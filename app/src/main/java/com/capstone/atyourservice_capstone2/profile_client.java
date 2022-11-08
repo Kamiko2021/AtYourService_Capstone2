@@ -10,8 +10,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +52,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class profile_client extends Fragment {
 
+    TextView firstname_txt,lastname_txt,gender_txt,birthdate_txt;
+    Button updatebtn_popUp,closebtn_popUp;
     EditText firstname_edtxt,lastname_edtxt,gender_edtxt,birthdate_edtxt;
-    TextView usertype_txt,uid_txt,choosePix;
+    TextView usertype_txt,uid_txt;
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialog;
     CircleImageView profileImageView;
-    Button update_btn,uploadbtn;
+    Button update_btn,uploadbtn,choose_btn;
     Uri mImageUri;
     String emailAddress,uid;
     DatabaseReference reff,mreff;
@@ -65,22 +72,29 @@ public class profile_client extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile_client, container, false);
 
+        //======initialize loading dialog======
+        final LoadingDialog dialog=new LoadingDialog(getActivity());
+        Handler handler=new Handler(Looper.getMainLooper());
 
         //===========EditTexts===============
-        firstname_edtxt=(EditText) view.findViewById(R.id.firstname_clientData);
-        lastname_edtxt=(EditText) view.findViewById(R.id.lastname_clientData);
-        gender_edtxt=(EditText) view.findViewById(R.id.gender_clientData);
-        birthdate_edtxt=(EditText) view.findViewById(R.id.birthdate_clientData);
+        firstname_txt=(TextView) view.findViewById(R.id.firstname_clientData);
+        lastname_txt=(TextView) view.findViewById(R.id.lastname_clientData);
+        gender_txt=(TextView) view.findViewById(R.id.gender_clientData);
+        birthdate_txt=(TextView) view.findViewById(R.id.birthdate_clientData);
+
         //=============TextViews===========
         usertype_txt=(TextView) view.findViewById(R.id.usertype_Data_client);
         uid_txt=(TextView) view.findViewById(R.id.uid_lbl_client);
-        choosePix=(TextView) view.findViewById(R.id.change_profileBtn);
+
+
         //===========Buttons===========
         update_btn=(Button) view.findViewById(R.id.update_clientbtn);
         uploadbtn=(Button)view.findViewById(R.id.btnSave);
+        choose_btn = (Button) view.findViewById(R.id.btnChoose);
 
         //=======CircleImageView==========
         profileImageView = (CircleImageView) view.findViewById(R.id.profile_image_client);
+
         //=======Firebase Declarations=====
         mStorageRef= FirebaseStorage.getInstance().getReference("uploads");
         mreff = FirebaseDatabase.getInstance().getReference("uploads");
@@ -88,11 +102,19 @@ public class profile_client extends Fragment {
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateData();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateData();
+
+                    }
+                }, 1000);
+
             }
         });
 
-        choosePix.setOnClickListener(new View.OnClickListener() {
+        choose_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 choosePicture();
@@ -109,9 +131,16 @@ public class profile_client extends Fragment {
                 }
             }
         });
-
         fetchData();
-        fetchprofilepicAndDisplay();
+        dialog.startLoadingDialog();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fetchprofilepicAndDisplay();
+                dialog.dismissDialog();
+            }
+        },1000);
+
         return view;
     }
 
@@ -237,10 +266,10 @@ public class profile_client extends Fragment {
                     String usertype = snapshot.child("userType").getValue().toString();
                     String birthdate = snapshot.child("birthdate").getValue().toString();
                     //=========displaying data into editexts===========
-                    firstname_edtxt.setText(firstname);
-                    lastname_edtxt.setText(lastname);
-                    gender_edtxt.setText(gender);
-                    birthdate_edtxt.setText(birthdate);
+                    firstname_txt.setText(firstname);
+                    lastname_txt.setText(lastname);
+                    gender_txt.setText(gender);
+                    birthdate_txt.setText(birthdate);
                     usertype_txt.setText(usertype);
                     uid_txt.setText(uid_data);
                 }
@@ -253,44 +282,76 @@ public class profile_client extends Fragment {
         }
     }
     public void updateData(){
-        String fname=firstname_edtxt.getText().toString().trim();
-        String lname=lastname_edtxt.getText().toString().trim();
-        String gender_txt=gender_edtxt.getText().toString().trim();
-        String birthdate_txt=birthdate_edtxt.getText().toString().trim();
-        String userType=usertype_txt.getText().toString().trim();
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        final View editprofilePopupView= getLayoutInflater().inflate(R.layout.updateprofile_plumber_popop, null);
 
-        if (fname.isEmpty()){
-            firstname_edtxt.setError("Firstname is Required");
-            firstname_edtxt.requestFocus();
-            return;
-        }
-        if (lname.isEmpty()){
-            lastname_edtxt.setError("Lastname is Required");
-            lastname_edtxt.requestFocus();
-            return;
-        }
-        if (gender_txt.isEmpty()){
-            gender_edtxt.setError("Gender is required");
-            gender_edtxt.requestFocus();
-            return;
-        }
-        if (birthdate_txt.isEmpty()){
-            birthdate_edtxt.setError("Birthdate is required");
-            birthdate_edtxt.requestFocus();
-            return;
-        }
+        //========== Initialize EditText======
+        firstname_edtxt = (EditText) editprofilePopupView.findViewById(R.id.firstname_editxt);
+        lastname_edtxt = (EditText) editprofilePopupView.findViewById(R.id.lastname_editxt);
+        birthdate_edtxt = (EditText) editprofilePopupView.findViewById(R.id.birthdate_editxt);
+        gender_edtxt = (EditText) editprofilePopupView.findViewById(R.id.gender_editxt);
 
-        updateClient clientUpdate= new updateClient(fname,lname,gender_txt,birthdate_txt,userType,emailAddress);
-        FirebaseDatabase.getInstance().getReference("USERS").child(uid_txt.getText().toString())
-                .setValue(clientUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(getActivity(), "Updated Successfully", Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getActivity(), "Update Failed", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+        //========= Initialize Button=====
+        updatebtn_popUp = (Button) editprofilePopupView.findViewById(R.id.update_clientbtn);
+        closebtn_popUp = (Button) editprofilePopupView.findViewById(R.id.close_btn);
+
+        //===== setting up view=====
+        dialogBuilder.setView(editprofilePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        closebtn_popUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        updatebtn_popUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //===================
+                String fname=firstname_edtxt.getText().toString().trim();
+                String lname=lastname_edtxt.getText().toString().trim();
+                String gender_txt=gender_edtxt.getText().toString().trim();
+                String birthdate_txt=birthdate_edtxt.getText().toString().trim();
+                String userType=usertype_txt.getText().toString().trim();
+
+                if (fname.isEmpty()){
+                    firstname_edtxt.setError("Firstname is Required");
+                    firstname_edtxt.requestFocus();
+                    return;
+                }
+                if (lname.isEmpty()){
+                    lastname_edtxt.setError("Lastname is Required");
+                    lastname_edtxt.requestFocus();
+                    return;
+                }
+                if (gender_txt.isEmpty()){
+                    gender_edtxt.setError("Gender is required");
+                    gender_edtxt.requestFocus();
+                    return;
+                }
+                if (birthdate_txt.isEmpty()){
+                    birthdate_edtxt.setError("Birthdate is required");
+                    birthdate_edtxt.requestFocus();
+                    return;
+                }
+
+                updateClient clientUpdate= new updateClient(fname,lname,gender_txt,birthdate_txt,userType,emailAddress);
+                FirebaseDatabase.getInstance().getReference("USERS").child(uid_txt.getText().toString())
+                        .setValue(clientUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+//                                    Toast.makeText(getActivity(), "Updated Successfully", Toast.LENGTH_LONG).show();
+                                }else {
+                                    Toast.makeText(getActivity(), "Update Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        });
+
     }
 }
