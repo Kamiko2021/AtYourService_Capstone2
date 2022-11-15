@@ -240,7 +240,7 @@
                     android:textColor="@color/black" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/RequestDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -249,7 +249,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#1df5ea"
-                    android:text="Submit Request"
+                    android:text="Request details"
                     android:textColor="@color/black" />
             </LinearLayout>
 

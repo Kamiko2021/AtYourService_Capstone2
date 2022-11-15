@@ -50,7 +50,7 @@ public class hiring_details extends AppCompatActivity {
 
     TextView firstname_hiring,lastname_hiring,status_hiring,latitude_hiring,longhitude_hiring,uid_hiring;
     TextView repairPipes,installPipes,unclogDrainage,unclogToilet,distance;
-    Button hireMe_button,concern_btn;
+    Button hireMe_button;
     DatabaseReference reff;
     String client_uid,Client_lat,Client_lng;
     WebView showMap;
@@ -94,7 +94,7 @@ public class hiring_details extends AppCompatActivity {
         profileImageView = (CircleImageView) findViewById(R.id.profileImg_plumber);
 
         //---------Buttons----------------
-        concern_btn=(Button) findViewById(R.id.service_concern);
+
         hireMe_button=(Button) findViewById(R.id.hireMe_btn);
 
         //----------initialize BottomNavigationView-----
@@ -127,34 +127,22 @@ public class hiring_details extends AppCompatActivity {
 
 
         //=====displaying text to textviews======
-        firstname_hiring.setText("LN: "+ firstname);
-        lastname_hiring.setText("FN: "+ lastname);
-        status_hiring.setText("STAT: "+ status);
-        latitude_hiring.setText ("Lat: "+ lat);
-        longhitude_hiring.setText("Lng: "+ lng);
-        uid_hiring.setText("uid: "+ uid);
-        //=========displaying show map to webview===
-        showMap = (WebView) findViewById(R.id.showMapLocation);
-        showMap.getSettings().setJavaScriptEnabled(true);
-        showMap.addJavascriptInterface(this, "android");
-        showMap.loadUrl("file:///android_asset/mapmarker.html");
-
+        firstname_hiring.setText(firstname);
+        lastname_hiring.setText(lastname);
+        status_hiring.setText(status);
+        latitude_hiring.setText (lat);
+        longhitude_hiring.setText(lng);
+        uid_hiring.setText(uid);
 
         //===========setting up event listeners==========
 
         hireMe_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferPlumberData();
-            }
-        });
-
-        concern_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 openPopup();
             }
         });
+
 
         //assigning data from textviews and save it to global variable strings
         uid_data=uid;
@@ -166,12 +154,7 @@ public class hiring_details extends AppCompatActivity {
                 getServiceFees();
             }
         }, 1000);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getClientLngLat();
-            }
-        }, 1500);
+        getClientLngLat();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -185,19 +168,21 @@ public class hiring_details extends AppCompatActivity {
             }
         }, 2500);
 
+        //=========displaying show map to webview===
+        showMap = (WebView) findViewById(R.id.showMapLocation);
+        showMap.getSettings().setJavaScriptEnabled(true);
+        showMap.addJavascriptInterface(this, "android");
+        showMap.loadUrl("file:///android_asset/mapmarker.html");
 
 
         //====code to hide hire button if the status is not vacant===
-        if (status.equals("vacant")){
-            hireMe_button.setEnabled(true);
-            Toast.makeText(hiring_details.this,"The Plumber is Vacant!",Toast.LENGTH_LONG).show();
-        }else if (status.equals("online")){
-            hireMe_button.setEnabled(true);
-            Toast.makeText(hiring_details.this,"The Plumber is already Hired!",Toast.LENGTH_LONG).show();
-        }else{
+        if (status.equals("offline")){
             hireMe_button.setEnabled(false);
+            Toast.makeText(hiring_details.this,"The Plumber is Offline!",Toast.LENGTH_LONG).show();
+        }else if (status.equals("online")) {
+            hireMe_button.setEnabled(true);
+            Toast.makeText(hiring_details.this, "The Plumber is Online!", Toast.LENGTH_LONG).show();
         }
-
     }
     //=======================displays profile picture from database...
     private void fetchprofilepicAndDisplay(String uid){
@@ -277,7 +262,7 @@ public class hiring_details extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(hiring_details.this, "concerns is set", Toast.LENGTH_LONG).show();
+                            transferPlumberData();
                         }else{
                             Toast.makeText(hiring_details.this, "concerns did not set", Toast.LENGTH_LONG).show();
                         }

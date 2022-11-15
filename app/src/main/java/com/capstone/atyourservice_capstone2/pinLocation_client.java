@@ -7,6 +7,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,24 +30,39 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class pinLocation_client extends AppCompatActivity {
 
     TextView firstname_txt,lastname_txt,status_txt,latitude_txt,longhitude_txt,uid_txt;
     TextView firstname_clientTxt,lastname_clientTxt,uid_clientTxt,longhitude_clientTxt,latitude_clientTxt,distance_txt,UserType_client,location_txt;
     WebView pinMap;
-    Button pinMap_btn;
+    Button pinMap_btn,reqDetailsbtn;
+    CircleImageView clientProfile,plumberProfile;
+    StorageReference displayStorageRef;
     DatabaseReference reff;
     String client_address;
+    //===== variable to save service Details ======
+    String services,concernmsgs,serviceCharge;
     public double lat_client,lng_client;
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-
+    //============= Pop-up initialization=========
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialog;
+    TextView plumberFname_popup,plumberLname_popup,plumberuid_popup,plumberLng_popup,
+    plumberLat_popup,plumberStat_popup,plumberRating_popup,plumberDistance_popup,plumberLocation_popup;
+    TextView clientFname,clientLname,clientuid,clientlat,clientlng;
+    TextView serviceTxt,concernmsgTxt,servicefeeTxt;
+    Button submitReqBtn,closeBtn;
 
 
     @Override
@@ -68,10 +87,21 @@ public class pinLocation_client extends AppCompatActivity {
         UserType_client=(TextView) findViewById(R.id.ClientUserType_txt);
         location_txt=(TextView) findViewById(R.id.location_address);
 
+        //===== initializing circle image view==========
+        clientProfile = (CircleImageView) findViewById(R.id.profileImg_client);
+        plumberProfile = (CircleImageView) findViewById(R.id.profileImg_plumber);
 
         //=====pinMap buttn ==============
         pinMap_btn = (Button) findViewById(R.id.pinClientlocation_btn);
+        reqDetailsbtn = (Button) findViewById(R.id.RequestDetails);
 
+
+        reqDetailsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestDetailsPopup();
+            }
+        });
 
         pinMap_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,8 +150,171 @@ public class pinLocation_client extends AppCompatActivity {
 
 
         fetchData();
+        fetchprofilepicAndDisplay(uid_plumber,"Plumber");
+        fetchprofilepicAndDisplay(uid_clientTxt.getText().toString().trim(), "Client");
 
 
+    }
+    public void requestDetailsPopup(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        View requestDetailsView= getLayoutInflater().inflate(R.layout.submission_details, null);
+
+        //====== Plumber TextView Initialization=====
+        plumberuid_popup=(TextView) requestDetailsView.findViewById(R.id.plumber_uid);
+        plumberuid_popup.setText(uid_txt.getText().toString().trim());
+        String Puid=uid_txt.getText().toString().trim();
+
+        plumberFname_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_fname);
+        plumberFname_popup.setText(firstname_txt.getText().toString());
+        String Pfirstname=firstname_txt.getText().toString();
+
+        plumberLname_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_lname);
+        plumberLname_popup.setText(lastname_txt.getText().toString());
+        String Plastname=lastname_txt.getText().toString();
+
+        plumberLng_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_lng);
+        plumberLng_popup.setText(longhitude_txt.getText().toString());
+        String Plng=longhitude_txt.getText().toString();
+
+        plumberLat_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_lat);
+        plumberLat_popup.setText(latitude_txt.getText().toString());
+        String Plat=latitude_txt.getText().toString();
+
+        plumberStat_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_stat);
+        plumberStat_popup.setText(status_txt.getText().toString());
+        String Pstat=status_txt.getText().toString();
+
+        plumberRating_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_rating);
+        plumberDistance_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_distance);
+        plumberDistance_popup.setText(distance_txt.getText().toString());
+        String Pdist=distance_txt.getText().toString();
+
+        plumberLocation_popup = (TextView) requestDetailsView.findViewById(R.id.plumber_location);
+        plumberLocation_popup.setText(location_txt.getText().toString());
+        String Llocation=location_txt.getText().toString();
+
+        //======== Client TextView Initialization =========
+        clientuid = (TextView) requestDetailsView.findViewById(R.id.client_uid);
+        clientuid.setText(uid_clientTxt.getText().toString().trim());
+        String Cuid=uid_clientTxt.getText().toString().trim();
+
+        clientFname = (TextView) requestDetailsView.findViewById(R.id.client_fname);
+        clientFname.setText(firstname_clientTxt.getText().toString());
+        String Cfirstname=firstname_clientTxt.getText().toString();
+
+        clientLname = (TextView) requestDetailsView.findViewById(R.id.client_lname);
+        clientLname.setText(lastname_clientTxt.getText().toString());
+        String Clastname =lastname_clientTxt.getText().toString();
+
+        clientlng = (TextView) requestDetailsView.findViewById(R.id.client_lng);
+        clientlng.setText(longhitude_clientTxt.getText().toString());
+        String Clng=longhitude_clientTxt.getText().toString();
+
+        clientlat = (TextView) requestDetailsView.findViewById(R.id.client_lat);
+        clientlat.setText(latitude_clientTxt.getText().toString());
+        String Clat=latitude_clientTxt.getText().toString();
+
+        //===== initializing submit Request button======
+        submitReqBtn = (Button) requestDetailsView.findViewById(R.id.submitRequest);
+        closeBtn = (Button) requestDetailsView.findViewById(R.id.closebtn);
+
+        //====== initializing and displaying concerns =============
+        serviceTxt = (TextView) requestDetailsView.findViewById(R.id.servicedata);
+        concernmsgTxt = (TextView) requestDetailsView.findViewById(R.id.concernmsgdata);
+        servicefeeTxt = (TextView) requestDetailsView.findViewById(R.id.servicefeedata);
+
+
+
+        reff = FirebaseDatabase.getInstance().getReference().child("concerns").child(uid_clientTxt.getText().toString().trim());
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String concern=snapshot.child("concerns").getValue().toString();
+                String service=snapshot.child("service").getValue().toString();
+                serviceTxt.setText(service);
+                services = service;
+                concernmsgTxt.setText(concern);
+                concernmsgs=concern;
+
+             reff = FirebaseDatabase.getInstance().getReference().child("service")
+                     .child(uid_txt.getText().toString().trim());
+             reff.addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String fee;
+                     if (service.equals("UnclogDrainage")){
+                         fee= snapshot.child("UnclogDrainage").getValue().toString();
+                         servicefeeTxt.setText(fee);
+                         serviceCharge = fee;
+                     } else if (service.equals("UnclogToilet")){
+                         fee = snapshot.child("UnclogToilet").getValue().toString();
+                         servicefeeTxt.setText(fee);
+                         serviceCharge = fee;
+                     } else if (service.equals("InstallPipes")){
+                         fee = snapshot.child("InstallPipes").getValue().toString();
+                         servicefeeTxt.setText(fee);
+                         serviceCharge = fee;
+                     }else if (service.equals("RepairPipes")){
+                         fee = snapshot.child("RepairPipes").getValue().toString();
+                         servicefeeTxt.setText(fee);
+                         serviceCharge = fee;
+                     }
+
+                 }
+
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError error) {
+
+                 }
+             });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        submitReqBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(pinLocation_client.this, transactions_client.class);
+                //======= Client data transfer=======
+                intent.putExtra("client_uid", Cuid);
+                intent.putExtra("client_firstname", Cfirstname);
+                intent.putExtra("client_lastname", Clastname);
+                intent.putExtra("client_longhitude", Clng);
+                intent.putExtra("client_latitude", Clat);
+
+                //======== Plumber data transfer ====
+                intent.putExtra("plumber_uid", Puid);
+                intent.putExtra("plumber_firstname", Pfirstname);
+                intent.putExtra("plumber_lastname", Plastname);
+                intent.putExtra("plumber_longhitude", Plng);
+                intent.putExtra("plumber_latitude", Plat);
+                intent.putExtra("plumber_status", Pstat);
+                intent.putExtra("plumber_distance", Pdist);
+                intent.putExtra("plumber_location", Llocation);
+
+                //======= Service Transaction =====
+                intent.putExtra("service_servicetrans", services);
+                intent.putExtra("service_concernmsgs", concernmsgs);
+                intent.putExtra("service_fee", serviceCharge);
+                startActivity(intent);
+            }
+        });
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        //===== setting up view=====
+        dialogBuilder.setView(requestDetailsView);
+        dialog = dialogBuilder.create();
+        dialog.show();
     }
     public void fetchData(){
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
@@ -155,6 +348,14 @@ public class pinLocation_client extends AppCompatActivity {
 
                          lat_client=Double.parseDouble(lat);
                          lng_client=Double.parseDouble(lng);
+
+                         //===== distance from of client and plumber===
+                         double plumLat=Double.parseDouble(latitude_txt.getText().toString());
+                         double plumLng=Double.parseDouble(longhitude_txt.getText().toString());
+                         double dist=distance(lat_client,lng_client,plumLat,plumLng)/0.621371;
+                         distance_txt.setText(String.format("%.3f", dist)+" km");
+
+                         getLocationAddress();
                      }
 
                      @Override
@@ -205,7 +406,6 @@ public class pinLocation_client extends AppCompatActivity {
         Toast.makeText(this, ""+city+", "+state+", "+country+", "+postalCode+", "+ knownName, Toast.LENGTH_LONG).show();
 
     }
-
     public void saveNewlocation(){
         String client_uid= uid_clientTxt.getText().toString();
         locationData location_data=new locationData(""+lat_client,""+lng_client);
@@ -221,7 +421,57 @@ public class pinLocation_client extends AppCompatActivity {
                     }
                 });
     }
+    //=======================displays profile picture from database...
+    private void fetchprofilepicAndDisplay(String uid, String userType){
+        try {
+            reff = FirebaseDatabase.getInstance().getReference().child("uploads").child(uid);
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String profile = snapshot.child("ProfilePicture").getValue().toString();
 
+                    displayStorageRef = FirebaseStorage.getInstance().getReference().child("uploads/"+ profile);
+
+                    try {
+                        final File localFile = File.createTempFile(profile, "jpg");
+                        displayStorageRef.getFile(localFile)
+                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                                        if (userType.equals("Plumber")){
+                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                            plumberProfile.setImageBitmap(bitmap);
+                                        } else if (userType.equals("Client")){
+                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                            clientProfile.setImageBitmap(bitmap);
+                                        }
+//                                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                                        profileImageView.setImageBitmap(bitmap);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception e){
+//            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     @JavascriptInterface
     public void setLng(double lng,double lat){

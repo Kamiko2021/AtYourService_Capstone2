@@ -43,7 +43,6 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "position"+ position, Toast.LENGTH_LONG).show();
                 Intent intent= new Intent(context, hiring_details.class);
                 intent.putExtra("firstname", list.get(position).getFirstname());
                 intent.putExtra("lastname", list.get(position).getLastname());
