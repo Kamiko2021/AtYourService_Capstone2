@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -182,6 +183,13 @@ public class ClientLogin extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     logging.setVisibility(View.GONE);
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ClientLogin.this, "Log-In fail, please check your internet or log-in credentials", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+                logging.setVisibility(View.GONE);
             }
         });
 

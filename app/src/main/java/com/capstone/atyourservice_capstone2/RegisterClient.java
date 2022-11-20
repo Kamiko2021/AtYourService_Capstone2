@@ -171,6 +171,7 @@ public class RegisterClient extends AppCompatActivity {
                                     Toast.makeText(RegisterClient.this, "default profile uploaded",Toast.LENGTH_LONG).show();
                                 }
                             });
+
                 }
 
 

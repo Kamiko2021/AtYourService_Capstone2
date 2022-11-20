@@ -24,7 +24,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#dcf4fb">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImg_plumber"
@@ -173,7 +174,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="#dcf4fb">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profileImg_client"
@@ -284,7 +286,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="#dcf4fb">
 
                 <TextView
                     android:id="@+id/transaction_details"
@@ -481,6 +484,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:backgroundTint="#1467d3"
                     android:text="accept" />
 
             </LinearLayout>

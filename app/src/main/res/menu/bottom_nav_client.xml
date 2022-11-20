@@ -10,4 +10,7 @@
     <item android:title=""
         android:icon="@drawable/ic_baseline_location_on_24"
         android:id="@+id/search_client"/>
+    <item android:title=""
+        android:icon="@drawable/signout_final"
+        android:id="@+id/signout_client"/>
 </menu>

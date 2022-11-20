@@ -24,7 +24,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="#134d4d"
+                android:backgroundTint="#1467d3"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -60,7 +60,7 @@
                             android:id="@+id/Firstname_htv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="firstname"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
 
@@ -68,7 +68,7 @@
                             android:id="@+id/Lastname_htv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="lastname"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
 
@@ -84,7 +84,7 @@
                             android:id="@+id/status_htv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="status"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
 
@@ -92,9 +92,30 @@
                             android:id="@+id/distance_txt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="distance"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/rateStarTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:text="*" />
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_star_rate" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/latitude_htv"
@@ -127,7 +148,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="#1159BC"
+                android:backgroundTint="#1467d3"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -168,7 +189,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:text="price:"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -195,7 +216,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:text="price:"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -222,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:text="price:"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -250,7 +271,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:text="price:"
+                            android:text="*"
                             android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -275,9 +296,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:backgroundTint="#369EFC"
+                android:backgroundTint="#1467d3"
                 android:text="HIRE ME"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView

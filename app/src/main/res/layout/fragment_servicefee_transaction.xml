@@ -29,7 +29,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#134d4d"
+                    android:background="#1467d3"
                     android:orientation="vertical">
 
 
@@ -50,7 +50,8 @@
                         android:layout_gravity="center"
                         android:text="TextView"
                         android:textColor="@color/white"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/plumberFirstname_txtview"
@@ -72,7 +73,8 @@
                         android:text="*"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
 
 
                 </LinearLayout>
@@ -205,9 +207,9 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1df5ea"
+                    android:backgroundTint="#1467d3"
                     android:text="SET SERVICE FEE"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <Button
@@ -218,9 +220,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1df5ea"
+                    android:backgroundTint="#1467d3"
                     android:text="START WAITING FOR CLIENTS"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>
 

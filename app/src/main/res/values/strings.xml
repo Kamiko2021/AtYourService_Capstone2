@@ -24,6 +24,11 @@
         <item>RepairPipes</item>
     </string-array>
 
+    <string-array name="choosepayment">
+        <item>paypal</item>
+        <item>cash</item>
+    </string-array>
+
 
     <string name="mapbox_access_token">pk.eyJ1Ijoia2FybG1pY2hhZWxsb3BlejIwMjIiLCJhIjoiY2w5MjhwZHloMGltNzN6bGM4aHcxcW5zMiJ9.MN_DMX3yYW1XCpieBjDBoA</string>
 </resources>

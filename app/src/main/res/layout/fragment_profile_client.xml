@@ -20,7 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#124de3"
+                android:background="#1467d3"
                 android:orientation="vertical"
                 android:scrollbarAlwaysDrawHorizontalTrack="true">
 
@@ -77,9 +77,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1df5ea"
+                    android:backgroundTint="#1467d3"
                     android:text="choose picture"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <Button
@@ -88,9 +88,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#f56505"
+                    android:backgroundTint="#1467d3"
                     android:text="upload"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -218,9 +218,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1df5ea"
+                    android:backgroundTint="#1467d3"
                     android:text="edit"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
             </LinearLayout>

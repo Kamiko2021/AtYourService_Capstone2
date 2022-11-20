@@ -7,7 +7,7 @@
     app:cardCornerRadius="8dp"
     android:layout_margin="16dp"
     android:id="@+id/notifcardview"
-    android:backgroundTint="#81c4f6">
+    android:backgroundTint="#1467d3">
 
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="date" />
@@ -30,7 +30,7 @@
             android:id="@+id/firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="firstname"/>
@@ -38,7 +38,7 @@
             android:id="@+id/lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="lastname"/>
@@ -46,7 +46,7 @@
             android:id="@+id/client_uniqueID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="uid"/>
@@ -54,7 +54,7 @@
             android:id="@+id/serviceRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="serviceRequest"/>
@@ -63,7 +63,7 @@
             android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="distance"/>
@@ -71,7 +71,7 @@
             android:id="@+id/location_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="address"/>

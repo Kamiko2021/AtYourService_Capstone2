@@ -171,6 +171,17 @@ public class ApplyPlumber extends AppCompatActivity {
                                                     Toast.makeText(ApplyPlumber.this, "default profile uploaded",Toast.LENGTH_LONG).show();
                                                 }
                                             });
+                                    FirebaseDatabase.getInstance().getReference("Rating").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .child("starRating").setValue("3")
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()){
+                                                        Toast.makeText(ApplyPlumber.this, "Rated successfully!" , Toast.LENGTH_LONG).show();
+//                                        dialog.dismiss();
+                                                    }
+                                                }
+                                            });
                                 }
                             });
 

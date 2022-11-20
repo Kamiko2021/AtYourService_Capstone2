@@ -1,6 +1,7 @@
 package com.capstone.atyourservice_capstone2;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +12,14 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,12 +57,25 @@ public class transactions_client extends AppCompatActivity {
     TextView plumberUid_txt,plumberFullname_txt,plumberLng_txt,plumberLat_txt,plumberStat_txt,plumberDist_txt,plumberLocation_txt;
     //===== Client Textviews initialization =======
     TextView clientFirstname_txt,clientLastname_txt,clientUid_txt,clientLat_txt,clientLng_txt,addressTxt;
+    Button requestBtn;
     //====== Transaction TexViews initialization ====
     TextView service_txt,concernmsg_txt,servicefee_txt,transactionfee_txt,total_txt;
     WebView transaction_map;
     DatabaseReference reff;
     StorageReference displayStorageRef;
     LoadingDialog loading=new LoadingDialog(transactions_client.this);
+    //alert dialog box popup
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialog;
+    //confirm payment details
+    Spinner chooseSpinner;
+    EditText paymentValEdtxt;
+    Button confimPay;
+    WebView paypalPaymentWebview;
+    //rate user
+    RatingBar ratingBar;
+    Button rateBtn;
+    int plumberRate;
 
 
     @Override
@@ -86,6 +106,7 @@ public class transactions_client extends AppCompatActivity {
         servicefee_txt = (TextView) findViewById(R.id.servicefeeData);
         transactionfee_txt = (TextView) findViewById(R.id.transactionFeedata);
         total_txt = (TextView) findViewById(R.id.totaldata);
+        requestBtn = (Button) findViewById(R.id.paymentBtn);
 
 
         Intent intent=getIntent();
@@ -135,7 +156,7 @@ public class transactions_client extends AppCompatActivity {
         concernmsg_txt.setText(concernmsg_data);
         servicefee_data = intent.getExtras().getString("service_fee");
         servicefee_txt.setText(servicefee_data);
-        double transFee=Double.parseDouble(servicefee_data) * 0.10;
+        double transFee=Double.parseDouble(servicefee_data) * 0.0;
         double totalFee=transFee + Double.parseDouble(servicefee_data);
         transactionfee_data = ""+ transFee;
         transactionfee_txt.setText(transactionfee_data);
@@ -150,6 +171,14 @@ public class transactions_client extends AppCompatActivity {
         transaction_map.addJavascriptInterface(this, "android");
         transaction_map.loadUrl("file:///android_asset/mapmarker.html");
 
+        //----- button OnClickListener------
+        requestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paymentPopUp();
+            }
+        });
+
         //------ displaying client's address
 
         //--- saving data transaction data into database---
@@ -160,10 +189,110 @@ public class transactions_client extends AppCompatActivity {
                 fetchprofilepicAndDisplay(plumber_uid);
                 savedTransaction();
             }
-        },3000);
+        },5000);
 
 
     }
+    //alert dialogPopUp method
+    public void paymentPopUp(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        View payment=getLayoutInflater().inflate(R.layout.payment_details,null);
+
+        //==Spinner initialization===
+        chooseSpinner=(Spinner) payment.findViewById(R.id.paymentSpinner);
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(transactions_client.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.choosepayment));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        chooseSpinner.setAdapter(myAdapter);
+
+        //payment editxt initialization
+        paymentValEdtxt =(EditText) payment.findViewById(R.id.paymentEditxt);
+        confimPay = (Button) payment.findViewById(R.id.confirmPaybtn);
+
+        //==WebView initialization==
+        paypalPaymentWebview=(WebView) payment.findViewById(R.id.paypalPayment);
+        paypalPaymentWebview.getSettings().setJavaScriptEnabled(true);
+        paypalPaymentWebview.addJavascriptInterface(this, "android");
+        paypalPaymentWebview.loadUrl("file:///android_asset/paypal.html");
+
+        //===== setting up view=====
+        dialogBuilder.setView(payment);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        confimPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                ratePlumber();
+            }
+        });
+    }
+
+    //rate plumber popUp
+    public void ratePlumber(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        View rate=getLayoutInflater().inflate(R.layout.rate_user, null);
+
+        ratingBar = (RatingBar) rate.findViewById(R.id.ratePlumber);
+        rateBtn = (Button) rate.findViewById(R.id.ratebtn);
+
+        //===== setting up view=====
+        dialogBuilder.setView(rate);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+
+                int rating= (int) v;
+                String message=null;
+
+                plumberRate = (int) ratingBar.getRating();
+
+                switch (rating){
+                    case 1:
+                        message = "Poor Performance";
+                        break;
+                    case 2:
+                        message = "Barely Accepted Performance";
+                        break;
+                    case 3:
+                        message = "Good Performance";
+                        break;
+                    case 4:
+                        message = "Excellent Performance";
+                        break;
+                    case 5:
+                        message = "Outstanding Performace";
+                        break;
+
+                }
+                Toast.makeText(transactions_client.this, message, Toast.LENGTH_LONG).show();
+
+
+                rateBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseDatabase.getInstance().getReference("Rating").child(plumber_uid).child("starRating").setValue(plumberRate)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()){
+                                            Toast.makeText(transactions_client.this, "Rated successfully!" , Toast.LENGTH_LONG).show();
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
+                    }
+                });
+            }
+        });
+    }
+
     //==== generating address
     public String getLocationAddress(String lat, String lng){
         Geocoder geocoder;
@@ -258,7 +387,7 @@ public class transactions_client extends AppCompatActivity {
         notificationPlumberData notifPlum=new notificationPlumberData(Client_uid,service_data,plumber_distance,addressTxt.getText().toString(),
                 dateNow, Client_firstname, Client_lastname);
 
-        FirebaseDatabase.getInstance().getReference("notification_plumber").child(plumber_uid).child(""+randomNumber).setValue(notifPlum)
+        FirebaseDatabase.getInstance().getReference("notification_plumber").child(plumber_uid).child(dateNow).setValue(notifPlum)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -291,9 +420,13 @@ public class transactions_client extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 //                                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                        plumberProfilePix.setImageBitmap(bitmap);
+                                    } catch (Exception e){
+                                        Toast.makeText(transactions_client.this, "profile display err"+e.toString(),Toast.LENGTH_LONG).show();
+                                    }
 
-                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                            plumberProfilePix.setImageBitmap(bitmap);
 
                                     }
                                 })

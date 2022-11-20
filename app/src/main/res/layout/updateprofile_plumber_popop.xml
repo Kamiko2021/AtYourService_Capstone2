@@ -129,9 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6dp"
                 android:layout_weight="1"
-                android:backgroundTint="#1df5ea"
+                android:backgroundTint="#1467d3"
                 android:text="UPDATE"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <Button
@@ -140,9 +140,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6dp"
                 android:layout_weight="1"
-                android:backgroundTint="#1df5ea"
+                android:backgroundTint="#1467d3"
                 android:text="close"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
         </LinearLayout>

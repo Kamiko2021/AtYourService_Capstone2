@@ -55,7 +55,7 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
                 android:layout_weight="1"
-                android:backgroundTint="#115a5f"
+                android:backgroundTint="#1467d3"
                 android:text="LOG-IN"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -69,7 +69,7 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
                 android:layout_weight="1"
-                android:backgroundTint="#F44336"
+                android:backgroundTint="#1467d3"
                 android:text="Register"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -92,15 +92,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
+
         <TextView
             android:id="@+id/LoggingIn_client"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="PROCESSING...."
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:text="PROCESSING...."
-            android:visibility="gone"
-            android:layout_gravity="center"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 

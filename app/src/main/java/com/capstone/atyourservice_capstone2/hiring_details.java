@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -48,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class hiring_details extends AppCompatActivity {
 
-    TextView firstname_hiring,lastname_hiring,status_hiring,latitude_hiring,longhitude_hiring,uid_hiring;
+    TextView firstname_hiring,lastname_hiring,status_hiring,latitude_hiring,longhitude_hiring,uid_hiring,ratingTxt;
     TextView repairPipes,installPipes,unclogDrainage,unclogToilet,distance;
     Button hireMe_button;
     DatabaseReference reff;
@@ -91,6 +92,7 @@ public class hiring_details extends AppCompatActivity {
         unclogDrainage = (TextView) findViewById(R.id.unclogDrainage_txt);
         unclogToilet = (TextView) findViewById(R.id.unclogToilet_txt);
         distance=(TextView) findViewById(R.id.distance_txt);
+        ratingTxt=(TextView) findViewById(R.id.rateStarTxt);
         profileImageView = (CircleImageView) findViewById(R.id.profileImg_plumber);
 
         //---------Buttons----------------
@@ -164,6 +166,7 @@ public class hiring_details extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                getRating();
                loadingDialog.dismissDialog();
             }
         }, 2500);
@@ -177,13 +180,35 @@ public class hiring_details extends AppCompatActivity {
 
         //====code to hide hire button if the status is not vacant===
         if (status.equals("offline")){
-            hireMe_button.setEnabled(false);
+            hireMe_button.setVisibility(View.GONE);
+            status_hiring.setTextColor(Color.parseColor("#ff0000"));
             Toast.makeText(hiring_details.this,"The Plumber is Offline!",Toast.LENGTH_LONG).show();
         }else if (status.equals("online")) {
-            hireMe_button.setEnabled(true);
+            hireMe_button.setVisibility(View.VISIBLE);
+            status_hiring.setTextColor(Color.parseColor("#09ff00"));
             Toast.makeText(hiring_details.this, "The Plumber is Online!", Toast.LENGTH_LONG).show();
         }
+
+
     }
+    //===== fetching rating in database
+    private void getRating(){
+       reff = FirebaseDatabase.getInstance().getReference().child("Rating").child(uid_data);
+       reff.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rating=snapshot.child("starRating").getValue().toString();
+
+               ratingTxt.setText(rating);
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+
+           }
+       });
+    }
+
     //=======================displays profile picture from database...
     private void fetchprofilepicAndDisplay(String uid){
         try {
@@ -333,33 +358,39 @@ public class hiring_details extends AppCompatActivity {
 
     //=====this function will fetch client uid and location latlng====
     public void getClientLngLat(){
-        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-        if (user!=null){
-            client_uid=user.getUid();
-            reff = FirebaseDatabase.getInstance().getReference().child("locations").child(client_uid);
-            reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String latitude=snapshot.child("lat").getValue().toString();
-                    String longhitude=snapshot.child("lng").getValue().toString();
-                    Client_lat=latitude;
-                    Client_lng=longhitude;
+        try {
+            FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+            if (user!=null){
+                client_uid=user.getUid();
+                reff = FirebaseDatabase.getInstance().getReference().child("locations").child(client_uid);
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String latitude=snapshot.child("lat").getValue().toString();
+                        String longhitude=snapshot.child("lng").getValue().toString();
+                        Client_lat=latitude;
+                        Client_lng=longhitude;
 
-                    //====== here calculation for distance======
-                    double dist=distance(Double.parseDouble(latitude),Double.parseDouble(longhitude),
-                            Double.parseDouble(plumber_lat),
-                            Double.parseDouble(plumber_lng))/0.621371;
-                    distance.setText(String.format("%.3f", dist)+" km");
+                        //====== here calculation for distance======
+                        double dist=distance(Double.parseDouble(latitude),Double.parseDouble(longhitude),
+                                Double.parseDouble(plumber_lat),
+                                Double.parseDouble(plumber_lng))/0.621371;
+                        distance.setText(String.format("%.3f", dist)+" km");
 
 
-                }
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    }
+                });
+            }
+
+        }catch (Exception e){
+            Toast.makeText(hiring_details.this, "something went wrong", Toast.LENGTH_LONG).show();
         }
+
     }
         @JavascriptInterface
         public double getLnglat(int a){

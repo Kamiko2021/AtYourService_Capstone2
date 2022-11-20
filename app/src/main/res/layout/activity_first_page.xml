@@ -31,7 +31,8 @@
             android:layout_marginTop="40sp"
             android:layout_marginRight="15sp"
             android:layout_weight="1"
-            android:text="Plumbers" />
+            android:text="Plumbers"
+            android:backgroundTint="#1467d3"/>
 
         <Button
             android:id="@+id/Client_firstpage"
@@ -42,7 +43,8 @@
             android:layout_marginTop="40sp"
             android:layout_marginRight="20sp"
             android:layout_weight="1"
-            android:text="Client" />
+            android:text="Client"
+            android:backgroundTint="#1467d3"/>
     </LinearLayout>
 
 </LinearLayout>

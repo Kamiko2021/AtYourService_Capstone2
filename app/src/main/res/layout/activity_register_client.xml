@@ -108,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40sp"
                 android:layout_marginEnd="40sp"
-                android:text="@string/submit_btn" />
+                android:text="@string/submit_btn"
+                android:backgroundTint="#1467d3"/>
 
             <ProgressBar
                 android:id="@+id/progressBar_clientReg"

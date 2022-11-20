@@ -18,7 +18,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#124de3"
+        android:backgroundTint="#1467d3"
         app:cardCornerRadius="12dp">
 
 
@@ -81,7 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#dcf4fb">
 
             <LinearLayout
                 android:layout_width="match_parent"
