@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class client_searchActivity extends AppCompatActivity {
 
@@ -37,6 +39,11 @@ public class client_searchActivity extends AppCompatActivity {
                         break;
                     case R.id.search_client:
                         replaceFragment(new client_searchPlumber());
+                        break;
+                    case R.id.signout_client:
+                        FirebaseAuth.getInstance().signOut();
+                        Intent prof=new Intent(client_searchActivity.this, ClientLogin.class);
+                        startActivity(prof);
                         break;
 
                 }

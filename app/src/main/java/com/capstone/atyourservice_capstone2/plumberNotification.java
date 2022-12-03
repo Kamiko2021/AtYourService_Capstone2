@@ -1,5 +1,6 @@
 package com.capstone.atyourservice_capstone2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.LinkedHashSet;
 
 
 public class plumberNotification extends Fragment {
@@ -46,15 +51,21 @@ public class plumberNotification extends Fragment {
         notifAdapter = new notifadapter(getActivity(),list);
         recyclerView.setAdapter(notifAdapter);
 
+
+
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
                     notifdata notif=dataSnapshot.getValue(notifdata.class);
                     list.add(notif);
+
                 }
-            notifAdapter.notifyDataSetChanged();
+
+                notifAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -63,6 +74,10 @@ public class plumberNotification extends Fragment {
             }
         });
 
+
         return view;
     }
+
+
+
 }

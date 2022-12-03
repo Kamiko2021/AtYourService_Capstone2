@@ -1,7 +1,6 @@
 package com.capstone.atyourservice_capstone2;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -32,54 +30,33 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
+public class chatAdapter extends RecyclerView.Adapter<chatAdapter.MyViewHolder>{
 
     Context context;
-    ArrayList<userCardviewData> list;
+    ArrayList<chatData> list;
     StorageReference displayStorageRef;
     DatabaseReference reff;
 
-    public myAdapter(Context context, ArrayList<userCardviewData> list) {
-        this.context = context;
+    public chatAdapter(Context context, ArrayList<chatData> list) {
+        this.context=context;
         this.list = list;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(context).inflate(R.layout.card_view,parent,false);
-        return new MyViewHolder(v);
+        View view= LayoutInflater.from(context).inflate(R.layout.chat_box,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        holder.setIsRecyclable(false);
-        userCardviewData user=list.get(position);
-        holder.firstname.setText(user.getFirstname());
-        holder.lastname.setText(user.getLastname());
-        holder.status.setText(user.getStatus());
-        if (user.getStatus().equals("offline")){
-            holder.status.setTextColor(Color.parseColor("#ff0000"));
-        }else if (user.getStatus().equals("online")){
-            holder.status.setTextColor(Color.parseColor("#09ff00"));
-        }
-        holder.longhitude.setText(user.getLonghitude());
-        holder.latitude.setText(user.getLatitude());
-        holder.uid.setText(user.getUid());
-        fetchprofilepicAndDisplay(list.get(position).getUid(), "Plumber", holder.profilePix);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(context, hiring_details.class);
-                intent.putExtra("firstname", list.get(position).getFirstname());
-                intent.putExtra("lastname", list.get(position).getLastname());
-                intent.putExtra("status", list.get(position).getStatus());
-                intent.putExtra("latitude", list.get(position).getLatitude());
-                intent.putExtra("longhitude", list.get(position).getLonghitude());
-                intent.putExtra("uid", list.get(position).getUid());
-                context.startActivity(intent);
-            }
-        });
+        chatData chat=list.get(position);
+        holder.message_data.setText(chat.getMsgs());
+        fetchprofilepicAndDisplay(list.get(position).getSender_uid(), holder.senderProfile);
+        holder.sender_uid.setText(chat.getSender_uid());
+        holder.date.setText(chat.getDateNow());
+
     }
 
     @Override
@@ -88,30 +65,22 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView firstname,lastname,status,longhitude,latitude,uid;
-        CircleImageView profilePix;
-        CardView cardView;
+        TextView message_data,date,sender_uid;
+        CircleImageView senderProfile;
+        CardView chatbox;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
-
-            profilePix = itemView.findViewById(R.id.searchprofImg_plumber);
-            firstname = itemView.findViewById(R.id.Firstname_Ctv);
-            lastname = itemView.findViewById(R.id.Lastname_Ctv);
-            status = itemView.findViewById(R.id.status_Ctv);
-            longhitude = itemView.findViewById(R.id.longhitude_Ctv);
-            latitude = itemView.findViewById(R.id.latitude_Ctv);
-            uid = itemView.findViewById(R.id.uid_Ctv);
-            cardView = itemView.findViewById(R.id.cardView);
-
+            message_data = itemView.findViewById(R.id.message);
+            sender_uid = itemView.findViewById(R.id.uid_sender);
+            date=itemView.findViewById(R.id.date_now);
+            senderProfile=itemView.findViewById(R.id.chatprofilepix);
 
         }
     }
 
     //=======================displays profile picture from database...
-    private void fetchprofilepicAndDisplay(String uid, String userType, CircleImageView profpix){
+    private void fetchprofilepicAndDisplay(String uid, CircleImageView profpix){
         try {
             reff = FirebaseDatabase.getInstance().getReference().child("uploads").child(uid);
             reff.addValueEventListener(new ValueEventListener() {
@@ -129,13 +98,10 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
                                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 //                                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
-                                        if (userType.equals("Plumber")){
+
                                             Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                                             profpix.setImageBitmap(bitmap);
-                                        } else if (userType.equals("Client")){
-                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                            profpix.setImageBitmap(bitmap);
-                                        }
+
 //                                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
 //                                        profileImageView.setImageBitmap(bitmap);
                                     }

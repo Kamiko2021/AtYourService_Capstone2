@@ -7,14 +7,31 @@
     android:orientation="vertical"
     tools:context=".SecondPage_plumber" >
 
+    <TextView
+        android:id="@+id/signOut_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#359cfa"
+        android:drawableRight="@drawable/common_full_open_on_phone"
+        android:text="LOG-OUT"
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:id="@+id/plumber_framelayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav_plumber"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/signOut_txt"
+        app:layout_constraintVertical_bias="1.0">
 
     </FrameLayout>
 

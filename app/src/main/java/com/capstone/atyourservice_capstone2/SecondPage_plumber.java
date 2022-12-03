@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,7 @@ public class SecondPage_plumber extends AppCompatActivity {
 
     BottomNavigationView bottomNavi;
     DatabaseReference reff;
+    TextView signOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class SecondPage_plumber extends AppCompatActivity {
 
         bottomNavi = (BottomNavigationView) findViewById(R.id.bottomNav_plumber);
         replaceFragment(new home_plumberFragment());
+        signOut=(TextView)  findViewById(R.id.signOut_txt);
         bottomNavi.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
@@ -55,6 +59,13 @@ public class SecondPage_plumber extends AppCompatActivity {
                         signOut();
                         break;
                 }
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
             }
         });
     }
@@ -79,7 +90,7 @@ public class SecondPage_plumber extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
                                             Toast.makeText(SecondPage_plumber.this, "logged out successfully", Toast.LENGTH_LONG).show();
-                                            Intent prof=new Intent(SecondPage_plumber.this, FirstPage.class);
+                                            Intent prof=new Intent(SecondPage_plumber.this, ClientLogin.class);
                                             startActivity(prof);
                                         }else {
                                             Toast.makeText(SecondPage_plumber.this, "something went wrong :(", Toast.LENGTH_LONG).show();

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -86,6 +88,7 @@ public class pinLocation_client extends AppCompatActivity {
         distance_txt=(TextView) findViewById(R.id.dist_txt);
         UserType_client=(TextView) findViewById(R.id.ClientUserType_txt);
         location_txt=(TextView) findViewById(R.id.location_address);
+
 
         //===== initializing circle image view==========
         clientProfile = (CircleImageView) findViewById(R.id.profileImg_client);
@@ -153,6 +156,11 @@ public class pinLocation_client extends AppCompatActivity {
         fetchprofilepicAndDisplay(uid_plumber,"Plumber");
         fetchprofilepicAndDisplay(uid_clientTxt.getText().toString().trim(), "Client");
 
+        if (status_txt.getText().toString().equals("offline")){
+            status_txt.setTextColor(Color.parseColor("#ff0000"));
+        }else if (status_txt.getText().toString().equals("online")){
+            status_txt.setTextColor(Color.parseColor("#09ff00"));
+        }
 
     }
     public void requestDetailsPopup(){
@@ -301,6 +309,8 @@ public class pinLocation_client extends AppCompatActivity {
                 intent.putExtra("service_concernmsgs", concernmsgs);
                 intent.putExtra("service_fee", serviceCharge);
                 startActivity(intent);
+
+
             }
         });
 
@@ -355,7 +365,7 @@ public class pinLocation_client extends AppCompatActivity {
                          double dist=distance(lat_client,lng_client,plumLat,plumLng)/0.621371;
                          distance_txt.setText(String.format("%.3f", dist)+" km");
 
-                         getLocationAddress();
+//                         getLocationAddress();
                      }
 
                      @Override

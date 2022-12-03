@@ -74,6 +74,8 @@ public class hiring_details extends AppCompatActivity {
     BottomNavigationView bottomNavi;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -278,6 +280,8 @@ public class hiring_details extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
 
+
+
         setConcern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -293,6 +297,9 @@ public class hiring_details extends AppCompatActivity {
                         }
                     }
                 });
+
+
+
             }
         });
         cancel_popup.setOnClickListener(new View.OnClickListener() {

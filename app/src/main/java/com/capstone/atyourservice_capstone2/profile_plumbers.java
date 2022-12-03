@@ -59,7 +59,7 @@ public class profile_plumbers extends Fragment {
     public FirebaseDatabase firebaseDatabase;
 
     private CircleImageView profileImageView;
-    private Button backButton,saveButton;
+    private Button backButton,saveButton,updateBtn;
     private TextView profileChangeBtn;
 
     private Uri mImageUri;
@@ -90,6 +90,7 @@ public class profile_plumbers extends Fragment {
         profileImageView=(CircleImageView) view.findViewById(R.id.profile_image);
         profileChangeBtn = (TextView) view.findViewById(R.id.change_profile_btn);
         saveButton = (Button) view.findViewById(R.id.btnSave);
+        updateBtn = (Button) view.findViewById(R.id.update_plumberbtn);
         //------declaration of firebase storage----
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
@@ -111,6 +112,8 @@ public class profile_plumbers extends Fragment {
                 }
             }
         });
+
+
 
         fetchData();
         fetchprofilepicAndDisplay();

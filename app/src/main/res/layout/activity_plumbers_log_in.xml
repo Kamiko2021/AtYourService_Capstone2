@@ -55,7 +55,7 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
                 android:layout_weight="1"
-                android:backgroundTint="#1467d3"
+                android:backgroundTint="#359cfa"
                 android:text="LOG IN"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -69,7 +69,7 @@
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
                 android:layout_weight="1"
-                android:backgroundTint="#1467d3"
+                android:backgroundTint="#359cfa"
                 android:text="Register"
                 android:textSize="20sp"
                 android:textStyle="bold" />

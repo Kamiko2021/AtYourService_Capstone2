@@ -48,8 +48,7 @@ public class client_searchPlumber extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
-
+                    list.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                         userCardviewData user = dataSnapshot.getValue(userCardviewData.class);

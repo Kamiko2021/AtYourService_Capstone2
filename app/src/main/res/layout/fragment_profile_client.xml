@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".profile_client">
+    tools:context=".profile_client"
+    >
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -15,14 +16,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#1467d3"
                 android:orientation="vertical"
-                android:scrollbarAlwaysDrawHorizontalTrack="true">
+                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                >
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image_client"
@@ -38,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="uid"
+                    android:visibility="gone"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -77,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
+                    android:backgroundTint="#359cfa"
                     android:text="choose picture"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -88,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
+                    android:backgroundTint="#359cfa"
                     android:text="upload"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -117,7 +121,7 @@
                     android:id="@+id/firstname_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
+                    android:layout_marginStart="50sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
                     android:ems="10"
@@ -144,7 +148,7 @@
                     android:id="@+id/lastname_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
+                    android:layout_marginStart="50sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
                     android:text="lastname"
@@ -170,7 +174,7 @@
                     android:id="@+id/birthdate_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
+                    android:layout_marginStart="60sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
                     android:text="birthdate"
@@ -196,7 +200,7 @@
                     android:id="@+id/gender_clientData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
+                    android:layout_marginStart="75sp"
                     android:layout_marginEnd="20sp"
                     android:layout_weight="1"
                     android:text="gender"
@@ -221,7 +225,8 @@
                     android:backgroundTint="#1467d3"
                     android:text="edit"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
             </LinearLayout>
         </LinearLayout>

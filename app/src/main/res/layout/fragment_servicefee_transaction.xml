@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".servicefee_transaction">
 
@@ -24,11 +24,11 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="#124de3"
-                app:cardCornerRadius="12dp">
+                app:cardCornerRadius="50dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="#1467d3"
                     android:orientation="vertical">
 
@@ -51,7 +51,7 @@
                         android:text="TextView"
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/plumberFirstname_txtview"
@@ -74,157 +74,163 @@
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/service_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="SERVICE FEE'S"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/InstallPipes_plumberlbl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:layout_weight="1"
+                            android:text="Underground Pipes:"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <EditText
+                            android:id="@+id/InstallPipes_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="20sp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="SET YOUR PRICE"
+                            android:inputType="text" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/RepairPipes_plumberlbl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:text="Above Ground Pipes:"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <EditText
+                            android:id="@+id/RepairPipes_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="20sp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="SET YOUR PRICE"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/UnclogToilet_plumberlbl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="40sp"
+                            android:text="Clogged Toilet:"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <EditText
+                            android:id="@+id/UnclogToilet_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="20sp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="SET YOUR PRICE"
+                            android:inputType="text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/UnclogDrainage_plumberlbl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="40sp"
+                            android:text="Clogged Drainage:"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <EditText
+                            android:id="@+id/UnclogDrainage_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="20sp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="SET YOUR PRICE"
+                            android:inputType="text"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/setServiceFee_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#62a3e0"
+                            android:text="SET SERVICE FEE"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/startWaitingClient_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#62a3e0"
+                            android:text="START WAITING FOR CLIENTS"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/service_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="SERVICE FEE'S"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/RepairPipes_plumberlbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:text="Above Ground Pipes:"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/RepairPipes_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginEnd="20sp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="SET YOUR PRICE"
-                    android:inputType="text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/InstallPipes_plumberlbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_weight="1"
-                    android:text="Underground Pipes:"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/InstallPipes_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginEnd="20sp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="SET YOUR PRICE"
-                    android:inputType="text" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/UnclogToilet_plumberlbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40sp"
-                    android:text="Clogged Toilet:"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/UnclogToilet_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginEnd="20sp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="SET YOUR PRICE"
-                    android:inputType="text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/UnclogDrainage_plumberlbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40sp"
-                    android:text="Clogged Drainage:"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/UnclogDrainage_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginEnd="20sp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="SET YOUR PRICE"
-                    android:inputType="text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/setServiceFee_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
-                    android:text="SET SERVICE FEE"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/startWaitingClient_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
-                    android:text="START WAITING FOR CLIENTS"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

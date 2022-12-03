@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="#1467d3"
+                android:layout_margin="30dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="true">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -78,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
+                    android:backgroundTint="#359cfa"
                     android:text="Save"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -197,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
+                    android:backgroundTint="#359cfa"
                     android:text="UPDATE"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -208,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
+                    android:backgroundTint="#359cfa"
                     android:text="UPLOAD CV / NCii CERTIFICATE"
                     android:textColor="@color/white"
                     android:textStyle="bold" />

@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardView"
+    android:id="@+id/chatbox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_margin="12dp"
+    android:orientation="vertical"
     app:cardCornerRadius="12dp">
-
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#1467d3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:cornerRadius="12dp">
+
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/searchprofImg_plumber"
-            android:layout_width="59dp"
-            android:layout_height="51dp"
+            android:id="@+id/chatprofilepix"
+            android:layout_width="69dp"
+            android:layout_height="65dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="1dp"
@@ -25,72 +27,73 @@
             android:src="@drawable/defaultprofile" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/Firstname_Ctv"
+                android:id="@+id/userfullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="firstname"
+                android:layout_marginBottom="10dp"
+                android:text="*"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/uid_Client"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="*"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/uid_plumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="*"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/uid_sender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="*"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="*"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/Lastname_Ctv"
+                android:id="@+id/date_now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lastname"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/status_Ctv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="status"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/latitude_Ctv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="latitude"
+                android:layout_marginBottom="10dp"
+                android:text="date"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/longhitude_Ctv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="longhitude"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/uid_Ctv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="uid"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:visibility="gone"/>
-
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

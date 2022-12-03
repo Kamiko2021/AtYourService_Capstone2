@@ -3,6 +3,8 @@ package com.capstone.atyourservice_capstone2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.os.Looper;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +26,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -77,6 +83,17 @@ public class transactions_client extends AppCompatActivity {
     Button rateBtn;
     int plumberRate;
 
+    //===== declaration for chat
+    AlertDialog.Builder builder;
+    FloatingActionButton chatFAB;
+    RecyclerView recyclerView;
+    DatabaseReference database;
+    chatAdapter Chatadapter;
+    FloatingActionButton sendChatbtn;
+    EditText messages_send;
+    ArrayList<chatData> list;
+    int btnCounter = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +116,7 @@ public class transactions_client extends AppCompatActivity {
         clientLat_txt = (TextView) findViewById(R.id.lat_clienttxt);
         clientLng_txt = (TextView) findViewById(R.id.lng_clienttxt);
         addressTxt = (TextView) findViewById(R.id.address_txt);
+        chatFAB = (FloatingActionButton) findViewById(R.id.chatFabtn);
 
         //==== transaction details textviews initialization =====
         service_txt = (TextView) findViewById(R.id.servicedata);
@@ -191,8 +209,94 @@ public class transactions_client extends AppCompatActivity {
             }
         },5000);
 
+        chatFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChatBox();
+            }
+        });
+
+
+        SimpleDateFormat timeStampFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        Date myDate = new Date();
+        String dateNow = timeStampFormat.format(myDate);
+
+        saveChat(plumber_uid,Client_uid,"hi thank you for hiring me, my name is " + plumber_firstname + plumber_lastname + ", a certified plumber.",
+                plumber_uid,dateNow);
 
     }
+
+    //==== method for chat popup;
+    public void setChatBox(){
+
+        builder = new AlertDialog.Builder(this);
+        View chatView=getLayoutInflater().inflate(R.layout.chat_box_messages, null);
+
+
+
+        //=== recyclerview initialization
+        recyclerView = (RecyclerView) chatView.findViewById(R.id.chatRecycler);
+        sendChatbtn = (FloatingActionButton) chatView.findViewById(R.id.sendChat);
+        messages_send = (EditText) chatView.findViewById(R.id.message_txt);
+        database = FirebaseDatabase.getInstance().getReference("chats").child(plumber_uid).child(Client_uid);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list = new ArrayList<>();
+        Chatadapter = new chatAdapter(this, list);
+        recyclerView.setAdapter(Chatadapter);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    chatData chat= dataSnapshot.getValue(chatData.class);
+                    list.add(chat);
+                }
+                Chatadapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        sendChatbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDateFormat timeStampFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                Date myDate = new Date();
+                String dateNow = timeStampFormat.format(myDate);
+
+                saveChat(plumber_uid,Client_uid,messages_send.getText().toString(),
+                        Client_uid,dateNow);
+                messages_send.setText("");
+            }
+        });
+
+        //===== setting up view=====
+        builder.setView(chatView);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    // save chat data
+    public void saveChat(String plumber_uid, String client_uid, String msgs, String sender_uid, String dateNow){
+
+        saveChatData savechat=new saveChatData(sender_uid,dateNow,msgs);
+
+        FirebaseDatabase.getInstance().getReference("chats").child(plumber_uid)
+                .child(client_uid).child(dateNow).setValue(savechat)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
     //alert dialogPopUp method
     public void paymentPopUp(){
         dialogBuilder = new AlertDialog.Builder(this);
@@ -227,6 +331,7 @@ public class transactions_client extends AppCompatActivity {
                 ratePlumber();
             }
         });
+
     }
 
     //rate plumber popUp
@@ -385,7 +490,7 @@ public class transactions_client extends AppCompatActivity {
         int randomNumber=random.nextInt(1000-100)+ 100;
 
         notificationPlumberData notifPlum=new notificationPlumberData(Client_uid,service_data,plumber_distance,addressTxt.getText().toString(),
-                dateNow, Client_firstname, Client_lastname);
+                dateNow, Client_firstname, Client_lastname,"pending");
 
         FirebaseDatabase.getInstance().getReference("notification_plumber").child(plumber_uid).child(dateNow).setValue(notifPlum)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

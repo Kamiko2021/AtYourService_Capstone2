@@ -3,6 +3,8 @@ package com.capstone.atyourservice_capstone2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,11 +15,16 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,12 +38,15 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class transaction_plumber extends AppCompatActivity {
     //==== String initialization====
-    String firstname,lastname,uid_client,distance,address,dateNow,serviceRequest,client_latdata,client_lngdata;
+    String firstname,lastname,uid_client,distance,address,dateNow,serviceRequest,client_latdata,client_lngdata,requestStat;
     String plumber_firstname,plumber_lastname,plumber_lat,plumber_lng,plumber_stat,plumber_uid;
     String concernmsg,servicefee,total,transaction_fee;
     CircleImageView profileIMG_client,profileIMG_plumber;
@@ -44,13 +54,27 @@ public class transaction_plumber extends AppCompatActivity {
 
     //===== Client TextViews initialization====
     TextView client_fullname,client_uidTxt,client_distance,client_serviceRequest,client_address,client_dateNow,client_lattxt,client_lngtxt;
-    TextView plumber_fullname,plumber_uidtxt,plumber_stattxt,plumber_lattxt,plumber_lngtxt;
+    TextView plumber_fullname,plumber_uidtxt,plumber_stattxt,plumber_lattxt,plumber_lngtxt,requestStatTxt;
     TextView concernMessage,servicefeetxt,totaltxt,transactionFee;
     DatabaseReference reff;
     StorageReference displayStorageRef;
     Button paymentBtn;
     WebView transaction_map;
 
+    //=== alert dialog popup for transactions
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    FloatingActionButton sendChatbtn;
+    EditText messages_send;
+
+
+    //===== declaration for chat
+    FloatingActionButton chatFAB;
+    RecyclerView recyclerView;
+    DatabaseReference database;
+    chatAdapter Chatadapter;
+    ArrayList<chatData> list;
+    int btnCounter = 0;
 
 
     @Override
@@ -74,6 +98,8 @@ public class transaction_plumber extends AppCompatActivity {
         totaltxt=(TextView) findViewById(R.id.totaldata);
         transactionFee=(TextView) findViewById(R.id.transactionFeedata);
         paymentBtn = (Button) findViewById(R.id.pendingRequest);
+        chatFAB = (FloatingActionButton) findViewById(R.id.chatFabtn);
+
 
         //textview assigning id
         client_fullname=(TextView) findViewById(R.id.client_fullname);
@@ -85,6 +111,7 @@ public class transaction_plumber extends AppCompatActivity {
         client_lattxt=(TextView) findViewById(R.id.lat_clienttxt);
         client_lngtxt=(TextView) findViewById(R.id.lng_clienttxt);
         profileIMG_client=(CircleImageView) findViewById(R.id.profileImg_client);
+        requestStatTxt = (TextView) findViewById(R.id.client_Requeststatus);
 
 
         //fetching data from notification
@@ -96,6 +123,8 @@ public class transaction_plumber extends AppCompatActivity {
         distance=intent.getExtras().getString("distance");
         address=intent.getExtras().getString("address");
         serviceRequest=intent.getExtras().getString("serviceRequest");
+        requestStat=intent.getExtras().getString("requestStatus");
+
 
         //displaying text to textviews
         client_fullname.setText(firstname +" "+ lastname);
@@ -104,6 +133,7 @@ public class transaction_plumber extends AppCompatActivity {
         client_dateNow.setText(dateNow);
         client_serviceRequest.setText(serviceRequest);
         client_address.setText(serviceRequest);
+        requestStatTxt.setText(requestStat);
 
 
 
@@ -114,15 +144,136 @@ public class transaction_plumber extends AppCompatActivity {
         transaction_map = (WebView) findViewById(R.id.transaction_map);
         transaction_map.getSettings().setJavaScriptEnabled(true);
         transaction_map.addJavascriptInterface(this, "android");
-        transaction_map.loadUrl("file:///android_asset/mapmarker.html");
+        transaction_map.loadUrl("file:///android_asset/mapmarker_plumber.html");
 
+
+        //--- onclick events
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (btnCounter==0){
+                    paymentBtn.setText("CANCEL");
+                    setNotificationStat(uid_client,serviceRequest,distance,address,
+                            dateNow,firstname,lastname,"accepted");
+                    btnCounter++;
+                }else if (btnCounter==1){
+                    paymentBtn.setText("EXIT");
+                    setNotificationStat(uid_client,serviceRequest,distance,address,
+                            dateNow,firstname,lastname,"canceled");
+                    btnCounter++;
+                }else if (btnCounter==2){
+                    Intent intent=new Intent(transaction_plumber.this, SecondPage_plumber.class);
+                    startActivity(intent);
+                }
 
             }
         });
 
+        chatFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChatBox();
+            }
+        });
+
+
+
+
+
+    }
+
+    //==== method for chat popup;
+    public void setChatBox(){
+
+        builder = new AlertDialog.Builder(this);
+        View chatView=getLayoutInflater().inflate(R.layout.chat_box_messages, null);
+
+
+
+        //=== recyclerview initialization
+        recyclerView = (RecyclerView) chatView.findViewById(R.id.chatRecycler);
+        sendChatbtn = (FloatingActionButton) chatView.findViewById(R.id.sendChat);
+        messages_send = (EditText) chatView.findViewById(R.id.message_txt);
+        database = FirebaseDatabase.getInstance().getReference("chats").child(plumber_uid).child(uid_client);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list = new ArrayList<>();
+        Chatadapter = new chatAdapter(this, list);
+        recyclerView.setAdapter(Chatadapter);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    chatData chat= dataSnapshot.getValue(chatData.class);
+                    list.add(chat);
+                }
+                Chatadapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        sendChatbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDateFormat timeStampFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                Date myDate = new Date();
+                String dateNow = timeStampFormat.format(myDate);
+
+                saveChat(plumber_uid,uid_client,messages_send.getText().toString(),
+                        plumber_uid,dateNow);
+                messages_send.setText("");
+            }
+        });
+
+        //===== setting up view=====
+        builder.setView(chatView);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    // save chat data
+    public void saveChat(String plumber_uid, String client_uid, String msgs, String sender_uid, String dateNow){
+
+        saveChatData savechat=new saveChatData(sender_uid,dateNow,msgs);
+
+        FirebaseDatabase.getInstance().getReference("chats").child(plumber_uid)
+                .child(client_uid).child(dateNow).setValue(savechat)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
+    // set notification into accepted
+    public void setNotificationStat(String client_uid,String serviceData,
+                                    String plumberDistance, String Address, String datenow,
+                                    String clientFname, String clientLname, String reqStat){
+
+        notificationPlumberData plumbernotifdata= new notificationPlumberData(client_uid,serviceData,plumberDistance,
+                Address,datenow,clientFname,clientLname,reqStat);
+
+       FirebaseDatabase.getInstance().getReference("notification_plumber").child(plumber_uid).child(dateNow)
+               .setValue(plumbernotifdata).addOnCompleteListener(new OnCompleteListener<Void>() {
+                   @Override
+                   public void onComplete(@NonNull Task<Void> task) {
+                       if (task.isSuccessful()){
+                           Toast.makeText(transaction_plumber.this, "notification save", Toast.LENGTH_LONG).show();
+
+                       } else {
+                           Toast.makeText(transaction_plumber.this, "notification not saved!", Toast.LENGTH_LONG).show();
+
+                       }
+                   }
+               });
     }
 
 
@@ -195,6 +346,7 @@ public class transaction_plumber extends AppCompatActivity {
                 servicefee=snapshot.child("servicefee_data").getValue().toString();
                 total=snapshot.child("total_data").getValue().toString();
                 transaction_fee = snapshot.child("transactionfee_data").getValue().toString();
+
 
                 plumber_fullname.setText(plumber_firstname +" "+ plumber_lastname);
                 plumber_lattxt.setText(plumber_lat);

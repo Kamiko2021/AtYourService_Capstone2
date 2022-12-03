@@ -41,6 +41,7 @@ public class notifadapter extends RecyclerView.Adapter<notifadapter.MyViewHolder
         holder.dateNow.setText(notif.getDateNow());
         holder.distance.setText(notif.getDistance());
         holder.address.setText(notif.getAddress());
+        holder.requesStatus.setText(notif.getRequestStatus());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +53,7 @@ public class notifadapter extends RecyclerView.Adapter<notifadapter.MyViewHolder
                 intent.putExtra("distance", list.get(position).getDistance());
                 intent.putExtra("address", list.get(position).getAddress());
                 intent.putExtra("serviceRequest", list.get(position).getServiceRequest());
+                intent.putExtra("requestStatus", list.get(position).getRequestStatus());
                 context.startActivity(intent);
             }
         });
@@ -65,7 +67,7 @@ public class notifadapter extends RecyclerView.Adapter<notifadapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstname,lastname,uid_client,dateNow,distance,address,serviceRequest;
+        TextView firstname,lastname,uid_client,dateNow,distance,address,serviceRequest,requesStatus;
         CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -78,6 +80,7 @@ public class notifadapter extends RecyclerView.Adapter<notifadapter.MyViewHolder
             distance = itemView.findViewById(R.id.distance);
             address = itemView.findViewById(R.id.location_address);
             serviceRequest = itemView.findViewById(R.id.serviceRequest);
+            requesStatus = itemView.findViewById(R.id.requestStatusTxt);
             cardView=itemView.findViewById(R.id.notifcardview);
         }
     }

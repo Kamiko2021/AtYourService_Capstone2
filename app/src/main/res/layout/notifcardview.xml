@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="50dp"
     android:layout_margin="16dp"
     android:id="@+id/notifcardview"
     android:backgroundTint="#1467d3">
@@ -26,30 +26,40 @@
             android:textSize="15dp"
             android:text="date" />
 
-        <TextView
-            android:id="@+id/firstname"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="firstname"/>
-        <TextView
-            android:id="@+id/lastname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="lastname"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="firstname"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="lastname"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/client_uniqueID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="uid"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="15dp"
-            android:text="uid"/>
+            android:textStyle="bold"
+            android:visibility="gone" />
         <TextView
             android:id="@+id/serviceRequest"
             android:layout_width="match_parent"
@@ -75,6 +85,14 @@
             android:textStyle="bold"
             android:textSize="15dp"
             android:text="address"/>
+        <TextView
+            android:id="@+id/requestStatusTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="requestStat"/>
 
 
     </LinearLayout>

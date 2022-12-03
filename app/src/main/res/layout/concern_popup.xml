@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="153dp"
-        android:layout_height="107dp"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         app:srcCompat="@drawable/final_logo_removedbackground" />
@@ -67,7 +67,7 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:text="submit"
-            android:backgroundTint="#1467d3"/>
+            android:backgroundTint="#359cfa"/>
 
         <Button
             android:id="@+id/cancel_button"
@@ -78,7 +78,7 @@
             android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:text="cancel"
-            android:backgroundTint="#1467d3"/>
+            android:backgroundTint="#359cfa"/>
     </LinearLayout>
 
 </LinearLayout>

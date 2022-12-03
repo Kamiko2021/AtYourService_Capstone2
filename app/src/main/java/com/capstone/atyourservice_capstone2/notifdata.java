@@ -1,7 +1,7 @@
 package com.capstone.atyourservice_capstone2;
 
 public class notifdata {
-    String firstname,lastname,dateNow,serviceRequest,client_uid,address,distance;
+    String firstname,lastname,dateNow,serviceRequest,client_uid,address,distance,requestStatus;
 
     public String getFirstname() {
         return firstname;
@@ -29,5 +29,9 @@ public class notifdata {
 
     public String getDistance() {
         return distance;
+    }
+
+    public String getRequestStatus() {
+        return requestStatus;
     }
 }

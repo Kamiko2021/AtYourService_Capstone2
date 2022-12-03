@@ -68,6 +68,7 @@ public class home_clientFragment extends Fragment {
     LoadingDialog loadingDialog=new LoadingDialog(getActivity());
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,6 +77,10 @@ public class home_clientFragment extends Fragment {
         //======initialize loading dialog======
         final LoadingDialog dialog=new LoadingDialog(getActivity());
         dialog.startLoadingDialog();
+
+        //====pushnotif token==
+
+
 
         // =========Set up ID for declared objects====
         uid_client=(TextView) view.findViewById(R.id.client_uid);

@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
-
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:largeHeap="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -73,13 +73,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ClientLogin"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ApplyPlumber"
             android:exported="false">
             <meta-data
@@ -108,7 +101,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".FirstPage"
+            android:name=".ClientLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

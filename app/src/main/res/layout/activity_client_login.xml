@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center"
     tools:context=".ClientLogin">
 
     <LinearLayout
@@ -15,7 +16,7 @@
         <ImageView
             android:id="@+id/AtyourserviceLogo"
             android:layout_width="match_parent"
-            android:layout_height="136dp"
+            android:layout_height="279dp"
             android:layout_marginTop="16dp"
             android:contentDescription="TODO"
             android:src="@drawable/final_logo_removedbackground" />
@@ -23,67 +24,70 @@
         <EditText
             android:id="@+id/Edittxt_email"
             android:layout_width="match_parent"
-            android:layout_height="40sp"
+            android:layout_height="50dp"
             android:layout_marginLeft="40sp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="40sp"
-            android:hint="CLIENT EMAIL"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="5dp"
+            android:hint=" EMAIL"
             android:inputType="textWebEmailAddress"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/Edittxt_password"
             android:layout_width="match_parent"
-            android:layout_height="40sp"
+            android:layout_height="50dp"
             android:layout_marginLeft="40sp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="40sp"
-            android:hint="PASSWORD"
+            android:drawableStart="@drawable/ic_lock_password"
+            android:drawablePadding="5dp"
+            android:hint=" PASSWORD"
             android:inputType="textPassword"
             android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="89dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/LogIn_btn"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="15sp"
                 android:layout_marginTop="20sp"
                 android:layout_marginRight="15sp"
                 android:layout_weight="1"
-                android:backgroundTint="#1467d3"
+                android:backgroundTint="#359cfa"
                 android:text="LOG-IN"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="12dp" />
 
-            <Button
+            <TextView
+                android:id="@+id/ForgotPassword_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10sp"
+                android:text="Forgot Password or"
+                android:textColor="#00008b"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/clientRegister_btn"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginRight="15sp"
-                android:layout_weight="1"
-                android:backgroundTint="#1467d3"
-                android:text="Register"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10sp"
+                android:text="create new account"
+                android:textColor="#00008b"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/ForgotPassword_txtview"
-            android:layout_width="213dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10sp"
-            android:text="Forgot Password?"
-            android:textColor="#00008b"
-            android:textSize="20sp" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressBar2"
