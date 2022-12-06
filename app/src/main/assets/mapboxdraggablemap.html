@@ -51,7 +51,7 @@ body { margin: 0; padding: 0; }
     function onDragEnd() {
         const lngLat = marker.getLngLat();
         coordinates.style.display = 'block';
-        coordinates.innerHTML = `Longitude:${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        coordinates.innerHTML = `Longitude:${lngLat.lng}<br/>Latitude: ${lngLat.lat}`;
          coordinates.innerHTML = window.android.setLng(lngLat.lng,lngLat.lat);
 
     }

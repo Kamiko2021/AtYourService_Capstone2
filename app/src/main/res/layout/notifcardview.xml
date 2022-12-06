@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
-    app:cardCornerRadius="50dp"
-    android:layout_margin="16dp"
+    app:cardCornerRadius="12dp"
+    android:layout_margin="12dp"
     android:id="@+id/notifcardview"
     android:backgroundTint="#1467d3">
 
@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="12dp"
         android:orientation="vertical">
 
         <TextView

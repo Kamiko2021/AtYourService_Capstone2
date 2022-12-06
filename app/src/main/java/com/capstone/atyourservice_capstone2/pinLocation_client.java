@@ -55,7 +55,7 @@ public class pinLocation_client extends AppCompatActivity {
     String client_address;
     //===== variable to save service Details ======
     String services,concernmsgs,serviceCharge;
-    public double lat_client,lng_client;
+    double lat_client=0.00,lng_client=0.00;
 
     //============= Pop-up initialization=========
     AlertDialog.Builder dialogBuilder;
@@ -117,7 +117,7 @@ public class pinLocation_client extends AppCompatActivity {
                 double dist=distance(lat_client,lng_client,plumLat,plumLng)/0.621371;
                 distance_txt.setText(String.format("%.3f", dist)+" km");
 
-                getLocationAddress();
+//                getLocationAddress();
                 saveNewlocation();
             }
         });
@@ -504,7 +504,7 @@ public class pinLocation_client extends AppCompatActivity {
     }
 
     //======code in getting the destance=====
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
+    public double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1))
                 * Math.sin(deg2rad(lat2))

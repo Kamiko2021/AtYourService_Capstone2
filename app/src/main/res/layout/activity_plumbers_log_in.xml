@@ -16,17 +16,14 @@
             android:id="@+id/AtyourserviceLogo"
             android:layout_width="match_parent"
             android:layout_height="174dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="40dp"
+            android:layout_margin="12dp"
             android:src="@drawable/final_logo_removedbackground" />
 
         <EditText
             android:id="@+id/Edittxt_email"
             android:layout_width="319dp"
             android:layout_height="51dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="11dp"
+            android:layout_margin="12dp"
             android:hint="PLUMBER EMAIL"
             android:inputType="textWebEmailAddress"
             android:textSize="20sp" />
@@ -35,9 +32,7 @@
             android:id="@+id/Edittxt_password"
             android:layout_width="310dp"
             android:layout_height="51dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
+            android:layout_margin="12dp"
             android:hint="PASSWORD"
             android:inputType="textPassword"
             android:textSize="20sp" />
@@ -45,15 +40,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="12dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/plumberLogIn_btn"
                 android:layout_width="100sp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginRight="15sp"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:backgroundTint="#359cfa"
                 android:text="LOG IN"
@@ -65,9 +59,7 @@
                 android:id="@+id/plumberRegister_btn"
                 android:layout_width="100sp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="15sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginRight="15sp"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:backgroundTint="#359cfa"
                 android:text="Register"
@@ -80,8 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_margin="12dp"
             android:text="Forgot Password?"
             android:textColor="#00008b"
             android:textSize="20sp" />

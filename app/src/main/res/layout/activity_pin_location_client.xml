@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="12dp"
         app:cardCornerRadius="12dp">
 
         <LinearLayout
@@ -23,17 +23,14 @@
                 android:id="@+id/profileImg_client"
                 android:layout_width="59dp"
                 android:layout_height="51dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="1dp"
+                android:layout_margin="12dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/defaultprofile" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_margin="12dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -84,6 +81,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -100,7 +98,8 @@
                     android:layout_height="wrap_content"
                     android:text="address"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -109,7 +108,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="12dp"
         app:cardCornerRadius="12dp">
 
         <LinearLayout
@@ -122,17 +121,14 @@
                 android:id="@+id/profileImg_plumber"
                 android:layout_width="59dp"
                 android:layout_height="51dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="1dp"
+                android:layout_margin="12dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/defaultprofile" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_margin="12dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -156,6 +152,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="12dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -253,10 +250,7 @@
                     android:id="@+id/pinClientlocation_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_margin="12dp"
                     android:layout_weight="1"
                     android:backgroundTint="#359cfa"
                     android:text="PIN LOCATION"
@@ -266,10 +260,7 @@
                     android:id="@+id/RequestDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_margin="12dp"
                     android:layout_weight="1"
                     android:backgroundTint="#359cfa"
                     android:text="Request details"

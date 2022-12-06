@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="12dp"
     tools:context=".profile_client"
     >
 
@@ -32,7 +33,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20sp"
+                    android:layout_margin="12dp"
                     android:src="@drawable/defaultprofile" />
 
                 <TextView
@@ -72,15 +73,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/change_profile_btn"
-                android:layout_margin="16dp"
+                android:layout_margin="12dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnChoose"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
+                    android:layout_margin="12dp"
                     android:backgroundTint="#359cfa"
                     android:text="choose picture"
                     android:textColor="@color/white"
@@ -88,10 +88,9 @@
 
                 <Button
                     android:id="@+id/btnSave"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
+                    android:layout_margin="12dp"
                     android:backgroundTint="#359cfa"
                     android:text="upload"
                     android:textColor="@color/white"
@@ -220,13 +219,12 @@
                     android:id="@+id/update_clientbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="6dp"
+                    android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#1467d3"
+                    android:backgroundTint="#359cfa"
                     android:text="edit"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>

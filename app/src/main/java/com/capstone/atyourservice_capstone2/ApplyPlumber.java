@@ -135,6 +135,18 @@ public class ApplyPlumber extends AppCompatActivity {
                                         startActivity(new Intent(ApplyPlumber.this, ClientLogin.class));
                                         progressBar.setVisibility(View.GONE);
 
+                                        //-------- Save plumberData ---
+
+                                        adminAddPlumber addPlumber=new adminAddPlumber(firstname_data,lastname_data,"pending");
+
+                                        FirebaseDatabase.getInstance().getReference("admin").child("plumber_list").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .setValue(addPlumber).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                    }
+                                                });
+
                                         //---------------------------send email verification
 
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -153,7 +165,7 @@ public class ApplyPlumber extends AppCompatActivity {
                                             //if verification failed...
                                             user.sendEmailVerification(); //sent email verification to client email...
                                             Toast.makeText(ApplyPlumber.this,"Verification Link sent.", Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(ApplyPlumber.this, PlumbersLogIn.class));
+                                            startActivity(new Intent(ApplyPlumber.this, ClientLogin.class));
                                             progressBar.setVisibility(View.GONE);
                                         }
 

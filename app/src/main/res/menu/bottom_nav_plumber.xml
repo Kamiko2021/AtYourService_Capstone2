@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_transaction_icon"
         android:id="@+id/servicefee_plumber"/>
     <item android:title=""
-        android:icon="@drawable/ic_baseline_notifications_icon"
+        android:icon="@drawable/ic_baseline_transaction_icon"
         android:id="@+id/notification_plumber"/>
     <item android:title=""
         android:icon="@drawable/signout_final"

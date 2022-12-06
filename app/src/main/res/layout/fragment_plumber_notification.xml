@@ -6,10 +6,21 @@
     android:orientation="vertical"
     tools:context=".plumberNotification">
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="Transaction History"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25dp"/>
+
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/notifList"/>
+        android:id="@+id/notifList"
+        android:layout_margin="12dp"/>
 
 </LinearLayout>

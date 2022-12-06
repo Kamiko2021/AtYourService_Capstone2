@@ -21,9 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
                 android:backgroundTint="#1467d3"
                 app:cardCornerRadius="12dp">
 
@@ -35,17 +32,14 @@
                         android:id="@+id/profileImg_plumber"
                         android:layout_width="100dp"
                         android:layout_height="91dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_margin="12dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/defaultprofile" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_margin="12dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -111,7 +105,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_margin="12dp"
                         android:orientation="vertical"
                         android:visibility="gone">
 
@@ -153,9 +147,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
                 android:backgroundTint="#1467d3"
                 app:cardCornerRadius="12dp">
 

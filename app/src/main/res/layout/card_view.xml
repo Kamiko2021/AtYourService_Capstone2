@@ -4,7 +4,7 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_margin="12dp"
     app:cardCornerRadius="12dp">
 
 
@@ -18,16 +18,14 @@
             android:id="@+id/searchprofImg_plumber"
             android:layout_width="59dp"
             android:layout_height="51dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="1dp"
+            android:layout_margin="12dp"
             android:scaleType="centerCrop"
             android:src="@drawable/defaultprofile" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_margin="12dp"
             android:orientation="vertical">
 
             <TextView

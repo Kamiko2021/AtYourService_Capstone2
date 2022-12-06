@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -68,6 +69,10 @@ public class profile_plumbers extends Fragment {
     private StorageTask mUploadTask;
     private DatabaseReference mDatabaseRef;
 
+    //============= Pop-up initialization=========
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialog;
+
 
 
     public String uid;
@@ -122,7 +127,17 @@ public class profile_plumbers extends Fragment {
         return view;
     }
 
+    public void certficateAndSubscription(){
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        View openSubscription= getLayoutInflater().inflate(R.layout.certificate_and_subscriptions, null);
 
+
+
+        //===== setting up view=====
+        dialogBuilder.setView(openSubscription);
+        dialog = dialogBuilder.create();
+        dialog.show();
+    }
 
     //----------methods in retrieving data into database---------
 
