@@ -17,7 +17,7 @@
     <WebView
         android:id="@+id/paymentSubsciption"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_margin="12dp">
 
     </WebView>
@@ -37,9 +37,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:backgroundTint="#359cfa"
         android:text="upload"
         app:cornerRadius="12dp" />
+
+    <ImageView
+        android:id="@+id/certificateCapture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_image_24" />
 
 </LinearLayout>

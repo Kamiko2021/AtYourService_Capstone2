@@ -63,10 +63,11 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
         }else if (user.getStatus().equals("online")){
             holder.status.setTextColor(Color.parseColor("#09ff00"));
         }
+        checkCertified(user.getUid(),holder.cardView,holder.action);
         holder.longhitude.setText(user.getLonghitude());
         holder.latitude.setText(user.getLatitude());
         holder.uid.setText(user.getUid());
-        fetchprofilepicAndDisplay(list.get(position).getUid(), "Plumber", holder.profilePix);
+        fetchprofilepicAndDisplay(user.getUid(), "Plumber", holder.profilePix);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +90,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView firstname,lastname,status,longhitude,latitude,uid;
+        TextView firstname,lastname,status,longhitude,latitude,uid,action;
         CircleImageView profilePix;
         CardView cardView;
 
@@ -104,10 +105,40 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
             longhitude = itemView.findViewById(R.id.longhitude_Ctv);
             latitude = itemView.findViewById(R.id.latitude_Ctv);
             uid = itemView.findViewById(R.id.uid_Ctv);
+            action = itemView.findViewById(R.id.action_Ctv);
             cardView = itemView.findViewById(R.id.cardView);
 
 
         }
+    }
+    //==== checking if the user is certified / uncertified
+
+    private void checkCertified(String uid, CardView card,TextView action){
+        reff = FirebaseDatabase.getInstance().getReference("admin").child("plumber_list").child(uid);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String act=snapshot.child("actions").getValue().toString();
+
+                if(act.equals("pending")){
+                    card.setEnabled(false);
+                    action.setText(act);
+                    action.setTextColor(Color.parseColor("#ff0000"));
+                }else if (act.equals("uncertified")){
+                    card.setEnabled(false);
+                    action.setText(act);
+                    action.setTextColor(Color.parseColor("#ff0000"));
+                }else if (act.equals("certified")){
+                    action.setText(act);
+                    action.setTextColor(Color.parseColor("#09ff00"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //=======================displays profile picture from database...

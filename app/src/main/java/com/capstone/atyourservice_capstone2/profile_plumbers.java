@@ -12,12 +12,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,19 +63,28 @@ public class profile_plumbers extends Fragment {
     public FirebaseDatabase firebaseDatabase;
 
     private CircleImageView profileImageView;
-    private Button backButton,saveButton,updateBtn;
+    private Button backButton,saveButton,updateBtn,subscibeBtn;
     private TextView profileChangeBtn;
 
     private Uri mImageUri;
     public StorageReference mStorageRef;
+    public StorageReference certStore;
     private StorageReference displayStorageRef;
     private StorageTask mUploadTask;
+    private StorageTask certUploadTask;
     private DatabaseReference mDatabaseRef;
+    private DatabaseReference certdb;
 
     //============= Pop-up initialization=========
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
-
+    Button openGallery,uploadBtn;
+    TextView SubsStat;
+    WebView paypalPayment;
+    ImageView certCap;
+    String emailAddress;
+    Button updatebtn_popUp,closebtn_popUp;
+    EditText firstname_edtxt,lastname_edtxt,gender_edtxt,birthdate_edtxt;
 
 
     public String uid;
@@ -96,10 +108,12 @@ public class profile_plumbers extends Fragment {
         profileChangeBtn = (TextView) view.findViewById(R.id.change_profile_btn);
         saveButton = (Button) view.findViewById(R.id.btnSave);
         updateBtn = (Button) view.findViewById(R.id.update_plumberbtn);
+        subscibeBtn= (Button) view.findViewById(R.id.upload_cv);
         //------declaration of firebase storage----
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
+        certStore = FirebaseStorage.getInstance().getReference("certificate");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-
+        certdb = FirebaseDatabase.getInstance().getReference("certificate");
 
         profileChangeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +132,20 @@ public class profile_plumbers extends Fragment {
             }
         });
 
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData();
+            }
+        });
+
+        subscibeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                certificateAndSubscription();
+            }
+        });
+
 
 
         fetchData();
@@ -126,17 +154,152 @@ public class profile_plumbers extends Fragment {
 
         return view;
     }
+    //for update data
+    public void updateData(){
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        final View editprofilePopupView= getLayoutInflater().inflate(R.layout.updateprofile_plumber_popop, null);
 
-    public void certficateAndSubscription(){
+        //========== Initialize EditText======
+        firstname_edtxt = (EditText) editprofilePopupView.findViewById(R.id.firstname_editxt);
+        lastname_edtxt = (EditText) editprofilePopupView.findViewById(R.id.lastname_editxt);
+        birthdate_edtxt = (EditText) editprofilePopupView.findViewById(R.id.birthdate_editxt);
+        gender_edtxt = (EditText) editprofilePopupView.findViewById(R.id.gender_editxt);
+
+        //========= Initialize Button=====
+        updatebtn_popUp = (Button) editprofilePopupView.findViewById(R.id.update_clientbtn);
+        closebtn_popUp = (Button) editprofilePopupView.findViewById(R.id.close_btn);
+
+        //===== setting up view=====
+        dialogBuilder.setView(editprofilePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        closebtn_popUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        updatebtn_popUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //===================
+                String fname=firstname_edtxt.getText().toString().trim();
+                String lname=lastname_edtxt.getText().toString().trim();
+                String gender_txt=gender_edtxt.getText().toString().trim();
+                String birthdate_txt=birthdate_edtxt.getText().toString().trim();
+                String userType=usertype_txt.getText().toString().trim();
+
+                if (fname.isEmpty()){
+                    firstname_edtxt.setError("Firstname is Required");
+                    firstname_edtxt.requestFocus();
+                    return;
+                }
+                if (lname.isEmpty()){
+                    lastname_edtxt.setError("Lastname is Required");
+                    lastname_edtxt.requestFocus();
+                    return;
+                }
+                if (gender_txt.isEmpty()){
+                    gender_edtxt.setError("Gender is required");
+                    gender_edtxt.requestFocus();
+                    return;
+                }
+                if (birthdate_txt.isEmpty()){
+                    birthdate_edtxt.setError("Birthdate is required");
+                    birthdate_edtxt.requestFocus();
+                    return;
+                }
+
+                updateClient clientUpdate= new updateClient(fname,lname,gender_txt,birthdate_txt,userType,emailAddress);
+                FirebaseDatabase.getInstance().getReference("USERS").child(uid)
+                        .setValue(clientUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+//                                    Toast.makeText(getActivity(), "Updated Successfully", Toast.LENGTH_LONG).show();
+                                    updateAdminPlumberList(fname, lname, uid);
+                                }else {
+                                    Toast.makeText(getActivity(), "Update Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        });
+
+    }
+
+    // for upload certificate
+    public void certificateAndSubscription(){
         dialogBuilder = new AlertDialog.Builder(getActivity());
         View openSubscription= getLayoutInflater().inflate(R.layout.certificate_and_subscriptions, null);
 
+        //initialization
+        SubsStat = (TextView) openSubscription.findViewById(R.id.subscriptionStat);
+        paypalPayment = (WebView) openSubscription.findViewById(R.id.paymentSubsciption);
+        openGallery = (Button) openSubscription.findViewById(R.id.open_galleryBtn);
+        uploadBtn = (Button) openSubscription.findViewById(R.id.upload_btn);
+        certCap = (ImageView) openSubscription.findViewById(R.id.certificateCapture);
+
+        //==WebView initialization==
+        paypalPayment.getSettings().setJavaScriptEnabled(true);
+        paypalPayment.addJavascriptInterface(this, "android");
+        paypalPayment.loadUrl("file:///android_asset/paypal.html");
+
+        //uploading
+
+        openGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseCert();
+            }
+        });
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (certUploadTask != null && certUploadTask.isInProgress()){
+                    Toast.makeText(getActivity(), "upload in progress", Toast.LENGTH_SHORT).show();
+                }else {
+                    uploadCert();
+                }
+            }
+        });
 
 
         //===== setting up view=====
         dialogBuilder.setView(openSubscription);
         dialog = dialogBuilder.create();
         dialog.show();
+    }
+
+    public void updateAdminPlumberList(String firstname, String lastname, String uid){
+
+        reff= FirebaseDatabase.getInstance().getReference("admin").child("plumber_list").child(uid);
+                reff.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String act=snapshot.child("actions").getValue().toString();
+
+                        adminAddPlumber update=new adminAddPlumber(firstname,lastname,act,uid);
+                        FirebaseDatabase.getInstance().getReference("admin").child("plumber_list").child(uid)
+                                .setValue(update).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                    }
+                                });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
     }
 
     //----------methods in retrieving data into database---------
@@ -146,6 +309,12 @@ public class profile_plumbers extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
+    }
+    private void chooseCert(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 2);
     }
 
     @Override
@@ -157,6 +326,11 @@ public class profile_plumbers extends Fragment {
 //            Picasso.with(getActivity()).load(mImageUri).into(profileImageView);
             profileImageView.setImageURI(mImageUri);
         }
+        if (requestCode == 2 && resultCode == -1 && data!=null && data.getData() != null){
+            mImageUri = data.getData();
+//            Picasso.with(getActivity()).load(mImageUri).into(profileImageView);
+            certCap.setImageURI(mImageUri);
+        }
     }
 
     private String getFileExtension(Uri uri) {
@@ -167,7 +341,6 @@ public class profile_plumbers extends Fragment {
 
 
     private void uploadFile(){
-
 
         ProgressDialog pd = new ProgressDialog(getActivity());
         pd.setTitle("Uploading Image.....");
@@ -210,6 +383,50 @@ public class profile_plumbers extends Fragment {
         }
     }
 
+    // upload certificate from database
+    private void uploadCert(){
+        ProgressDialog pd = new ProgressDialog(getActivity());
+        pd.setTitle("Uploading certificate.....");
+        pd.show();
+
+        if (mImageUri != null){
+
+            Random random = new Random();
+            int randomNumber = random.nextInt(1000-100) + 100;
+
+
+
+            StorageReference fileReference= certStore.child("certificateCap"+ randomNumber + "" + "." + getFileExtension(mImageUri));
+            certdb.child(uid).child(uid).child("filename").setValue("certificateCap"+ randomNumber +"."+ getFileExtension(mImageUri));
+
+            certUploadTask = fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            pd.dismiss();
+                            Toast.makeText(getActivity(), "Certificate Uploaded", Toast.LENGTH_SHORT).show();
+                            //---upload item----
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            Toast.makeText(getActivity(), "Certificate Upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot tasksnapshot) {
+                            double progressPercent = (100.00 * tasksnapshot.getBytesTransferred() / tasksnapshot.getTotalByteCount());
+                            pd.setMessage("Percentage: "+ (int) progressPercent + "%");
+                        }
+                    });
+        }else {
+            Toast.makeText(getActivity(), "No File Selected", Toast.LENGTH_SHORT).show();
+        }
+    }
 //displays profile picture from database...
     private void fetchprofilepicAndDisplay(){
         reff = FirebaseDatabase.getInstance().getReference().child("uploads").child(uid);
@@ -256,7 +473,7 @@ public class profile_plumbers extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
-
+            emailAddress=email;
             // Check if user's email is verified
             boolean emailVerified = user.isEmailVerified();
 

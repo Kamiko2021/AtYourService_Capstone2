@@ -40,7 +40,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:text="uid" />
+                    android:text="uid"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/usertype_Data"
@@ -210,7 +211,7 @@
                     android:layout_marginRight="6dp"
                     android:layout_weight="1"
                     android:backgroundTint="#359cfa"
-                    android:text="UPLOAD CV / NCii CERTIFICATE"
+                    android:text="SUBSCRIPTION"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>

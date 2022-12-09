@@ -65,7 +65,7 @@ public class transactions_client extends AppCompatActivity {
     TextView clientFirstname_txt,clientLastname_txt,clientUid_txt,clientLat_txt,clientLng_txt,addressTxt;
     Button requestBtn;
     //====== Transaction TexViews initialization ====
-    TextView service_txt,concernmsg_txt,servicefee_txt,transactionfee_txt,total_txt;
+    TextView service_txt,concernmsg_txt,servicefee_txt,transactionfee_txt,total_txt,plumbRate;
     WebView transaction_map;
     DatabaseReference reff;
     StorageReference displayStorageRef;
@@ -107,6 +107,7 @@ public class transactions_client extends AppCompatActivity {
         plumberStat_txt = (TextView) findViewById(R.id.plumber_status);
         plumberDist_txt = (TextView) findViewById(R.id.plumber_distance);
         plumberLocation_txt = (TextView) findViewById(R.id.plumber_location);
+        plumbRate = (TextView) findViewById(R.id.plumber_rating);
         loading.startLoadingDialog();
 
         //====== Client TextViews Initialization ====
@@ -223,8 +224,27 @@ public class transactions_client extends AppCompatActivity {
 
         saveChat(plumber_uid,Client_uid,"hi thank you for hiring me, my name is " + plumber_firstname + plumber_lastname + ", a certified plumber.",
                 plumber_uid,dateNow);
-
+        getRating();
     }
+
+    //===== fetching rating in database
+    private void getRating(){
+        reff = FirebaseDatabase.getInstance().getReference().child("Rating").child(plumber_uid);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rating=snapshot.child("starRating").getValue().toString();
+
+                plumbRate.setText(rating+" stars");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     //==== method for chat popup;
     public void setChatBox(){
@@ -389,9 +409,14 @@ public class transactions_client extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             Toast.makeText(transactions_client.this, "Rated successfully!" , Toast.LENGTH_LONG).show();
                                             dialog.dismiss();
+
+                                            Intent intent=new Intent(transactions_client.this, SecondPage_client.class);
+                                            startActivity(intent);
                                         }
                                     }
                                 });
+
+
                     }
                 });
             }

@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:inputType="number"
-            android:hint="payment" />
+            android:hint="payment"
+            android:visibility="gone"/>
 
         <Spinner
             android:id="@+id/paymentSpinner"
@@ -30,7 +31,8 @@
             android:id="@+id/paypalPayment"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
         </WebView>
     </LinearLayout>

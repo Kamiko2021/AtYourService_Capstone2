@@ -137,7 +137,7 @@ public class ApplyPlumber extends AppCompatActivity {
 
                                         //-------- Save plumberData ---
 
-                                        adminAddPlumber addPlumber=new adminAddPlumber(firstname_data,lastname_data,"pending");
+                                        adminAddPlumber addPlumber=new adminAddPlumber(firstname_data,lastname_data,"pending",FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                                         FirebaseDatabase.getInstance().getReference("admin").child("plumber_list").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .setValue(addPlumber).addOnCompleteListener(new OnCompleteListener<Void>() {

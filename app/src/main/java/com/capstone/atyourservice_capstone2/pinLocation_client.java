@@ -45,7 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class pinLocation_client extends AppCompatActivity {
 
-    TextView firstname_txt,lastname_txt,status_txt,latitude_txt,longhitude_txt,uid_txt;
+    TextView firstname_txt,lastname_txt,status_txt,latitude_txt,longhitude_txt,uid_txt,ratingStar;
     TextView firstname_clientTxt,lastname_clientTxt,uid_clientTxt,longhitude_clientTxt,latitude_clientTxt,distance_txt,UserType_client,location_txt;
     WebView pinMap;
     Button pinMap_btn,reqDetailsbtn;
@@ -79,6 +79,7 @@ public class pinLocation_client extends AppCompatActivity {
         latitude_txt=(TextView) findViewById(R.id.latitude_plumber);
         longhitude_txt=(TextView) findViewById(R.id.longhitude_plumber);
         uid_txt=(TextView) findViewById(R.id.uid_plumber);
+        ratingStar=(TextView) findViewById(R.id.rateStarTxt);
 
         firstname_clientTxt=(TextView) findViewById(R.id.Firstname_Client);
         lastname_clientTxt=(TextView) findViewById(R.id.Lastname_Client);
@@ -155,6 +156,7 @@ public class pinLocation_client extends AppCompatActivity {
         fetchData();
         fetchprofilepicAndDisplay(uid_plumber,"Plumber");
         fetchprofilepicAndDisplay(uid_clientTxt.getText().toString().trim(), "Client");
+        getRating();
 
         if (status_txt.getText().toString().equals("offline")){
             status_txt.setTextColor(Color.parseColor("#ff0000"));
@@ -163,6 +165,26 @@ public class pinLocation_client extends AppCompatActivity {
         }
 
     }
+
+    //===== fetching rating in database
+    private void getRating(){
+        reff = FirebaseDatabase.getInstance().getReference().child("Rating").child(uid_txt.getText().toString());
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rating=snapshot.child("starRating").getValue().toString();
+
+                ratingStar.setText(rating);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
     public void requestDetailsPopup(){
         dialogBuilder = new AlertDialog.Builder(this);
         View requestDetailsView= getLayoutInflater().inflate(R.layout.submission_details, null);

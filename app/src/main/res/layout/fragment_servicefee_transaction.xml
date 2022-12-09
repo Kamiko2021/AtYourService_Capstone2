@@ -218,7 +218,8 @@
                             android:backgroundTint="#62a3e0"
                             android:text="START WAITING FOR CLIENTS"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone" />
                     </LinearLayout>
 
 
