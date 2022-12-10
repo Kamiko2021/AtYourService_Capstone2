@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +28,10 @@ public class RegisterClient extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Firstname,Lastname, gender, Birthdate,Email,Password;
+    private EditText Firstname,Lastname, Birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
+    private Spinner gender;
 
 
 
@@ -44,7 +47,11 @@ public class RegisterClient extends AppCompatActivity {
         //Objects Initialization..
         Firstname = (EditText)findViewById(R.id.firstname_client);
         Lastname = (EditText) findViewById(R.id.lastname_client);
-        gender = (EditText) findViewById(R.id.gender_client);
+        gender = (Spinner) findViewById(R.id.gender_client);
+        ArrayAdapter<String>myAdapter=new ArrayAdapter<String>(RegisterClient.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Gender));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender.setAdapter(myAdapter);
         Birthdate = (EditText)findViewById(R.id.birthdate_client);
         Email = (EditText)findViewById(R.id.Email_client);
         Password = (EditText)findViewById(R.id.Password_client);
@@ -67,7 +74,7 @@ public class RegisterClient extends AppCompatActivity {
         //fetching data from EditText..
         String firstname_data = Firstname.getText().toString().trim();
         String lastname_data = Lastname.getText().toString().trim();
-        String gender_data = gender.getText().toString().trim();
+        String gender_data = gender.getSelectedItem().toString().trim();
         String birthdate_data= Birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
@@ -83,11 +90,11 @@ public class RegisterClient extends AppCompatActivity {
             Lastname.requestFocus();
             return;
         }
-        if (gender_data.isEmpty()){
-            gender.setError("Please type Male or Female");
-            gender.requestFocus();
-            return;
-        }
+//        if (gender_data.isEmpty()){
+//            gender.setError("Please type Male or Female");
+//            gender.requestFocus();
+//            return;
+//        }
         if (birthdate_data.isEmpty()){
             Birthdate.setError("Age is Required!");
             Birthdate.requestFocus();

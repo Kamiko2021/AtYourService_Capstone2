@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="12dp"
-                android:text="Forgot Password or"
+                android:text="Forgot Password "
                 android:textColor="#00008b"
                 android:textSize="20sp" />
 

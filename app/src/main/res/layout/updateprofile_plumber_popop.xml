@@ -104,8 +104,8 @@
                 android:text="Gender"
                 android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/gender_editxt"
+            <Spinner
+                android:id="@+id/gender_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"

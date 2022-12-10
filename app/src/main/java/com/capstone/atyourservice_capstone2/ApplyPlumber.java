@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +27,10 @@ public class ApplyPlumber extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //Object Declarations..
-    private EditText Firstname,Lastname,Gender,birthdate,Email,Password;
+    private EditText Firstname,Lastname,birthdate,Email,Password;
     private Button register;
     private ProgressBar progressBar;
+    private Spinner Gender;
 
 
     @Override
@@ -43,7 +46,11 @@ public class ApplyPlumber extends AppCompatActivity {
         Firstname = (EditText)findViewById(R.id.firstname_plumber);
         Lastname = (EditText) findViewById(R.id.lastname_plumber);
         birthdate = (EditText)findViewById(R.id.birthdate_plumber);
-        Gender = (EditText) findViewById(R.id.gender_plumber);
+        Gender = (Spinner) findViewById(R.id.gender_plumber);
+        ArrayAdapter<String>myAdapter=new ArrayAdapter<String>(ApplyPlumber.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Gender));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Gender.setAdapter(myAdapter);
         Email = (EditText)findViewById(R.id.Email_plumber);
         Password = (EditText)findViewById(R.id.plumberPassword_plumber);
         register = (Button)findViewById(R.id.submit_plumber);
@@ -66,7 +73,7 @@ public class ApplyPlumber extends AppCompatActivity {
         //fetching data from EditText..
         String firstname_data = Firstname.getText().toString().trim();
         String lastname_data = Lastname.getText().toString().trim();
-        String gender_data = Gender.getText().toString().trim();
+        String gender_data = Gender.getSelectedItem().toString().trim();
         String birthdate_data= birthdate.getText().toString().trim();
         String email_data= Email.getText().toString().trim();
         String password_data= Password.getText().toString().trim();
@@ -78,11 +85,11 @@ public class ApplyPlumber extends AppCompatActivity {
             Firstname.requestFocus();
             return;
         }
-        if (gender_data.isEmpty()){
-            Gender.setError("Please type Male or Female");
-            Gender.requestFocus();
-            return;
-        }
+//        if (gender_data.isEmpty()){
+//            Gender.setError("Please type Male or Female");
+//            Gender.requestFocus();
+//            return;
+//        }
         if (lastname_data.isEmpty()){
             Lastname.setError("Lastname is Required!");
             Lastname.requestFocus();

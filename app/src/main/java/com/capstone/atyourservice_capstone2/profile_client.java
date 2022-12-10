@@ -19,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +56,8 @@ public class profile_client extends Fragment {
 
     TextView firstname_txt,lastname_txt,gender_txt,birthdate_txt;
     Button updatebtn_popUp,closebtn_popUp;
-    EditText firstname_edtxt,lastname_edtxt,gender_edtxt,birthdate_edtxt;
+    EditText firstname_edtxt,lastname_edtxt,birthdate_edtxt;
+    Spinner gender_edtxt;
     TextView usertype_txt,uid_txt;
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
@@ -289,7 +292,11 @@ public class profile_client extends Fragment {
         firstname_edtxt = (EditText) editprofilePopupView.findViewById(R.id.firstname_editxt);
         lastname_edtxt = (EditText) editprofilePopupView.findViewById(R.id.lastname_editxt);
         birthdate_edtxt = (EditText) editprofilePopupView.findViewById(R.id.birthdate_editxt);
-        gender_edtxt = (EditText) editprofilePopupView.findViewById(R.id.gender_editxt);
+        gender_edtxt = (Spinner) editprofilePopupView.findViewById(R.id.gender_spinner);
+        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.Gender));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender_edtxt.setAdapter(myAdapter);
 
         //========= Initialize Button=====
         updatebtn_popUp = (Button) editprofilePopupView.findViewById(R.id.update_clientbtn);
@@ -313,7 +320,7 @@ public class profile_client extends Fragment {
                 //===================
                 String fname=firstname_edtxt.getText().toString().trim();
                 String lname=lastname_edtxt.getText().toString().trim();
-                String gender_txt=gender_edtxt.getText().toString().trim();
+                String gender_txt=gender_edtxt.getSelectedItem().toString().trim();
                 String birthdate_txt=birthdate_edtxt.getText().toString().trim();
                 String userType=usertype_txt.getText().toString().trim();
 
@@ -327,11 +334,11 @@ public class profile_client extends Fragment {
                     lastname_edtxt.requestFocus();
                     return;
                 }
-                if (gender_txt.isEmpty()){
-                    gender_edtxt.setError("Gender is required");
-                    gender_edtxt.requestFocus();
-                    return;
-                }
+//                if (gender_txt.isEmpty()){
+//                    gender_edtxt.setError("Gender is required");
+//                    gender_edtxt.requestFocus();
+//                    return;
+//                }
                 if (birthdate_txt.isEmpty()){
                     birthdate_edtxt.setError("Birthdate is required");
                     birthdate_edtxt.requestFocus();
